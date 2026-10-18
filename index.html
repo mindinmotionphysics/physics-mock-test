@@ -39,7 +39,6 @@
       line-height: 1.6;
     }
 
-    /* Branded Header Banner */
     header {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
       color: #fff;
@@ -75,7 +74,6 @@
       padding: 0 1rem;
     }
 
-    /* Cards */
     .card {
       background: var(--card-bg);
       border-radius: 12px;
@@ -84,10 +82,9 @@
       border: 1px solid var(--border);
     }
 
-    /* Login Form */
     .login-box {
-      max-width: 420px;
-      margin: 3rem auto;
+      max-width: 440px;
+      margin: 2.5rem auto;
     }
     .form-group {
       margin-bottom: 1.25rem;
@@ -98,16 +95,18 @@
       margin-bottom: 0.4rem;
       font-size: 0.95rem;
     }
-    input[type="text"], input[type="password"] {
+    input[type="text"], input[type="password"], select {
       width: 100%;
       padding: 0.75rem 1rem;
       border: 1.5px solid var(--border);
       border-radius: 8px;
       font-size: 1rem;
       outline: none;
+      background-color: #fff;
+      font-family: inherit;
       transition: border-color 0.2s;
     }
-    input:focus {
+    input:focus, select:focus {
       border-color: var(--accent);
     }
     .btn {
@@ -131,7 +130,6 @@
     .btn-success { background: var(--success); color: #fff; }
     .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text); }
 
-    /* Exam Topbar */
     .exam-topbar {
       display: flex;
       justify-content: space-between;
@@ -151,7 +149,6 @@
       border-radius: 6px;
     }
 
-    /* Desktop/Tablet 2-Column Exam Grid */
     .exam-layout-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -164,7 +161,6 @@
       }
     }
 
-    /* Question Layout */
     .q-number {
       font-weight: 700;
       color: var(--accent);
@@ -203,7 +199,6 @@
       margin-top: 0.25rem;
     }
 
-    /* Question Palette (Right Panel) */
     .palette-box {
       position: sticky;
       top: 1rem;
@@ -239,7 +234,6 @@
       border-color: var(--success);
     }
 
-    /* Navigation Action Bar */
     .nav-actions {
       display: flex;
       justify-content: space-between;
@@ -248,7 +242,6 @@
       flex-wrap: wrap;
     }
 
-    /* Result Section */
     .score-summary {
       text-align: center;
       padding: 2rem 1rem;
@@ -302,9 +295,16 @@
     <!-- 1. Student Login View -->
     <div id="login-section" class="card login-box">
       <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem; text-align: center;">વિદ્યાર્થી લોગિન (Student Login)</h2>
-      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; text-align: center;">તમારો રોલ નંબર અને પાસવર્ડ દાખલ કરો.</p>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; text-align: center;">ટેસ્ટ પસંદ કરો અને વિગતો દાખલ કરો.</p>
       
       <div id="login-error" style="display:none; color: var(--danger); font-size: 0.9rem; margin-bottom: 1rem; text-align: center; background: #fee2e2; padding: 0.5rem; border-radius: 6px;"></div>
+
+      <div class="form-group">
+        <label>ટેસ્ટ પસંદ કરો (Select Test)</label>
+        <select id="test-select">
+          <option value="">-- ઉપલબ્ધ ટેસ્ટ લોડ થઈ રહ્યા છે... --</option>
+        </select>
+      </div>
 
       <div class="form-group">
         <label>રોલ નંબર (Roll No)</label>
@@ -322,14 +322,12 @@
       <div class="exam-topbar">
         <div>
           <strong id="student-display">Student</strong> | Roll: <span id="roll-display"></span>
-          <div style="font-size: 0.85rem; color: var(--text-muted);" id="chapter-display">Ch-1 વિદ્યુતભારો અને ક્ષેત્રો</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);" id="chapter-display">Test Name</div>
         </div>
         <div class="timer" id="timer-box">60:00</div>
       </div>
 
-      <!-- 2-Column Grid Layout: Question on Left, Palette on Right -->
       <div class="exam-layout-grid">
-        
         <!-- Left: Question Container -->
         <div class="card">
           <div class="q-number" id="q-label">પ્રશ્ન 1</div>
@@ -351,7 +349,6 @@
           <span style="font-size: 0.8rem; color: var(--text-muted);">(Question Palette)</span>
           <div class="palette-grid" id="palette"></div>
         </div>
-
       </div>
     </div>
 
@@ -382,7 +379,6 @@
         </div>
       </div>
 
-      <!-- Solutions Review -->
       <h3 style="margin-bottom: 1rem; border-top: 1px solid var(--border); padding-top: 1.5rem;">સોલ્યુશન અને વિશ્લેષણ (Solution Review)</h3>
       <div id="solutions-container" style="display: flex; flex-direction: column; gap: 1rem;"></div>
     </div>
@@ -392,11 +388,12 @@
   <script>
     // --- SUPABASE CONFIGURATION ---
     const SUPABASE_URL = 'https://xxccsyjovhqzomfogngu.supabase.co';
-    // તમારી Legacy anon key અહીં રહેશે:
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4Y2NzeWpvdmhxem9tZm9nbmd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyOTY1ODEsImV4cCI6MjEwNzg3MjU4MX0.nTMcwd3XFbM5xcUxaXNDCoXhFdjtoV0MHzX5XlwC1xw';
+    // નોંધ: તમારી Legacy anon key આ લાઈનમાં અવતરણ ચિહ્નની અંદર પેસ્ટ કરો:
+    const SUPABASE_KEY = 'અહીં_તમારી_ચાલુ_anon_કી_પેસ્ટ_કરો';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    const TEST_ID = 'ch1-test';
+    let activeTests = [];
+    let selectedTestId = null;
     let currentStudent = null;
     let testData = null;
     let questions = [];
@@ -405,7 +402,38 @@
     let timerInterval = null;
     let timeLeftSeconds = 3600;
 
-    // Helper to render KaTeX safely
+    // Load available active tests on page open
+    window.addEventListener('DOMContentLoaded', async () => {
+      await loadAvailableTests();
+    });
+
+    async function loadAvailableTests() {
+      const selectEl = document.getElementById('test-select');
+      try {
+        const { data, error } = await supabaseClient
+          .from('tests')
+          .select('*')
+          .neq('is_active', false);
+
+        if (error || !data || data.length === 0) {
+          selectEl.innerHTML = '<option value="">કોઈ સક્રિય ટેસ્ટ ઉપલબ્ધ નથી</option>';
+          return;
+        }
+
+        activeTests = data;
+        selectEl.innerHTML = '';
+        data.forEach((t, idx) => {
+          const opt = document.createElement('option');
+          opt.value = t.test_id;
+          opt.textContent = `${t.chapter_name || t.test_id} (${t.duration_minutes || 60} મિનિટ)`;
+          if (idx === 0) opt.selected = true;
+          selectEl.appendChild(opt);
+        });
+      } catch (err) {
+        selectEl.innerHTML = '<option value="ch1-test">Ch-1 વિદ્યુતભારો અને ક્ષેત્રો</option>';
+      }
+    }
+
     function renderMath(targetElement) {
       if (window.renderMathInElement) {
         renderMathInElement(targetElement, {
@@ -420,11 +448,19 @@
 
     // 1. LOGIN HANDLER
     async function handleLogin() {
+      const testSelect = document.getElementById('test-select');
+      selectedTestId = testSelect.value;
       const roll = document.getElementById('roll-input').value.trim();
       const pass = document.getElementById('pass-input').value.trim();
       const errEl = document.getElementById('login-error');
       const btn = document.getElementById('btn-login');
       errEl.style.display = 'none';
+
+      if (!selectedTestId) {
+        errEl.textContent = 'કૃપા કરીને ટેસ્ટ પસંદ કરો.';
+        errEl.style.display = 'block';
+        return;
+      }
 
       if (!roll || !pass) {
         errEl.textContent = 'કૃપા કરીને રોલ નંબર અને પાસવર્ડ બંને દાખલ કરો.';
@@ -441,7 +477,6 @@
           .select('*');
 
         if (error) {
-          console.error("Supabase Error:", error);
           errEl.textContent = 'ડેટાબેઝ એરર: ' + error.message;
           errEl.style.display = 'block';
           btn.disabled = false;
@@ -459,8 +494,15 @@
           return;
         }
 
-        if (student.has_attempted) {
-          errEl.textContent = 'તમે આ ટેસ્ટ પહેલેથી જ આપી ચૂક્યા છો!';
+        // Check if student already gave this specific test
+        const { data: existingResults } = await supabaseClient
+          .from('results')
+          .select('id')
+          .eq('roll_no', student.roll_no)
+          .eq('test_id', selectedTestId);
+
+        if (existingResults && existingResults.length > 0) {
+          errEl.textContent = 'તમે આ પસંદ કરેલો ટેસ્ટ પહેલેથી જ આપી ચૂક્યા છો!';
           errEl.style.display = 'block';
           btn.disabled = false;
           btn.textContent = 'પરીક્ષા શરૂ કરો (Start Test)';
@@ -470,7 +512,6 @@
         currentStudent = student;
         startExamFlow();
       } catch (err) {
-        console.error(err);
         errEl.textContent = 'કનેક્શન એરર: ' + err.message;
         errEl.style.display = 'block';
         btn.disabled = false;
@@ -484,7 +525,7 @@
         const { data: tData } = await supabaseClient
           .from('tests')
           .select('*')
-          .eq('test_id', TEST_ID)
+          .eq('test_id', selectedTestId)
           .single();
         
         if (tData) {
@@ -498,11 +539,13 @@
         const { data: qData, error } = await supabaseClient
           .from('questions')
           .select('*')
-          .eq('test_id', TEST_ID)
+          .eq('test_id', selectedTestId)
           .order('question_number', { ascending: true });
 
         if (error || !qData || qData.length === 0) {
-          alert('આ ટેસ્ટ માટે કોઈ પ્રશ્નો મળ્યા નથી!');
+          alert('આ પસંદ કરેલા ટેસ્ટ માટે કોઈ પ્રશ્નો ઉપલબ્ધ નથી!');
+          document.getElementById('btn-login').disabled = false;
+          document.getElementById('btn-login').textContent = 'પરીક્ષા શરૂ કરો (Start Test)';
           return;
         }
 
@@ -566,7 +609,7 @@
       });
     }
 
-    // 5. QUESTION DISPLAY
+// 5. QUESTION DISPLAY
     function loadQuestion(index) {
       currentIndex = index;
       const q = questions[currentIndex];
@@ -661,7 +704,7 @@
         await supabaseClient.from('results').insert([{
           roll_no: currentStudent.roll_no,
           student_name: currentStudent.student_name,
-          test_id: TEST_ID,
+          test_id: selectedTestId,
           total_score: totalScore,
           max_marks: maxMarks,
           attempted: totalAttempted,
@@ -669,11 +712,6 @@
           incorrect: incorrectCount,
           student_answers: studentAnswers
         }]);
-
-        await supabaseClient
-          .from('students')
-          .update({ has_attempted: true })
-          .eq('roll_no', currentStudent.roll_no);
       } catch (e) {
         console.error('Error saving result:', e);
       }
