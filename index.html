@@ -39,58 +39,70 @@
       line-height: 1.6;
     }
 
-    /* Branded Header Banner with Orange Gradient */
+    /* Header Banner with Right Side Logo */
     header {
       background: linear-gradient(135deg, #9a3412 0%, #ea580c 50%, #f97316 100%);
       color: #fff;
-      padding: 1.5rem 1rem;
-      text-align: center;
+      padding: 1.25rem 1.25rem;
       border-bottom: 3.5px solid #fbbf24;
       box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
     }
     .header-content {
-      max-width: 900px;
+      max-width: 1100px;
       margin: 0 auto;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .header-text-block {
+      flex: 1;
+      text-align: left;
     }
     .portal-logo {
-      width: 75px;
-      height: 75px;
+      width: 68px;
+      height: 68px;
       border-radius: 50%;
       object-fit: cover;
       background: #ffffff;
-      padding: 3px;
-      border: 2.5px solid #ffffff;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      padding: 2px;
+      border: 1.5px solid rgba(255, 255, 255, 0.85); /* Thin refined border */
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      flex-shrink: 0;
     }
     header h1 {
-      font-size: 1.6rem;
-      letter-spacing: 1px;
+      font-size: 1.45rem;
+      letter-spacing: 0.8px;
       font-weight: 700;
       text-transform: uppercase;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.25);
+      line-height: 1.2;
     }
     header p {
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       color: #ffedd5;
-      margin-top: 0.1rem;
+      margin-top: 0.2rem;
       font-weight: 500;
+      line-height: 1.4;
     }
     .creator-tag {
       display: inline-block;
       margin-top: 0.35rem;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       background: rgba(255, 255, 255, 0.18);
-      padding: 0.25rem 0.85rem;
+      padding: 0.15rem 0.75rem;
       border-radius: 999px;
       color: #fff;
       font-weight: 600;
       backdrop-filter: blur(4px);
       border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.25rem; }
+      header p { font-size: 0.75rem; }
+      .portal-logo { width: 55px; height: 55px; }
     }
 
     .container {
@@ -322,20 +334,22 @@
 </head>
 <body>
 
-  <!-- Header Banner with Logo & Orange Gradient -->
+  <!-- Header Banner with Right-Aligned Logo & Clean Margins -->
   <header>
     <div class="header-content">
+      <div class="header-text-block">
+        <h1 id="banner-title">MIND IN MOTION PHYSICS</h1>
+        <p id="banner-subtitle">MOCK TEST SERIES • Class 11 & 12 • Science Stream • GSEB | GUJCET | NEET</p>
+        <div>
+          <span class="creator-tag">Created by Vasim Luhar (M.Sc. Physics, B.Ed.)</span>
+        </div>
+      </div>
       <img 
         src="https://lh3.googleusercontent.com/d/1eCSReKlV_fPkLyw5VBPuB0h6WRoainYN" 
         alt="Mind In Motion Physics Logo" 
         class="portal-logo"
         onerror="this.src='https://drive.google.com/thumbnail?id=1eCSReKlV_fPkLyw5VBPuB0h6WRoainYN&sz=w200'"
       />
-      <h1 id="banner-title">MIND IN MOTION PHYSICS</h1>
-      <p id="banner-subtitle">MOCK TEST SERIES • Class 11 & 12 • Science Stream • GSEB | GUJCET | NEET</p>
-      <div>
-        <span class="creator-tag">Created by Vasim Luhar (M.Sc. Physics, B.Ed.)</span>
-      </div>
     </div>
   </header>
 
