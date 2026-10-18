@@ -18,17 +18,17 @@
 
   <style>
     :root {
-      --primary: #1e3a8a;
-      --primary-dark: #0f172a;
-      --accent: #2563eb;
+      --primary: #c2410c;
+      --primary-dark: #9a3412;
+      --accent: #ea580c;
       --success: #16a34a;
       --warning: #d97706;
       --danger: #dc2626;
-      --bg: #f8fafc;
+      --bg: #fffaf5;
       --card-bg: #ffffff;
       --text: #0f172a;
       --text-muted: #64748b;
-      --border: #e2e8f0;
+      --border: #fed7aa;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,33 +39,58 @@
       line-height: 1.6;
     }
 
+    /* Branded Header Banner with Orange Gradient */
     header {
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      background: linear-gradient(135deg, #9a3412 0%, #ea580c 50%, #f97316 100%);
       color: #fff;
-      padding: 1.25rem 1rem;
+      padding: 1.5rem 1rem;
       text-align: center;
-      border-bottom: 3px solid #3b82f6;
+      border-bottom: 3.5px solid #fbbf24;
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
+    }
+    .header-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+    .portal-logo {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #ffffff;
+      padding: 3px;
+      border: 2.5px solid #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
     header h1 {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       letter-spacing: 1px;
       font-weight: 700;
       text-transform: uppercase;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.25);
     }
     header p {
-      font-size: 0.85rem;
-      color: #93c5fd;
-      margin-top: 0.25rem;
+      font-size: 0.88rem;
+      color: #ffedd5;
+      margin-top: 0.1rem;
+      font-weight: 500;
     }
     .creator-tag {
       display: inline-block;
       margin-top: 0.35rem;
-      font-size: 0.8rem;
-      background: rgba(255, 255, 255, 0.12);
-      padding: 0.2rem 0.75rem;
+      font-size: 0.82rem;
+      background: rgba(255, 255, 255, 0.18);
+      padding: 0.25rem 0.85rem;
       border-radius: 999px;
-      color: #e2e8f0;
-      font-weight: 500;
+      color: #fff;
+      font-weight: 600;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     .container {
@@ -74,14 +99,16 @@
       padding: 0 1rem;
     }
 
+    /* Cards */
     .card {
       background: var(--card-bg);
       border-radius: 12px;
       padding: 1.5rem;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -2px rgba(0,0,0,0.05);
-      border: 1px solid var(--border);
+      box-shadow: 0 4px 10px -2px rgba(234, 88, 12, 0.08), 0 2px 4px -2px rgba(0,0,0,0.05);
+      border: 1.5px solid var(--border);
     }
 
+    /* Login Form */
     .login-box {
       max-width: 440px;
       margin: 2.5rem auto;
@@ -98,16 +125,17 @@
     input[type="text"], input[type="password"], select {
       width: 100%;
       padding: 0.75rem 1rem;
-      border: 1.5px solid var(--border);
+      border: 1.5px solid #fdba74;
       border-radius: 8px;
       font-size: 1rem;
       outline: none;
       background-color: #fff;
       font-family: inherit;
-      transition: border-color 0.2s;
+      transition: all 0.2s;
     }
     input:focus, select:focus {
       border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
     }
     .btn {
       display: inline-flex;
@@ -122,20 +150,25 @@
       transition: all 0.2s;
     }
     .btn-primary {
-      background: var(--accent);
+      background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
       color: #fff;
       width: 100%;
+      box-shadow: 0 3px 8px rgba(234, 88, 12, 0.35);
     }
-    .btn-primary:hover { background: #1d4ed8; }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #c2410c 0%, #9a3412 100%);
+    }
     .btn-success { background: var(--success); color: #fff; }
-    .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text); }
+    .btn-outline { background: #fff; border: 1.5px solid #fed7aa; color: var(--text); }
+    .btn-outline:hover { background: #ffedd5; }
 
+    /* Exam Topbar */
     .exam-topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
+      background: #fff7ed;
+      border: 1.5px solid #fdba74;
       padding: 0.75rem 1.25rem;
       border-radius: 8px;
       margin-bottom: 1.25rem;
@@ -149,6 +182,7 @@
       border-radius: 6px;
     }
 
+    /* 2-Column Grid Layout */
     .exam-layout-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -161,6 +195,7 @@
       }
     }
 
+    /* Question Layout */
     .q-number {
       font-weight: 700;
       color: var(--accent);
@@ -182,23 +217,26 @@
       align-items: flex-start;
       gap: 0.75rem;
       padding: 0.85rem 1rem;
-      border: 1.5px solid var(--border);
+      border: 1.5px solid #fed7aa;
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.15s;
+      background: #ffffff;
     }
     .option-label:hover {
-      background-color: #f1f5f9;
-      border-color: #94a3b8;
+      background-color: #fff7ed;
+      border-color: #fb923c;
     }
     .option-label.selected {
       border-color: var(--accent);
-      background-color: #eff6ff;
+      background-color: #ffedd5;
     }
     .option-label input {
       margin-top: 0.25rem;
+      accent-color: var(--accent);
     }
 
+    /* Question Palette */
     .palette-box {
       position: sticky;
       top: 1rem;
@@ -216,7 +254,7 @@
       width: 42px;
       height: 42px;
       border-radius: 8px;
-      border: 1.5px solid var(--border);
+      border: 1.5px solid #fed7aa;
       background: #fff;
       font-weight: 600;
       cursor: pointer;
@@ -227,6 +265,7 @@
       border: 2px solid var(--accent);
       color: var(--accent);
       font-weight: 700;
+      background: #fff7ed;
     }
     .palette-btn.attempted {
       background: var(--success);
@@ -234,6 +273,7 @@
       border-color: var(--success);
     }
 
+    /* Navigation Action Bar */
     .nav-actions {
       display: flex;
       justify-content: space-between;
@@ -242,6 +282,7 @@
       flex-wrap: wrap;
     }
 
+    /* Result Section */
     .score-summary {
       text-align: center;
       padding: 2rem 1rem;
@@ -250,8 +291,8 @@
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      background: #dbeafe;
-      color: var(--primary);
+      background: #ffedd5;
+      color: var(--primary-dark);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -274,19 +315,27 @@
     }
     .stat-box.correct { background: #dcfce7; color: #15803d; }
     .stat-box.incorrect { background: #fee2e2; color: #b91c1c; }
-    .stat-box.unattempted { background: #f1f5f9; color: #475569; }
+    .stat-box.unattempted { background: #f8fafc; color: #475569; }
 
     .hidden { display: none !important; }
   </style>
 </head>
 <body>
 
-  <!-- Header Banner -->
+  <!-- Header Banner with Logo & Orange Gradient -->
   <header>
-    <h1 id="banner-title">MIND IN MOTION PHYSICS</h1>
-    <p id="banner-subtitle">MOCK TEST SERIES • Class 11 & 12 • Science Stream • GSEB | GUJCET | NEET</p>
-    <div>
-      <span class="creator-tag">Created by Vasim Luhar (M.Sc. Physics, B.Ed.)</span>
+    <div class="header-content">
+      <img 
+        src="https://lh3.googleusercontent.com/d/1eCSReKlV_fPkLyw5VBPuB0h6WRoainYN" 
+        alt="Mind In Motion Physics Logo" 
+        class="portal-logo"
+        onerror="this.src='https://drive.google.com/thumbnail?id=1eCSReKlV_fPkLyw5VBPuB0h6WRoainYN&sz=w200'"
+      />
+      <h1 id="banner-title">MIND IN MOTION PHYSICS</h1>
+      <p id="banner-subtitle">MOCK TEST SERIES • Class 11 & 12 • Science Stream • GSEB | GUJCET | NEET</p>
+      <div>
+        <span class="creator-tag">Created by Vasim Luhar (M.Sc. Physics, B.Ed.)</span>
+      </div>
     </div>
   </header>
 
@@ -379,6 +428,7 @@
         </div>
       </div>
 
+      <!-- Solutions Review -->
       <h3 style="margin-bottom: 1rem; border-top: 1px solid var(--border); padding-top: 1.5rem;">સોલ્યુશન અને વિશ્લેષણ (Solution Review)</h3>
       <div id="solutions-container" style="display: flex; flex-direction: column; gap: 1rem;"></div>
     </div>
@@ -388,7 +438,7 @@
   <script>
     // --- SUPABASE CONFIGURATION ---
     const SUPABASE_URL = 'https://xxccsyjovhqzomfogngu.supabase.co';
-    // નોંધ: તમારી Legacy anon key આ લાઈનમાં અવતરણ ચિહ્નની અંદર પેસ્ટ કરો:
+    // નોંધ: તમારી Legacy anon key આ લાઈનમાં વચ્ચે પેસ્ટ રાખજો:
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4Y2NzeWpvdmhxem9tZm9nbmd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyOTY1ODEsImV4cCI6MjEwNzg3MjU4MX0.nTMcwd3XFbM5xcUxaXNDCoXhFdjtoV0MHzX5XlwC1xw';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -434,6 +484,7 @@
       }
     }
 
+    // KaTeX Formula Render Function
     function renderMath(targetElement) {
       if (window.renderMathInElement) {
         renderMathInElement(targetElement, {
@@ -441,7 +492,8 @@
             {left: '$$', right: '$$', display: true},
             {left: '$', right: '$', display: false}
           ],
-          throwOnError: false
+          throwOnError: false,
+          ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
         });
       }
     }
@@ -494,7 +546,7 @@
           return;
         }
 
-        // Check if student already gave this specific test
+        // Check if student already gave this test
         const { data: existingResults } = await supabaseClient
           .from('results')
           .select('id')
@@ -609,7 +661,7 @@
       });
     }
 
-// 5. QUESTION DISPLAY
+    // 5. QUESTION DISPLAY
     function loadQuestion(index) {
       currentIndex = index;
       const q = questions[currentIndex];
@@ -742,8 +794,8 @@
         const card = document.createElement('div');
         card.style.padding = '1rem';
         card.style.borderRadius = '8px';
-        card.style.border = '1px solid var(--border)';
-        card.style.background = isRight ? '#f0fdf4' : (userAns === 'None' ? '#f8fafc' : '#fef2f2');
+        card.style.border = '1.5px solid var(--border)';
+        card.style.background = isRight ? '#f0fdf4' : (userAns === 'None' ? '#fffaf5' : '#fef2f2');
 
         card.innerHTML = `
           <div style="font-weight: 700; margin-bottom: 0.25rem;">પ્રશ્ન ${idx + 1}: ${q.question_text}</div>
@@ -751,7 +803,7 @@
             <span>તમારો જવાબ: <strong>${userAns}</strong></span> | 
             <span style="color: var(--success);">સાચો જવાબ: <strong>${q.correct_option}</strong></span>
           </div>
-          ${q.explanation ? `<div style="font-size: 0.85rem; color: #475569; margin-top: 0.5rem; background: #fff; padding: 0.5rem; border-radius: 4px; border: 1px dashed #cbd5e1;"><strong>સમજૂતી (Explanation):</strong> ${q.explanation}</div>` : ''}
+          ${q.explanation ? `<div style="font-size: 0.85rem; color: #475569; margin-top: 0.5rem; background: #fff; padding: 0.5rem; border-radius: 4px; border: 1px dashed #fdba74;"><strong>સમજૂતી (Explanation):</strong> ${q.explanation}</div>` : ''}
         `;
         solBox.appendChild(card);
       });
