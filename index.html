@@ -58,9 +58,19 @@
       color: #93c5fd;
       margin-top: 0.25rem;
     }
+    .creator-tag {
+      display: inline-block;
+      margin-top: 0.35rem;
+      font-size: 0.8rem;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 0.2rem 0.75rem;
+      border-radius: 999px;
+      color: #e2e8f0;
+      font-weight: 500;
+    }
 
     .container {
-      max-width: 900px;
+      max-width: 1100px;
       margin: 1.5rem auto;
       padding: 0 1rem;
     }
@@ -141,6 +151,19 @@
       border-radius: 6px;
     }
 
+    /* Desktop/Tablet 2-Column Exam Grid */
+    .exam-layout-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    @media (min-width: 768px) {
+      .exam-layout-grid {
+        grid-template-columns: 2.2fr 1fr;
+        align-items: start;
+      }
+    }
+
     /* Question Layout */
     .q-number {
       font-weight: 700;
@@ -180,24 +203,41 @@
       margin-top: 0.25rem;
     }
 
-    /* Question Palette */
+    /* Question Palette (Right Panel) */
+    .palette-box {
+      position: sticky;
+      top: 1rem;
+    }
     .palette-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
       gap: 0.5rem;
-      margin-top: 1rem;
+      margin-top: 0.75rem;
+      max-height: 380px;
+      overflow-y: auto;
+      padding: 0.25rem;
     }
     .palette-btn {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       border-radius: 8px;
-      border: 1px solid var(--border);
+      border: 1.5px solid var(--border);
       background: #fff;
       font-weight: 600;
       cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.15s;
     }
-    .palette-btn.active { border: 2px solid var(--accent); }
-    .palette-btn.attempted { background: var(--success); color: #fff; border-color: var(--success); }
+    .palette-btn.active {
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .palette-btn.attempted {
+      background: var(--success);
+      color: #fff;
+      border-color: var(--success);
+    }
 
     /* Navigation Action Bar */
     .nav-actions {
@@ -252,6 +292,9 @@
   <header>
     <h1 id="banner-title">MIND IN MOTION PHYSICS</h1>
     <p id="banner-subtitle">MOCK TEST SERIES • Class 11 & 12 • Science Stream • GSEB | GUJCET | NEET</p>
+    <div>
+      <span class="creator-tag">Created by Vasim Luhar (M.Sc. Physics, B.Ed.)</span>
+    </div>
   </header>
 
   <div class="container">
@@ -284,26 +327,31 @@
         <div class="timer" id="timer-box">60:00</div>
       </div>
 
-      <div class="card">
-        <div class="q-number" id="q-label">પ્રશ્ન 1</div>
-        <div class="q-text" id="q-text">Loading question...</div>
+      <!-- 2-Column Grid Layout: Question on Left, Palette on Right -->
+      <div class="exam-layout-grid">
+        
+        <!-- Left: Question Container -->
+        <div class="card">
+          <div class="q-number" id="q-label">પ્રશ્ન 1</div>
+          <div class="q-text" id="q-text">Loading question...</div>
 
-        <div class="options-grid" id="options-container">
-          <!-- Options loaded via JavaScript -->
+          <div class="options-grid" id="options-container"></div>
+
+          <div class="nav-actions">
+            <button class="btn btn-outline" onclick="prevQuestion()" id="prev-btn">પાછળ (Previous)</button>
+            <button class="btn btn-outline" onclick="clearCurrentAnswer()">જવાબ ભૂંસો (Clear)</button>
+            <button class="btn btn-primary" style="width: auto;" onclick="nextQuestion()" id="next-btn">આગળ (Next)</button>
+            <button class="btn btn-success" onclick="submitExamConfirmation()">સબમિટ કરો (Submit)</button>
+          </div>
         </div>
 
-        <div class="nav-actions">
-          <button class="btn btn-outline" onclick="prevQuestion()" id="prev-btn">પાછળ (Previous)</button>
-          <button class="btn btn-outline" onclick="clearCurrentAnswer()">જવાબ ભૂંસો (Clear)</button>
-          <button class="btn btn-primary" style="width: auto;" onclick="nextQuestion()" id="next-btn">આગળ (Next)</button>
-          <button class="btn btn-success" onclick="submitExamConfirmation()">સબમિટ કરો (Submit)</button>
+        <!-- Right: Question Palette -->
+        <div class="card palette-box">
+          <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">પ્રશ્ન ક્રમાંક સૂચિ</h4>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">(Question Palette)</span>
+          <div class="palette-grid" id="palette"></div>
         </div>
-      </div>
 
-      <!-- Question Palette -->
-      <div class="card" style="margin-top: 1.5rem;">
-        <h4 style="font-size: 0.95rem; margin-bottom: 0.5rem;">પ્રશ્ન ક્રમાંક સૂચિ (Question Palette)</h4>
-        <div class="palette-grid" id="palette"></div>
       </div>
     </div>
 
@@ -344,6 +392,7 @@
   <script>
     // --- SUPABASE CONFIGURATION ---
     const SUPABASE_URL = 'https://xxccsyjovhqzomfogngu.supabase.co';
+    // તમારી Legacy anon key અહીં રહેશે:
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4Y2NzeWpvdmhxem9tZm9nbmd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyOTY1ODEsImV4cCI6MjEwNzg3MjU4MX0.nTMcwd3XFbM5xcUxaXNDCoXhFdjtoV0MHzX5XlwC1xw';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -369,7 +418,7 @@
       }
     }
 
-    // 1. ROBUST LOGIN HANDLER (Bypasses data-type mismatches and shows explicit errors)
+    // 1. LOGIN HANDLER
     async function handleLogin() {
       const roll = document.getElementById('roll-input').value.trim();
       const pass = document.getElementById('pass-input').value.trim();
@@ -400,7 +449,6 @@
           return;
         }
 
-        // Match string-to-string to bypass integer/string mismatches
         const student = students.find(s => String(s.roll_no).trim() === roll && String(s.password).trim() === pass);
 
         if (!student) {
@@ -579,7 +627,7 @@
       loadQuestion(currentIndex);
     }
 
-// 6. SUBMISSION
+    // 6. SUBMISSION
     function submitExamConfirmation() {
       const attemptedCount = Object.keys(studentAnswers).length;
       const confirmed = confirm(`તમે ${questions.length} માંથી ${attemptedCount} પ્રશ્નોના ઉત્તરો આપ્યા છે.\nશું તમે ખરેખર ટેસ્ટ સબમિટ કરવા માંગો છો?`);
@@ -594,84 +642,4 @@
       const marksPerQ = testData ? Number(testData.marks_per_question) : 1.0;
 
       questions.forEach(q => {
-        const ans = studentAnswers[q.id];
-        if (ans) {
-          if (ans.toUpperCase() === q.correct_option.toUpperCase()) {
-            correctCount++;
-          } else {
-            incorrectCount++;
-          }
-        }
-      });
-
-      const totalAttempted = correctCount + incorrectCount;
-      const unattempted = questions.length - totalAttempted;
-      const totalScore = correctCount * marksPerQ;
-      const maxMarks = questions.length * marksPerQ;
-
-      try {
-        await supabaseClient.from('results').insert([{
-          roll_no: currentStudent.roll_no,
-          student_name: currentStudent.student_name,
-          test_id: TEST_ID,
-          total_score: totalScore,
-          max_marks: maxMarks,
-          attempted: totalAttempted,
-          correct: correctCount,
-          incorrect: incorrectCount,
-          student_answers: studentAnswers
-        }]);
-
-        await supabaseClient
-          .from('students')
-          .update({ has_attempted: true })
-          .eq('roll_no', currentStudent.roll_no);
-      } catch (e) {
-        console.error('Error saving result:', e);
-      }
-
-      showResultScreen(totalScore, maxMarks, correctCount, incorrectCount, unattempted);
-    }
-
-    // 7. RESULT & REVIEW SCREEN
-    function showResultScreen(score, maxMarks, correct, incorrect, unattempted) {
-      document.getElementById('exam-section').classList.add('hidden');
-      document.getElementById('result-section').classList.remove('hidden');
-
-      document.getElementById('result-student-info').textContent = 
-        `વિદ્યાર્થી: ${currentStudent.student_name} | રોલ નંબર: ${currentStudent.roll_no}`;
-      document.getElementById('final-score').textContent = score;
-      document.getElementById('final-max').textContent = `/ ${maxMarks} Marks`;
-      document.getElementById('stat-correct').textContent = correct;
-      document.getElementById('stat-incorrect').textContent = incorrect;
-      document.getElementById('stat-unattempted').textContent = unattempted;
-
-      const solBox = document.getElementById('solutions-container');
-      solBox.innerHTML = '';
-
-      questions.forEach((q, idx) => {
-        const userAns = studentAnswers[q.id] || 'None';
-        const isRight = userAns.toUpperCase() === q.correct_option.toUpperCase();
-        
-        const card = document.createElement('div');
-        card.style.padding = '1rem';
-        card.style.borderRadius = '8px';
-        card.style.border = '1px solid var(--border)';
-        card.style.background = isRight ? '#f0fdf4' : (userAns === 'None' ? '#f8fafc' : '#fef2f2');
-
-        card.innerHTML = `
-          <div style="font-weight: 700; margin-bottom: 0.25rem;">પ્રશ્ન ${idx + 1}: ${q.question_text}</div>
-          <div style="font-size: 0.9rem; margin-top: 0.5rem;">
-            <span>તમારો જવાબ: <strong>${userAns}</strong></span> | 
-            <span style="color: var(--success);">સાચો જવાબ: <strong>${q.correct_option}</strong></span>
-          </div>
-          ${q.explanation ? `<div style="font-size: 0.85rem; color: #475569; margin-top: 0.5rem; background: #fff; padding: 0.5rem; border-radius: 4px; border: 1px dashed #cbd5e1;"><strong>સમજૂતી (Explanation):</strong> ${q.explanation}</div>` : ''}
-        `;
-        solBox.appendChild(card);
-      });
-
-      renderMath(solBox);
-    }
-  </script>
-</body>
-</html>
+        con
