@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
   <!-- Supabase JS Client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -261,7 +261,7 @@
       <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem; text-align: center;">વિદ્યાર્થી લોગિન (Student Login)</h2>
       <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; text-align: center;">તમારો રોલ નંબર અને પાસવર્ડ દાખલ કરો.</p>
       
-      <div id="login-error" style="display:none; color: var(--danger); font-size: 0.9rem; margin-bottom: 1rem; text-align: center;"></div>
+      <div id="login-error" style="display:none; color: var(--danger); font-size: 0.9rem; margin-bottom: 1rem; text-align: center; background: #fee2e2; padding: 0.5rem; border-radius: 6px;"></div>
 
       <div class="form-group">
         <label>રોલ નંબર (Roll No)</label>
@@ -271,7 +271,7 @@
         <label>પાસવર્ડ (Password)</label>
         <input type="password" id="pass-input" placeholder="દા.ત. 1234" />
       </div>
-      <button class="btn btn-primary" onclick="handleLogin()">પરીક્ષા શરૂ કરો (Start Test)</button>
+      <button class="btn btn-primary" id="btn-login" onclick="handleLogin()">પરીક્ષા શરૂ કરો (Start Test)</button>
     </div>
 
     <!-- 2. Test Exam Interface View -->
@@ -342,7 +342,7 @@
   </div>
 
   <script>
-    // --- SUPABASE CONFIGURATION (CONFIGURED WITH YOUR KEYS) ---
+    // --- SUPABASE CONFIGURATION ---
     const SUPABASE_URL = 'https://xxccsyjovhqzomfognqu.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_bgTlqk9QfEf_krAF-Yc-iQ_D1JyBOLo';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -356,11 +356,25 @@
     let timerInterval = null;
     let timeLeftSeconds = 3600;
 
-    // 1. LOGIN HANDLER
+    // Helper to render KaTeX safely
+    function renderMath(targetElement) {
+      if (window.renderMathInElement) {
+        renderMathInElement(targetElement, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    // 1. ROBUST LOGIN HANDLER (Bypasses data-type mismatches and shows explicit errors)
     async function handleLogin() {
       const roll = document.getElementById('roll-input').value.trim();
       const pass = document.getElementById('pass-input').value.trim();
       const errEl = document.getElementById('login-error');
+      const btn = document.getElementById('btn-login');
       errEl.style.display = 'none';
 
       if (!roll || !pass) {
@@ -369,66 +383,94 @@
         return;
       }
 
-      const { data: student, error } = await supabaseClient
-        .from('students')
-        .select('*')
-        .eq('roll_no', roll)
-        .eq('password', pass)
-        .single();
+      btn.disabled = true;
+      btn.textContent = 'ચકાસણી ચાલુ છે...';
 
-      if (error || !student) {
-        errEl.textContent = 'અમાન્ય રોલ નંબર અથવા પાસવર્ડ!';
+      try {
+        const { data: students, error } = await supabaseClient
+          .from('students')
+          .select('*');
+
+        if (error) {
+          console.error("Supabase Error:", error);
+          errEl.textContent = 'ડેટાબેઝ એરર: ' + error.message;
+          errEl.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'પરીક્ષા શરૂ કરો (Start Test)';
+          return;
+        }
+
+        // Match string-to-string to bypass integer/string mismatches
+        const student = students.find(s => String(s.roll_no).trim() === roll && String(s.password).trim() === pass);
+
+        if (!student) {
+          errEl.textContent = 'અમાન્ય રોલ નંબર અથવા પાસવર્ડ!';
+          errEl.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'પરીક્ષા શરૂ કરો (Start Test)';
+          return;
+        }
+
+        if (student.has_attempted) {
+          errEl.textContent = 'તમે આ ટેસ્ટ પહેલેથી જ આપી ચૂક્યા છો!';
+          errEl.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'પરીક્ષા શરૂ કરો (Start Test)';
+          return;
+        }
+
+        currentStudent = student;
+        startExamFlow();
+      } catch (err) {
+        console.error(err);
+        errEl.textContent = 'કનેક્શન એરર: ' + err.message;
         errEl.style.display = 'block';
-        return;
+        btn.disabled = false;
+        btn.textContent = 'પરીક્ષા શરૂ કરો (Start Test)';
       }
-
-      if (student.has_attempted) {
-        errEl.textContent = 'તમે આ ટેસ્ટ પહેલેથી જ આપી ચૂક્યા છો!';
-        errEl.style.display = 'block';
-        return;
-      }
-
-      currentStudent = student;
-      startExamFlow();
     }
 
     // 2. FETCH TEST & QUESTIONS
     async function startExamFlow() {
-      const { data: tData } = await supabaseClient
-        .from('tests')
-        .select('*')
-        .eq('test_id', TEST_ID)
-        .single();
-      
-      if (tData) {
-        testData = tData;
-        document.getElementById('banner-title').textContent = tData.title;
-        document.getElementById('banner-subtitle').textContent = tData.subtitle;
-        document.getElementById('chapter-display').textContent = tData.chapter_name;
-        timeLeftSeconds = (tData.duration_minutes || 60) * 60;
+      try {
+        const { data: tData } = await supabaseClient
+          .from('tests')
+          .select('*')
+          .eq('test_id', TEST_ID)
+          .single();
+        
+        if (tData) {
+          testData = tData;
+          document.getElementById('banner-title').textContent = tData.title;
+          document.getElementById('banner-subtitle').textContent = tData.subtitle;
+          document.getElementById('chapter-display').textContent = tData.chapter_name;
+          timeLeftSeconds = (tData.duration_minutes || 60) * 60;
+        }
+
+        const { data: qData, error } = await supabaseClient
+          .from('questions')
+          .select('*')
+          .eq('test_id', TEST_ID)
+          .order('question_number', { ascending: true });
+
+        if (error || !qData || qData.length === 0) {
+          alert('આ ટેસ્ટ માટે કોઈ પ્રશ્નો મળ્યા નથી!');
+          return;
+        }
+
+        questions = qData;
+        
+        document.getElementById('login-section').classList.add('hidden');
+        document.getElementById('exam-section').classList.remove('hidden');
+        document.getElementById('student-display').textContent = currentStudent.student_name;
+        document.getElementById('roll-display').textContent = currentStudent.roll_no;
+
+        initPalette();
+        loadQuestion(0);
+        startTimer();
+      } catch (err) {
+        alert('ડેટા લોડ કરવામાં ભૂલ થઈ: ' + err.message);
       }
-
-      const { data: qData, error } = await supabaseClient
-        .from('questions')
-        .select('*')
-        .eq('test_id', TEST_ID)
-        .order('question_number', { ascending: true });
-
-      if (error || !qData || qData.length === 0) {
-        alert('આ ટેસ્ટ માટે કોઈ પ્રશ્નો ઉપલબ્ધ નથી!');
-        return;
-      }
-
-      questions = qData;
-      
-      document.getElementById('login-section').classList.add('hidden');
-      document.getElementById('exam-section').classList.remove('hidden');
-      document.getElementById('student-display').textContent = currentStudent.student_name;
-      document.getElementById('roll-display').textContent = currentStudent.roll_no;
-
-      initPalette();
-      loadQuestion(0);
-      startTimer();
     }
 
     // 3. TIMER
@@ -520,15 +562,7 @@
       document.getElementById('next-btn').disabled = currentIndex === questions.length - 1;
 
       updatePaletteColors();
-
-      if (window.renderMathInElement) {
-        renderMathInElement(document.getElementById('exam-section'), {
-          delimiters: [
-            {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false}
-          ]
-        });
-      }
+      renderMath(document.getElementById('exam-section'));
     }
 
     function nextQuestion() {
@@ -545,7 +579,7 @@
       loadQuestion(currentIndex);
     }
 
-    // 6. SUBMISSION
+// 6. SUBMISSION
     function submitExamConfirmation() {
       const attemptedCount = Object.keys(studentAnswers).length;
       const confirmed = confirm(`તમે ${questions.length} માંથી ${attemptedCount} પ્રશ્નોના ઉત્તરો આપ્યા છે.\nશું તમે ખરેખર ટેસ્ટ સબમિટ કરવા માંગો છો?`);
@@ -575,27 +609,31 @@
       const totalScore = correctCount * marksPerQ;
       const maxMarks = questions.length * marksPerQ;
 
-      await supabaseClient.from('results').insert([{
-        roll_no: currentStudent.roll_no,
-        student_name: currentStudent.student_name,
-        test_id: TEST_ID,
-        total_score: totalScore,
-        max_marks: maxMarks,
-        attempted: totalAttempted,
-        correct: correctCount,
-        incorrect: incorrectCount,
-        student_answers: studentAnswers
-      }]);
+      try {
+        await supabaseClient.from('results').insert([{
+          roll_no: currentStudent.roll_no,
+          student_name: currentStudent.student_name,
+          test_id: TEST_ID,
+          total_score: totalScore,
+          max_marks: maxMarks,
+          attempted: totalAttempted,
+          correct: correctCount,
+          incorrect: incorrectCount,
+          student_answers: studentAnswers
+        }]);
 
-      await supabaseClient
-        .from('students')
-        .update({ has_attempted: true })
-        .eq('roll_no', currentStudent.roll_no);
+        await supabaseClient
+          .from('students')
+          .update({ has_attempted: true })
+          .eq('roll_no', currentStudent.roll_no);
+      } catch (e) {
+        console.error('Error saving result:', e);
+      }
 
       showResultScreen(totalScore, maxMarks, correctCount, incorrectCount, unattempted);
     }
 
-// 7. RESULT & REVIEW SCREEN
+    // 7. RESULT & REVIEW SCREEN
     function showResultScreen(score, maxMarks, correct, incorrect, unattempted) {
       document.getElementById('exam-section').classList.add('hidden');
       document.getElementById('result-section').classList.remove('hidden');
