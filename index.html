@@ -18,26 +18,22 @@
 
   <style>
     :root {
-      /* Dribbble Reference Palette: Violet, Soft Lavender, Mint, Peach & Sky */
       --primary: #6366f1;
       --primary-dark: #4f46e5;
       --primary-light: #e0e7ff;
-      --accent-purple: #8b5cf6;
       --accent-mint: #10b981;
       --accent-peach: #f97316;
       --accent-pink: #ec4899;
-      --accent-sky: #0ea5e9;
 
       --bg-mesh: radial-gradient(at 0% 0%, #fdf4ff 0px, transparent 50%),
                  radial-gradient(at 100% 0%, #ede9fe 0px, transparent 50%),
                  radial-gradient(at 50% 100%, #eff6ff 0px, transparent 50%),
                  #f8fafc;
-      --card-bg: rgba(255, 255, 255, 0.94);
-      --card-border: rgba(99, 102, 241, 0.15);
-      
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-border: rgba(99, 102, 241, 0.14);
       --text: #0f172a;
       --text-muted: #64748b;
-      --radius: 22px;
+      --radius: 20px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -58,19 +54,19 @@
       min-height: 100vh;
     }
 
-    /* Modern SaaS Header */
+    /* Modern Header */
     header {
       background: #ffffff;
       border-bottom: 1.5px solid rgba(99, 102, 241, 0.12);
       padding: 0.85rem 1rem;
-      box-shadow: 0 4px 20px -2px rgba(99, 102, 241, 0.08);
+      box-shadow: 0 4px 18px -2px rgba(99, 102, 241, 0.06);
       position: sticky;
       top: 0;
       z-index: 100;
       backdrop-filter: blur(12px);
     }
     .header-content {
-      max-width: 1100px;
+      max-width: 1050px;
       margin: 0 auto;
       display: flex;
       align-items: center;
@@ -108,53 +104,57 @@
       font-weight: 700;
       border: 1px solid #c7d2fe;
     }
+
+    /* FIXED LOGO STYLING - FULL VISIBILITY WITHOUT CROPPING */
     .portal-logo-wrap {
-      width: 48px;
-      height: 48px;
-      min-width: 48px;
+      width: 52px;
+      height: 52px;
+      min-width: 52px;
       border-radius: 50%;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 2px solid #818cf8;
-      box-shadow: 0 3px 10px rgba(99, 102, 241, 0.2);
-      background: #4f46e5;
+      box-shadow: 0 3px 10px rgba(99, 102, 241, 0.18);
+      background: #ffffff;
       flex-shrink: 0;
+      padding: 2px;
     }
     .portal-logo {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      transform: scale(1.68);
+      object-fit: contain;
+      border-radius: 50%;
     }
 
-    /* Vertically Balanced Content Wrapper */
+    /* Natural Top-Aligned Content Wrapper */
     .main-wrapper {
-      max-width: 1050px;
+      max-width: 1000px;
       width: 100%;
       margin: 0 auto;
-      padding: 1.75rem 1rem;
+      padding: 1.75rem 1rem 3rem 1rem;
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
+      gap: 1.25rem;
     }
 
-    /* Soft Glass Pastel Cards */
     .card {
       background: var(--card-bg);
       border-radius: var(--radius);
-      padding: 2rem;
-      box-shadow: 0 16px 36px -8px rgba(99, 102, 241, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+      padding: 1.75rem;
+      box-shadow: 0 12px 30px -6px rgba(99, 102, 241, 0.06), 0 4px 10px -2px rgba(15, 23, 42, 0.03);
       border: 1.5px solid var(--card-border);
       backdrop-filter: blur(8px);
     }
 
-    /* 1. Login Component */
+    /* Login Specific (Centered) */
     .login-container {
       max-width: 440px;
-      margin: 0 auto;
+      width: 100%;
+      margin: auto auto;
       border: 1.5px solid rgba(139, 92, 246, 0.25);
       position: relative;
       overflow: hidden;
@@ -169,7 +169,7 @@
       background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
     }
     .login-title {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-weight: 800;
       text-align: center;
       color: #1e1b4b;
@@ -177,25 +177,25 @@
     }
     .login-sub {
       color: var(--text-muted);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       text-align: center;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.5rem;
     }
     .form-group {
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.15rem;
     }
     label {
       display: block;
       font-weight: 700;
-      margin-bottom: 0.45rem;
+      margin-bottom: 0.4rem;
       font-size: 0.92rem;
       color: #334155;
     }
     input[type="text"], input[type="password"] {
       width: 100%;
-      padding: 0.9rem 1.15rem;
+      padding: 0.85rem 1.1rem;
       border: 1.5px solid #cbd5e1;
-      border-radius: 14px;
+      border-radius: 12px;
       font-size: 1rem;
       outline: none;
       background-color: #f8fafc;
@@ -208,30 +208,35 @@
       box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
     }
 
-    /* Modern Buttons */
+    /* Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0.85rem 1.5rem;
-      border-radius: 14px;
-      font-size: 0.98rem;
+      padding: 0.75rem 1.35rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
       border: none;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       gap: 0.4rem;
+      white-space: nowrap;
     }
     .btn:active { transform: scale(0.97); }
     .btn-primary {
       background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
       color: #ffffff;
-      box-shadow: 0 6px 18px rgba(79, 70, 229, 0.3);
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
     }
     .btn-primary:hover {
-      background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
-      box-shadow: 0 8px 22px rgba(79, 70, 229, 0.4);
       transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(79, 70, 229, 0.35);
+    }
+    .btn-practice {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
     }
     .btn-outline {
       background: #ffffff;
@@ -240,7 +245,6 @@
     }
     .btn-outline:hover {
       background: #f1f5f9;
-      border-color: #94a3b8;
     }
     .btn-disabled {
       background: #e2e8f0 !important;
@@ -250,7 +254,6 @@
       transform: none !important;
     }
 
-    /* Dashboard Top Header */
     .dashboard-topbar {
       display: flex;
       justify-content: space-between;
@@ -259,21 +262,19 @@
       padding: 0.85rem 1.25rem;
       border-radius: 16px;
       border: 1.5px solid var(--card-border);
-      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.05);
-      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.04);
     }
 
-    /* 2. Class Selection Pastel Cards (Refined from Reference 4) */
+    /* Class Cards */
     .class-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.5rem;
     }
     .class-card {
-      position: relative;
       background: #ffffff;
-      border-radius: 26px;
-      padding: 2.5rem 1.75rem;
+      border-radius: 24px;
+      padding: 2.25rem 1.5rem;
       text-align: center;
       cursor: pointer;
       overflow: hidden;
@@ -282,134 +283,118 @@
       flex-direction: column;
       align-items: center;
     }
-    .class-card:hover {
-      transform: translateY(-5px);
-    }
-    
-    /* Class 11 - Mint Pastel Style */
+    .class-card:hover { transform: translateY(-4px); }
     .card-11 {
       border: 2px solid #a7f3d0;
-      box-shadow: 0 14px 30px -6px rgba(16, 185, 129, 0.12);
+      box-shadow: 0 12px 26px -6px rgba(16, 185, 129, 0.1);
     }
-    .card-11 .badge-num {
-      background: #d1fae5;
-      color: #065f46;
-    }
+    .card-11 .badge-num { background: #d1fae5; color: #065f46; }
     .card-11 .pill-action {
       background: #ecfdf5;
       color: #059669;
       border: 1.5px solid #a7f3d0;
     }
-
-    /* Class 12 - Soft Peach & Violet Style */
     .card-12 {
       border: 2px solid #fed7aa;
-      box-shadow: 0 14px 30px -6px rgba(249, 115, 22, 0.12);
+      box-shadow: 0 12px 26px -6px rgba(249, 115, 22, 0.1);
     }
-    .card-12 .badge-num {
-      background: #ffedd5;
-      color: #c2410c;
-    }
+    .card-12 .badge-num { background: #ffedd5; color: #c2410c; }
     .card-12 .pill-action {
       background: #fff7ed;
       color: #ea580c;
       border: 1.5px solid #fed7aa;
     }
-
     .badge-num {
-      width: 72px;
-      height: 72px;
-      border-radius: 22px;
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.1rem;
+      font-size: 2rem;
       font-weight: 800;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.15rem;
     }
     .class-card h3 {
-      font-size: 1.45rem;
+      font-size: 1.35rem;
       font-weight: 800;
       color: #1e293b;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.25rem;
     }
     .class-card p {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      letter-spacing: 0.5px;
       color: #94a3b8;
       text-transform: uppercase;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.5rem;
     }
     .pill-action {
-      padding: 0.55rem 1.4rem;
+      padding: 0.5rem 1.25rem;
       border-radius: 999px;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      transition: all 0.2s;
     }
 
-    /* 3. Category Grid (Refined from Reference 2 & 3) */
+    /* Category Grid */
     .category-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1.25rem;
     }
     .category-card {
       background: #ffffff;
-      border-radius: 20px;
-      padding: 1.75rem 1.25rem;
+      border-radius: 18px;
+      padding: 1.5rem 1.15rem;
       text-align: center;
       cursor: pointer;
       transition: all 0.2s ease;
-      border: 1.5px solid rgba(99, 102, 241, 0.14);
-      box-shadow: 0 8px 20px -4px rgba(99, 102, 241, 0.05);
+      border: 1.5px solid rgba(99, 102, 241, 0.12);
+      box-shadow: 0 6px 18px -4px rgba(99, 102, 241, 0.04);
     }
     .category-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-3px);
       border-color: var(--primary);
-      box-shadow: 0 12px 28px -6px rgba(99, 102, 241, 0.15);
     }
     .cat-icon-wrap {
-      width: 58px;
-      height: 58px;
+      width: 54px;
+      height: 54px;
       border-radius: 16px;
-      margin: 0 auto 1rem;
+      margin: 0 auto 0.85rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.75rem;
+      font-size: 1.65rem;
     }
     .category-card h4 {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 800;
       color: #1e1b4b;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.2rem;
     }
     .category-card p {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
     }
 
-    /* 4. Test Schedule & Exam List Cards */
+    /* Test List Cards - Top Aligned */
     .test-list-grid {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.15rem;
     }
     .test-card {
       background: #ffffff;
       border-radius: 18px;
-      border: 1.5px solid rgba(99, 102, 241, 0.15);
-      padding: 1.35rem;
+      border: 1.5px solid rgba(99, 102, 241, 0.12);
+      padding: 1.25rem 1.5rem;
       display: flex;
       flex-direction: column;
       gap: 0.85rem;
       transition: all 0.2s;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
     }
     @media (min-width: 650px) {
       .test-card {
@@ -420,18 +405,18 @@
     }
     .badge-status {
       display: inline-block;
-      padding: 0.25rem 0.65rem;
-      border-radius: 8px;
-      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 7px;
+      font-size: 0.74rem;
       font-weight: 700;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
     .badge-live { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
     .badge-locked { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
     .badge-eval { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
     .badge-open { background: #e0e7ff; color: #4338ca; border: 1px solid #c7d2fe; }
 
-    /* 5. Exam Interface */
+    /* Exam Interface */
     .exam-topbar {
       display: flex;
       justify-content: space-between;
@@ -443,12 +428,12 @@
       margin-bottom: 1.25rem;
     }
     .timer {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       font-weight: 800;
       color: #b91c1c;
       background: #fee2e2;
-      padding: 0.3rem 0.85rem;
-      border-radius: 10px;
+      padding: 0.25rem 0.75rem;
+      border-radius: 8px;
       border: 1px solid #fca5a5;
     }
     .exam-grid {
@@ -465,27 +450,27 @@
     .q-number {
       font-weight: 800;
       color: var(--primary);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
     .q-text {
-      font-size: 1.18rem;
+      font-size: 1.15rem;
       font-weight: 600;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.25rem;
       color: #0f172a;
     }
     .options-grid {
       display: flex;
       flex-direction: column;
-      gap: 0.85rem;
+      gap: 0.75rem;
       margin-bottom: 1.5rem;
     }
     .option-label {
       display: flex;
       align-items: flex-start;
       gap: 0.85rem;
-      padding: 0.95rem 1.15rem;
+      padding: 0.85rem 1.1rem;
       border: 1.5px solid #e2e8f0;
-      border-radius: 14px;
+      border-radius: 12px;
       cursor: pointer;
       transition: all 0.2s;
       background: #ffffff;
@@ -493,12 +478,11 @@
     .option-label:hover {
       background: #f8fafc;
       border-color: #a5b4fc;
-      transform: translateX(3px);
     }
     .option-label.selected {
       border-color: var(--primary);
       background: #eef2ff;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.12);
+      box-shadow: 0 3px 10px rgba(99, 102, 241, 0.1);
     }
     .palette-box {
       position: sticky;
@@ -522,7 +506,6 @@
       font-weight: 700;
       cursor: pointer;
       font-size: 0.95rem;
-      transition: all 0.15s;
     }
     .palette-btn.active {
       border: 2px solid var(--primary);
@@ -535,10 +518,10 @@
       border-color: var(--accent-mint);
     }
 
-    /* 6. Result Summary Screen */
+    /* Result Section */
     .score-circle {
-      width: 130px;
-      height: 130px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       background: #eef2ff;
       color: #3730a3;
@@ -547,10 +530,9 @@
       align-items: center;
       justify-content: center;
       margin: 0 auto 1.5rem;
-      font-size: 1.85rem;
+      font-size: 1.75rem;
       font-weight: 800;
       border: 4px solid var(--primary);
-      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.2);
     }
     .stat-boxes {
       display: grid;
@@ -559,15 +541,14 @@
       margin-bottom: 2rem;
     }
     .stat-box {
-      padding: 1.15rem;
-      border-radius: 14px;
+      padding: 1rem;
+      border-radius: 12px;
       text-align: center;
     }
     .stat-box.correct { background: #dcfce7; color: #15803d; }
     .stat-box.incorrect { background: #fee2e2; color: #b91c1c; }
     .stat-box.unattempted { background: #f1f5f9; color: #475569; }
 
-    /* Clean Footer Bottom Fill */
     footer {
       background: #ffffff;
       border-top: 1.5px solid rgba(99, 102, 241, 0.1);
@@ -607,7 +588,7 @@
   <!-- Vertically Balanced Main Container -->
   <div class="main-wrapper">
     
-    <!-- 1. STUDENT LOGIN SCREEN -->
+    <!-- 1. LOGIN SCREEN -->
     <div id="login-section" class="card login-container">
       <h2 class="login-title">વિદ્યાર્થી લોગિન</h2>
       <p class="login-sub">તમારો રોલ નંબર અને પાસવર્ડ દાખલ કરો.</p>
@@ -625,7 +606,7 @@
       <button class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;" id="btn-login" onclick="handleLogin()">પ્રવેશ કરો (Login) 🚀</button>
     </div>
 
-    <!-- 2. CLASS SELECTION SCREEN (Pastel Cards) -->
+    <!-- 2. CLASS SELECTION SCREEN -->
     <div id="class-section" class="hidden">
       <div class="dashboard-topbar">
         <div>
@@ -659,26 +640,26 @@
           <strong id="selected-class-title" style="font-size: 1.05rem; color: #1e1b4b;">ધોરણ ૧૨ ભૌતિકવિજ્ઞાન</strong>
           <div style="font-size: 0.85rem; color: var(--text-muted);">પરીક્ષા કેટેગરી પસંદ કરો:</div>
         </div>
-        <button class="btn btn-outline" style="padding: 0.4rem 0.85rem; font-size: 0.85rem;" onclick="goBackToClass()">← પાછળ</button>
+        <button class="btn btn-outline" style="padding: 0.4rem 0.85rem; font-size: 0.85rem;" onclick="history.back()">← પાછળ</button>
       </div>
 
       <div class="category-grid" id="category-cards-container"></div>
     </div>
 
-    <!-- 4. CHAPTERS & TESTS LIST SCREEN (NTA Window Active) -->
+    <!-- 4. CHAPTERS & TESTS LIST SCREEN -->
     <div id="test-list-section" class="hidden">
       <div class="dashboard-topbar">
         <div>
           <strong id="selected-category-title" style="font-size: 1.05rem; color: #1e1b4b;">મોક ટેસ્ટ લિસ્ટ</strong>
           <div style="font-size: 0.85rem; color: var(--text-muted);">ટેસ્ટ આપવા માટે ઉપલબ્ધતા તપાસો:</div>
         </div>
-        <button class="btn btn-outline" style="padding: 0.4rem 0.85rem; font-size: 0.85rem;" onclick="goBackToCategories()">← પાછળ</button>
+        <button class="btn btn-outline" style="padding: 0.4rem 0.85rem; font-size: 0.85rem;" onclick="history.back()">← પાછળ</button>
       </div>
 
       <div class="test-list-grid" id="available-tests-container"></div>
     </div>
 
-    <!-- 5. EXAM INTERFACE SCREEN -->
+ <!-- 5. EXAM INTERFACE SCREEN -->
     <div id="exam-section" class="hidden">
       <div class="exam-topbar">
         <div>
@@ -737,7 +718,7 @@
           </div>
         </div>
 
-        <button class="btn btn-primary" onclick="returnToDashboard()">ડેશબોર્ડ પર પાછા જાઓ</button>
+        <button class="btn btn-primary" onclick="navigate('class-section')">ડેશબોર્ડ પર પાછા જાઓ</button>
       </div>
 
       <h3 style="margin-bottom: 1rem; border-top: 1.5px solid #e2e8f0; padding-top: 1.5rem; color: #1e1b4b;">સોલ્યુશન અને વિશ્લેષણ (Solution Review)</h3>
@@ -746,7 +727,6 @@
 
   </div>
 
-  <!-- Professional Bottom Footer -->
   <footer>
     <strong>MIND IN MOTION PHYSICS</strong> • Online Mock Test Portal<br>
     <span style="font-size: 0.8rem;">GSEB | GUJCET | NEET Physics Preparation • Developed for Excellence</span>
@@ -755,7 +735,6 @@
   <script>
     // --- SUPABASE CONFIGURATION ---
     const SUPABASE_URL = 'https://xxccsyjovhqzomfogngu.supabase.co';
-    // નોંધ: તમારી Legacy anon key આ લાઈનમાં અવતરણ ચિહ્નની અંદર પેસ્ટ રાખવી:
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4Y2NzeWpvdmhxem9tZm9nbmd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyOTY1ODEsImV4cCI6MjEwNzg3MjU4MX0.nTMcwd3XFbM5xcUxaXNDCoXhFdjtoV0MHzX5XlwC1xw';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -770,6 +749,42 @@
     let studentAnswers = {};
     let timerInterval = null;
     let timeLeftSeconds = 3600;
+
+    // --- BROWSER HISTORY & MOBILE BACK BUTTON SUPPORT ---
+    function navigate(viewId, pushToHistory = true) {
+      const views = ['login-section', 'class-section', 'category-section', 'test-list-section', 'exam-section', 'result-section'];
+      views.forEach(v => {
+        const el = document.getElementById(v);
+        if (el) el.classList.add('hidden');
+      });
+      document.getElementById(viewId).classList.remove('hidden');
+
+      if (pushToHistory) {
+        history.pushState({ view: viewId }, '', '#' + viewId.replace('-section', ''));
+      }
+    }
+
+    window.addEventListener('popstate', (event) => {
+      if (document.getElementById('exam-section') && !document.getElementById('exam-section').classList.contains('hidden')) {
+        const confirmExit = confirm('પરીક્ષા ચાલુ છે. શું તમે ખરેખર બહાર નીકળવા માંગો છો?');
+        if (!confirmExit) {
+          history.pushState({ view: 'exam-section' }, '', '#exam');
+          return;
+        } else {
+          clearInterval(timerInterval);
+        }
+      }
+
+      if (event.state && event.state.view) {
+        navigate(event.state.view, false);
+      } else {
+        if (currentStudent) {
+          navigate('class-section', false);
+        } else {
+          navigate('login-section', false);
+        }
+      }
+    });
 
     function renderMath(targetElement) {
       if (window.renderMathInElement) {
@@ -820,8 +835,7 @@
         const { data: tList } = await supabaseClient.from('tests').select('*').neq('is_active', false);
         allTests = tList || [];
 
-        document.getElementById('login-section').classList.add('hidden');
-        document.getElementById('class-section').classList.remove('hidden');
+        navigate('class-section');
       } catch (err) {
         errEl.textContent = 'કનેક્શન એરર: ' + err.message;
         errEl.style.display = 'block';
@@ -832,30 +846,20 @@
 
     function logout() {
       currentStudent = null;
-      document.getElementById('class-section').classList.add('hidden');
-      document.getElementById('category-section').classList.add('hidden');
-      document.getElementById('test-list-section').classList.add('hidden');
-      document.getElementById('login-section').classList.remove('hidden');
       document.getElementById('roll-input').value = '';
       document.getElementById('pass-input').value = '';
       document.getElementById('btn-login').disabled = false;
       document.getElementById('btn-login').textContent = 'પ્રવેશ કરો (Login) 🚀';
+      navigate('login-section');
     }
 
     function selectClass(level) {
       selectedClassLevel = level;
       document.getElementById('selected-class-title').textContent = `ધોરણ ${level} ભૌતિકવિજ્ઞાન`;
-      document.getElementById('class-section').classList.add('hidden');
-      document.getElementById('category-section').classList.remove('hidden');
       renderCategories();
+      navigate('category-section');
     }
 
-    function goBackToClass() {
-      document.getElementById('category-section').classList.add('hidden');
-      document.getElementById('class-section').classList.remove('hidden');
-    }
-
-    // 2. CATEGORIES
     function renderCategories() {
       const container = document.getElementById('category-cards-container');
       container.innerHTML = '';
@@ -887,17 +891,11 @@
     function selectCategory(catId, catTitle) {
       selectedCategory = catId;
       document.getElementById('selected-category-title').textContent = `${catTitle} (ધોરણ ${selectedClassLevel})`;
-      document.getElementById('category-section').classList.add('hidden');
-      document.getElementById('test-list-section').classList.remove('hidden');
       renderTestsList();
+      navigate('test-list-section');
     }
 
-    function goBackToCategories() {
-      document.getElementById('test-list-section').classList.add('hidden');
-      document.getElementById('category-section').classList.remove('hidden');
-    }
-
-    // 3. NTA TIME-WINDOW TEST LIST
+    // --- RE-ATTEMPT AFTER 12 HOURS + TIME LOGIC ---
     async function renderTestsList() {
       const container = document.getElementById('available-tests-container');
       container.innerHTML = '<div style="text-align:center; padding:1.5rem; color:#64748b;">ટેસ્ટ ચકાસી રહ્યા છે...</div>';
@@ -916,7 +914,6 @@
         return;
       }
 
-      // Check results student has already submitted
       const { data: userResults } = await supabaseClient
         .from('results')
         .select('test_id')
@@ -935,24 +932,30 @@
         let statusHtml = '';
         let buttonHtml = '';
 
-        if (submittedTestIds.has(t.test_id)) {
-          statusHtml = `<span class="badge-status badge-live">✔ પૂર્ણ થયેલ (Submitted)</span>`;
-          buttonHtml = `<button class="btn btn-outline" onclick="alert('તમે આ ટેસ્ટ પહેલેથી જ આપી દીધો છે!')">ટેસ્ટ પૂર્ણ થયો</button>`;
-        } else if (now < start) {
+        if (now < start) {
+          // તબક્કો ૧: લૉક છે
           const timeStr = start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
           const dateStr = start.toLocaleDateString();
           statusHtml = `<span class="badge-status badge-locked">🔒 લૉક છે</span>`;
           buttonHtml = `<button class="btn btn-disabled" disabled>શરૂ થશે: ${dateStr} ${timeStr}</button>`;
         } else if (now >= start && now <= end) {
-          statusHtml = `<span class="badge-status badge-live">🟢 LIVE પરીક્ષા શરૂ છે</span>`;
-          buttonHtml = `<button class="btn btn-primary" onclick="startExam('${t.test_id}')">પરીક્ષા આપો 🚀</button>`;
+          // તબક્કો ૨: લાઈવ પરીક્ષા વિન્ડો
+          if (submittedTestIds.has(t.test_id)) {
+            statusHtml = `<span class="badge-status badge-live">✔ લાઈવ ટેસ્ટ સબમિટ થઈ ગયો</span>`;
+            buttonHtml = `<button class="btn btn-disabled" disabled>ટેસ્ટ પૂર્ણ થયો (મૂલ્યાંકન ચાલુ)</button>`;
+          } else {
+            statusHtml = `<span class="badge-status badge-live">🟢 LIVE પરીક્ષા શરૂ છે</span>`;
+            buttonHtml = `<button class="btn btn-primary" onclick="startExam('${t.test_id}', false)">પરીક્ષા આપો 🚀</button>`;
+          }
         } else if (now > end && now < reopenTime) {
+          // તબક્કો ૩: ૧૨ કલાક મૂલ્યાંકન લૉક
           const reopenStr = reopenTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
           statusHtml = `<span class="badge-status badge-eval">⏳ મૂલ્યાંકન ચાલુ છે</span>`;
           buttonHtml = `<button class="btn btn-disabled" disabled>રી-ઓપન થશે: ${reopenStr}</button>`;
         } else {
-          statusHtml = `<span class="badge-status badge-open">🔓 પ્રેક્ટિસ માટે ઉપલબ્ધ</span>`;
-          buttonHtml = `<button class="btn btn-primary" onclick="startExam('${t.test_id}')">પ્રેક્ટિસ ટેસ્ટ આપો →</button>`;
+          // તબક્કો ૪: ૧૨ કલાક પછી પુનઃ પરીક્ષા (Multiple attempts allowed)
+          statusHtml = `<span class="badge-status badge-open">🔓 પ્રેક્ટિસ માટે કાયમ ઉપલબ્ધ</span>`;
+          buttonHtml = `<button class="btn btn-practice" onclick="startExam('${t.test_id}', true)">પુનઃ ટેસ્ટ આપો (Practice) →</button>`;
         }
 
         const card = document.createElement('div');
@@ -971,8 +974,8 @@
       });
     }
 
-    // 4. EXAM ENGINE
-    async function startExam(testId) {
+    // 5. EXAM ENGINE
+    async function startExam(testId, isPractice = false) {
       selectedTestId = testId;
 
       try {
@@ -994,12 +997,11 @@
         questions = qData;
         studentAnswers = {};
 
-        document.getElementById('test-list-section').classList.add('hidden');
-        document.getElementById('exam-section').classList.remove('hidden');
+        navigate('exam-section');
 
         document.getElementById('student-display').textContent = currentStudent.student_name;
         document.getElementById('roll-display').textContent = currentStudent.roll_no;
-        document.getElementById('chapter-display').textContent = testData.chapter_name;
+        document.getElementById('chapter-display').textContent = testData.chapter_name + (isPractice ? ' (Practice Mode)' : '');
 
         initPalette();
         loadQuestion(0);
@@ -1160,10 +1162,9 @@
       showResultScreen(totalScore, maxMarks, correctCount, incorrectCount, unattempted);
     }
 
-    // 5. RESULT & REVIEW SCREEN
+    // 6. RESULT & REVIEW SCREEN
     function showResultScreen(score, maxMarks, correct, incorrect, unattempted) {
-      document.getElementById('exam-section').classList.add('hidden');
-      document.getElementById('result-section').classList.remove('hidden');
+      navigate('result-section');
 
       document.getElementById('result-student-info').textContent = 
         `વિદ્યાર્થી: ${currentStudent.student_name} | રોલ નંબર: ${currentStudent.roll_no}`;
@@ -1198,11 +1199,6 @@
       });
 
       renderMath(solBox);
-    }
-
-    function returnToDashboard() {
-      document.getElementById('result-section').classList.add('hidden');
-      document.getElementById('class-section').classList.remove('hidden');
     }
   </script>
 </body>
