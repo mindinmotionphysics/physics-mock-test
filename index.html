@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MIND IN MOTION PHYSICS - Online Examination Portal</title>
   
-  <!-- Fonts & KaTeX for Physics Math Formulas -->
+  <!-- Fonts & KaTeX -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -18,27 +18,23 @@
 
   <style>
     :root {
-      /* Soft Cool Pastel Palette */
-      --primary: #d97706;
-      --primary-dark: #b45309;
-      --accent: #ea580c;
-      --accent-soft: #ffedd5;
-      --pastel-bg: linear-gradient(135deg, #fef3c7 0%, #ffedd5 40%, #e0f2fe 100%);
-      --card-bg: rgba(255, 255, 255, 0.94);
-      --card-border: #fcd34d;
-      --text: #1e293b;
+      --primary: #ea580c;
+      --primary-dark: #c2410c;
+      --accent: #f97316;
+      --bg: #fffaf5;
+      --card-bg: #ffffff;
+      --text: #0f172a;
       --text-muted: #64748b;
-      --success: #10b981;
-      --danger: #ef4444;
-      --radius: 16px;
+      --border: #fed7aa;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --radius: 18px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
     body {
       font-family: 'Hind Vadodara', 'Inter', sans-serif;
-      background: var(--pastel-bg);
-      background-attachment: fixed;
+      background-color: var(--bg);
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
@@ -46,24 +42,21 @@
       flex-direction: column;
     }
 
-    /* Animated Header */
+    /* Header Banner with Clean Margins & Logo */
     header {
       background: linear-gradient(135deg, #9a3412 0%, #ea580c 50%, #f97316 100%);
       color: #fff;
-      padding: 1rem 0.75rem;
+      padding: 1rem 0.85rem;
       border-bottom: 3.5px solid #fbbf24;
-      box-shadow: 0 4px 15px rgba(234, 88, 12, 0.2);
-      animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2);
     }
     .header-content {
       max-width: 1050px;
       margin: 0 auto;
       display: flex;
-      flex-direction: row;
       align-items: center;
       justify-content: space-between;
       gap: 0.75rem;
-      padding: 0 0.5rem;
     }
     .header-text-block {
       flex: 1;
@@ -72,8 +65,8 @@
     }
     header h1 {
       font-size: 1.25rem;
-      letter-spacing: 0.6px;
       font-weight: 700;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
       line-height: 1.2;
     }
@@ -81,7 +74,6 @@
       font-size: 0.78rem;
       color: #ffedd5;
       margin-top: 0.2rem;
-      font-weight: 500;
     }
     .creator-tag {
       display: inline-block;
@@ -95,22 +87,18 @@
       border: 1px solid rgba(255, 255, 255, 0.35);
     }
     .portal-logo-wrap {
-      width: 54px;
-      height: 54px;
-      min-width: 54px;
+      width: 52px;
+      height: 52px;
+      min-width: 52px;
       border-radius: 50%;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1.5px solid #ffffff;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
       background: #ea580c;
       flex-shrink: 0;
-      transition: transform 0.3s ease;
-    }
-    .portal-logo-wrap:hover {
-      transform: rotate(6deg) scale(1.05);
     }
     .portal-logo {
       width: 100%;
@@ -120,84 +108,27 @@
     }
 
     .container {
-      max-width: 1050px;
-      margin: 1.75rem auto;
+      max-width: 1000px;
+      margin: 2rem auto;
       padding: 0 1rem;
       flex: 1;
+      width: 100%;
     }
 
-    /* Floating Pastel Cards with Animations */
+    /* Common Card Styling */
     .card {
       background: var(--card-bg);
       border-radius: var(--radius);
       padding: 1.75rem;
-      box-shadow: 0 10px 25px -5px rgba(217, 119, 6, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
-      border: 1.5px solid rgba(254, 215, 170, 0.6);
-      backdrop-filter: blur(8px);
-      animation: fadeIn 0.5s ease-out;
+      box-shadow: 0 8px 20px -4px rgba(234, 88, 12, 0.08), 0 2px 6px -2px rgba(0, 0, 0, 0.04);
+      border: 1.5px solid var(--border);
     }
 
-    /* Floating Welcome Popup Modal */
-    .welcome-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.55);
-      backdrop-filter: blur(6px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
-      padding: 1rem;
-    }
-    .welcome-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .welcome-card {
-      background: #ffffff;
-      border-radius: 24px;
-      max-width: 450px;
-      width: 100%;
-      padding: 2.25rem 1.75rem;
-      text-align: center;
-      box-shadow: 0 20px 40px -10px rgba(234, 88, 12, 0.3);
-      border: 2px solid #fed7aa;
-      transform: translateY(30px) scale(0.92);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .welcome-overlay.active .welcome-card {
-      transform: translateY(0) scale(1);
-    }
-    .welcome-logo-badge {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: #fff7ed;
-      border: 3px solid #fdba74;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.25rem;
-      box-shadow: 0 8px 16px rgba(234, 88, 12, 0.18);
-      overflow: hidden;
-      animation: bounceFloat 3s ease-in-out infinite;
-    }
-    .welcome-logo-badge img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: scale(1.68);
-    }
-
-    /* Login Form Styles */
+    /* 1. LOGIN SCREEN */
     .login-box {
       max-width: 440px;
       margin: 1.5rem auto;
       border: 2px solid #fed7aa;
-      background: #ffffff;
     }
     .form-group {
       margin-bottom: 1.25rem;
@@ -205,11 +136,11 @@
     label {
       display: block;
       font-weight: 600;
-      margin-bottom: 0.45rem;
+      margin-bottom: 0.4rem;
       font-size: 0.95rem;
       color: #334155;
     }
-    input[type="text"], input[type="password"], select {
+    input[type="text"], input[type="password"] {
       width: 100%;
       padding: 0.85rem 1rem;
       border: 1.5px solid #fed7aa;
@@ -218,76 +149,246 @@
       outline: none;
       background-color: #fffaf5;
       font-family: inherit;
-      transition: all 0.25s ease;
+      transition: all 0.2s;
     }
-    input:focus, select:focus {
+    input:focus {
       border-color: var(--accent);
       background-color: #ffffff;
-      box-shadow: 0 0 0 4px rgba(251, 146, 60, 0.2);
+      box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
     }
-
-    /* Buttons with Cool Hover Animations */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       padding: 0.85rem 1.5rem;
       border-radius: 10px;
-      font-size: 1.02rem;
+      font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
       border: none;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .btn:active {
-      transform: scale(0.97);
+      transition: all 0.2s;
     }
     .btn-primary {
       background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
       color: #fff;
       width: 100%;
-      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+      box-shadow: 0 4px 10px rgba(234, 88, 12, 0.3);
     }
     .btn-primary:hover {
-      box-shadow: 0 6px 18px rgba(234, 88, 12, 0.45);
-      transform: translateY(-2px);
-    }
-    .btn-success {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: #fff;
-      box-shadow: 0 3px 8px rgba(16, 185, 129, 0.3);
+      background: linear-gradient(135deg, #c2410c 0%, #9a3412 100%);
     }
     .btn-outline {
       background: #fff;
       border: 1.5px solid #fed7aa;
       color: var(--text);
     }
-    .btn-outline:hover {
-      background: #ffedd5;
-      border-color: #fdba74;
+    .btn-outline:hover { background: #ffedd5; }
+    .btn-success { background: var(--success); color: #fff; }
+
+    /* Breadcrumbs / Top Navbar inside Dashboard */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      background: #fff;
+      padding: 0.75rem 1.25rem;
+      border-radius: 12px;
+      border: 1.5px solid #fed7aa;
     }
 
-    /* Exam Interface */
+    /* 2. CLASS SELECTION CARDS (Matching Requested Pastel Style) */
+    .class-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .pastel-card {
+      position: relative;
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 2.25rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .pastel-card:hover {
+      transform: translateY(-4px);
+    }
+    /* Class 11 - Mint Green Theme */
+    .card-class-11 {
+      border: 2px solid #bbf7d0;
+      box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.12);
+    }
+    .card-class-11 .num-badge {
+      background-color: #dcfce7;
+      color: #15803d;
+    }
+    .card-class-11 .pill-btn {
+      background-color: #f0fdf4;
+      color: #16a34a;
+      border: 1.5px solid #bbf7d0;
+    }
+    .card-class-11 .glow-bubble {
+      background: radial-gradient(circle, #bbf7d0 0%, transparent 70%);
+    }
+    /* Class 12 - Peach Orange Theme */
+    .card-class-12 {
+      border: 2px solid #fed7aa;
+      box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.15);
+    }
+    .card-class-12 .num-badge {
+      background-color: #ffedd5;
+      color: #ea580c;
+    }
+    .card-class-12 .pill-btn {
+      background-color: #fff7ed;
+      color: #ea580c;
+      border: 1.5px solid #fed7aa;
+    }
+    .card-class-12 .glow-bubble {
+      background: radial-gradient(circle, #fed7aa 0%, transparent 70%);
+    }
+
+    .num-badge {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.85rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      z-index: 2;
+    }
+    .class-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.25rem;
+      z-index: 2;
+    }
+    .class-subtitle {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      z-index: 2;
+    }
+    .pill-btn {
+      padding: 0.5rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s;
+      z-index: 2;
+    }
+    .glow-bubble {
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      bottom: -35px;
+      right: -35px;
+      opacity: 0.5;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* 3. CATEGORY SELECTION CARDS */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+    .category-card {
+      background: #fff;
+      border: 1.5px solid #fed7aa;
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.06);
+    }
+    .category-card:hover {
+      border-color: var(--accent);
+      background-color: #fffaf5;
+      transform: translateY(-3px);
+    }
+    .category-icon {
+      font-size: 2.2rem;
+      margin-bottom: 0.75rem;
+    }
+    .category-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: #1e293b;
+    }
+    .category-card p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* 4. CHAPTERS / TESTS LIST */
+    .test-list-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-top: 1rem;
+    }
+    .test-item-card {
+      background: #fff;
+      border: 1.5px solid #fed7aa;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s;
+    }
+    .test-item-card:hover {
+      border-color: var(--accent);
+      background-color: #fffaf5;
+    }
+    .test-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* 5. EXAM INTERFACE */
     .exam-topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: #fff7ed;
       border: 1.5px solid #fdba74;
-      padding: 0.85rem 1.25rem;
-      border-radius: 12px;
+      padding: 0.75rem 1.25rem;
+      border-radius: 10px;
       margin-bottom: 1.25rem;
     }
     .timer {
       font-size: 1.15rem;
       font-weight: 700;
-      color: #b91c1c;
+      color: var(--danger);
       background: #fee2e2;
-      padding: 0.35rem 0.85rem;
-      border-radius: 8px;
-      border: 1px solid #fca5a5;
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
     }
-
     .exam-layout-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -299,52 +400,45 @@
         align-items: start;
       }
     }
-
     .q-number {
       font-weight: 700;
       color: var(--accent);
       margin-bottom: 0.5rem;
-      font-size: 1.05rem;
     }
     .q-text {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 1.4rem;
-      color: #0f172a;
+      font-size: 1.15rem;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
     }
     .options-grid {
       display: flex;
       flex-direction: column;
-      gap: 0.85rem;
-      margin-bottom: 1.75rem;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
     }
     .option-label {
       display: flex;
       align-items: flex-start;
-      gap: 0.85rem;
-      padding: 1rem 1.15rem;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
       border: 1.5px solid #fed7aa;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.15s;
       background: #ffffff;
     }
     .option-label:hover {
       background-color: #fff7ed;
       border-color: #fb923c;
-      transform: translateX(4px);
     }
     .option-label.selected {
       border-color: var(--accent);
       background-color: #ffedd5;
-      box-shadow: 0 4px 10px rgba(234, 88, 12, 0.12);
     }
     .option-label input {
-      margin-top: 0.3rem;
+      margin-top: 0.25rem;
       accent-color: var(--accent);
     }
-
-    /* Palette Grid */
     .palette-box {
       position: sticky;
       top: 1rem;
@@ -367,7 +461,7 @@
       font-weight: 600;
       cursor: pointer;
       font-size: 0.95rem;
-      transition: all 0.2s;
+      transition: all 0.15s;
     }
     .palette-btn.active {
       border: 2px solid var(--accent);
@@ -376,39 +470,37 @@
       background: #fff7ed;
     }
     .palette-btn.attempted {
-      background: #10b981;
+      background: var(--success);
       color: #fff;
-      border-color: #10b981;
+      border-color: var(--success);
     }
-
     .nav-actions {
       display: flex;
       justify-content: space-between;
-      gap: 0.6rem;
+      gap: 0.5rem;
       margin-top: 1.5rem;
       flex-wrap: wrap;
     }
 
-    /* Result Section */
+    /* 6. RESULT SECTION */
     .score-summary {
       text-align: center;
       padding: 2rem 1rem;
     }
     .score-circle {
-      width: 125px;
-      height: 125px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       background: #ffedd5;
-      color: #9a3412;
+      color: var(--primary-dark);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       margin: 0 auto 1.5rem;
-      font-size: 1.85rem;
+      font-size: 1.75rem;
       font-weight: 700;
       border: 4px solid var(--accent);
-      box-shadow: 0 6px 16px rgba(234, 88, 12, 0.2);
     }
     .stat-boxes {
       display: grid;
@@ -418,61 +510,24 @@
     }
     .stat-box {
       padding: 1rem;
-      border-radius: 12px;
+      border-radius: 10px;
       text-align: center;
     }
     .stat-box.correct { background: #dcfce7; color: #15803d; }
     .stat-box.incorrect { background: #fee2e2; color: #b91c1c; }
-    .stat-box.unattempted { background: #f1f5f9; color: #475569; }
-
-    /* CSS Keyframe Animations */
-    @keyframes slideDown {
-      from { transform: translateY(-100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes bounceFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
+    .stat-box.unattempted { background: #f8fafc; color: #475569; }
 
     .hidden { display: none !important; }
   </style>
 </head>
 <body>
 
-  <!-- 1. Floating Welcome Animated Popup Modal -->
-  <div id="welcome-modal" class="welcome-overlay active">
-    <div class="welcome-card">
-      <div class="welcome-logo-badge">
-        <img 
-          src="https://lh3.googleusercontent.com/d/1eCSReKlV_fPkLyw5VBPuB0h6WRoainYN" 
-          alt="Logo" 
-          onerror="this.src='https://drive.google.com/thumbnail?id=1eCSReKlV_fPkLyw5VBPuB0h6WRoainYN&sz=w200'"
-        />
-      </div>
-      <h2 style="font-size: 1.4rem; color: #9a3412; margin-bottom: 0.5rem; font-weight: 700;">
-        Welcome to Mind In Motion Physics
-      </h2>
-      <p style="color: #64748b; font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.5;">
-        ઓનલાઇન મોક ટેસ્ટ પોર્ટલમાં આપનું સ્વાગત છે.<br>
-        Class 11 & 12 • GSEB | GUJCET | NEET
-      </p>
-      <button class="btn btn-primary" onclick="closeWelcomeModal()">
-        પ્રવેશ કરો (Continue to Login) 🚀
-      </button>
-    </div>
-  </div>
-
   <!-- Header Banner -->
   <header>
     <div class="header-content">
       <div class="header-text-block">
         <h1 id="banner-title">MIND IN MOTION PHYSICS</h1>
-        <p id="banner-subtitle">MOCK TEST SERIES • Science Stream • GSEB | GUJCET | NEET</p>
+        <p id="banner-subtitle">MOCK TEST SERIES • Class 11 & 12 • Science Stream • GSEB | GUJCET | NEET</p>
         <div>
           <span class="creator-tag">Created by Vasim Luhar (M.Sc. Physics, B.Ed.)</span>
         </div>
@@ -490,19 +545,12 @@
 
   <div class="container">
     
-    <!-- 2. Student Login View -->
+    <!-- 1. LOGIN SCREEN -->
     <div id="login-section" class="card login-box">
       <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem; text-align: center; color: #9a3412;">વિદ્યાર્થી લોગિન (Student Login)</h2>
-      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; text-align: center;">ટેસ્ટ પસંદ કરો અને વિગતો દાખલ કરો.</p>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; text-align: center;">તમારો રોલ નંબર અને પાસવર્ડ દાખલ કરો.</p>
       
-      <div id="login-error" style="display:none; color: var(--danger); font-size: 0.9rem; margin-bottom: 1rem; text-align: center; background: #fee2e2; padding: 0.6rem; border-radius: 8px;"></div>
-
-      <div class="form-group">
-        <label>ટેસ્ટ પસંદ કરો (Select Test)</label>
-        <select id="test-select">
-          <option value="">-- ઉપલબ્ધ ટેસ્ટ લોડ થઈ રહ્યા છે... --</option>
-        </select>
-      </div>
+      <div id="login-error" style="display:none; color: var(--danger); font-size: 0.9rem; margin-bottom: 1rem; text-align: center; background: #fee2e2; padding: 0.5rem; border-radius: 8px;"></div>
 
       <div class="form-group">
         <label>રોલ નંબર (Roll No)</label>
@@ -512,10 +560,71 @@
         <label>પાસવર્ડ (Password)</label>
         <input type="password" id="pass-input" placeholder="દા.ત. 1234" />
       </div>
-      <button class="btn btn-primary" id="btn-login" onclick="handleLogin()">પરીક્ષા શરૂ કરો (Start Test)</button>
+      <button class="btn btn-primary" id="btn-login" onclick="handleLogin()">પ્રવેશ કરો (Login)</button>
     </div>
 
-    <!-- 3. Test Exam Interface View -->
+    <!-- 2. CLASS SELECTION SCREEN (Pastel Cards) -->
+    <div id="class-section" class="hidden">
+      <div class="dashboard-header">
+        <div>
+          <strong id="user-greeting">નમસ્તે વિદ્યાર્થી!</strong>
+          <div style="font-size: 0.85rem; color: var(--text-muted);">તમારો ધોરણ પસંદ કરો:</div>
+        </div>
+        <button class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" onclick="logout()">લોગઆઉટ</button>
+      </div>
+
+      <div class="class-grid">
+        <!-- Class 11 Card (Mint Theme) -->
+        <div class="pastel-card card-class-11" onclick="selectClass(11)">
+          <div class="glow-bubble"></div>
+          <div class="num-badge">11</div>
+          <div class="class-title">ધોરણ ૧૧ ભૌતિકવિજ્ઞાન</div>
+          <div class="class-subtitle">CLASS 11 SCIENCE • GSEB / NEET</div>
+          <div class="pill-btn">પ્રકરણો જુઓ →</div>
+        </div>
+
+        <!-- Class 12 Card (Peach Theme) -->
+        <div class="pastel-card card-class-12" onclick="selectClass(12)">
+          <div class="glow-bubble"></div>
+          <div class="num-badge">12</div>
+          <div class="class-title">ધોરણ ૧૨ ભૌતિકવિજ્ઞાન</div>
+          <div class="class-subtitle">CLASS 12 SCIENCE • BOARD / GUJCET / NEET</div>
+          <div class="pill-btn">પ્રકરણો જુઓ →</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. CATEGORY SELECTION SCREEN -->
+    <div id="category-section" class="hidden">
+      <div class="dashboard-header">
+        <div>
+          <strong id="selected-class-title">ધોરણ ૧૨ ભૌતિકવિજ્ઞાન</strong>
+          <div style="font-size: 0.85rem; color: var(--text-muted);">ટેસ્ટ કેટેગરી પસંદ કરો:</div>
+        </div>
+        <button class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" onclick="goBackToClass()">← પાછળ</button>
+      </div>
+
+      <div class="category-grid" id="category-cards-container">
+        <!-- Dynamic Category Cards rendered by JS -->
+      </div>
+    </div>
+
+    <!-- 4. CHAPTERS / TESTS LIST SCREEN -->
+    <div id="test-list-section" class="hidden">
+      <div class="dashboard-header">
+        <div>
+          <strong id="selected-category-title">પ્રકરણ વાઇઝ મોક ટેસ્ટ</strong>
+          <div style="font-size: 0.85rem; color: var(--text-muted);">ટેસ્ટ આપવા માટે ક્લિક કરો:</div>
+        </div>
+        <button class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;" onclick="goBackToCategories()">← પાછળ</button>
+      </div>
+
+      <div class="test-list-grid" id="available-tests-container">
+        <!-- Test List rendered by JS -->
+      </div>
+    </div>
+
+    <!-- 5. EXAM INTERFACE SCREEN -->
     <div id="exam-section" class="hidden">
       <div class="exam-topbar">
         <div>
@@ -526,7 +635,6 @@
       </div>
 
       <div class="exam-layout-grid">
-        <!-- Question Container -->
         <div class="card">
           <div class="q-number" id="q-label">પ્રશ્ન 1</div>
           <div class="q-text" id="q-text">Loading question...</div>
@@ -541,7 +649,6 @@
           </div>
         </div>
 
-        <!-- Question Palette -->
         <div class="card palette-box">
           <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem;">પ્રશ્ન ક્રમાંક સૂચિ</h4>
           <span style="font-size: 0.8rem; color: var(--text-muted);">(Question Palette)</span>
@@ -550,7 +657,7 @@
       </div>
     </div>
 
-    <!-- 4. Result & Detailed Review View -->
+      <!-- 6. RESULT SCREEN -->
     <div id="result-section" class="card hidden">
       <div class="score-summary">
         <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: #9a3412;">ટેસ્ટ પરિણામ (Test Result)</h2>
@@ -575,6 +682,8 @@
             <p>છોડેલા (Left)</p>
           </div>
         </div>
+
+        <button class="btn btn-primary" style="max-width: 260px;" onclick="returnToDashboard()">ડેશબોર્ડ પર પાછા જાઓ</button>
       </div>
 
       <h3 style="margin-bottom: 1rem; border-top: 1.5px solid var(--border); padding-top: 1.5rem; color: #9a3412;">સોલ્યુશન અને વિશ્લેષણ (Solution Review)</h3>
@@ -586,57 +695,21 @@
   <script>
     // --- SUPABASE CONFIGURATION ---
     const SUPABASE_URL = 'https://xxccsyjovhqzomfogngu.supabase.co';
-    // નોંધ: તમારી Legacy anon key આ લાઈનમાં અવતરણ ચિહ્નની અંદર પેસ્ટ કરો:
+    // નોંધ: તમારી Legacy anon key આ લાઈનમાં અવતરણ ચિહ્નની અંદર પેસ્ટ રાખો:
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4Y2NzeWpvdmhxem9tZm9nbmd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyOTY1ODEsImV4cCI6MjEwNzg3MjU4MX0.nTMcwd3XFbM5xcUxaXNDCoXhFdjtoV0MHzX5XlwC1xw';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    let activeTests = [];
-    let selectedTestId = null;
+    let allTests = [];
     let currentStudent = null;
+    let selectedClassLevel = 12;
+    let selectedCategory = 'chapterwise';
+    let selectedTestId = null;
     let testData = null;
     let questions = [];
     let currentIndex = 0;
     let studentAnswers = {};
     let timerInterval = null;
     let timeLeftSeconds = 3600;
-
-    // Close Floating Welcome Modal
-    function closeWelcomeModal() {
-      const modal = document.getElementById('welcome-modal');
-      modal.classList.remove('active');
-    }
-
-    // Load available active tests on page open
-    window.addEventListener('DOMContentLoaded', async () => {
-      await loadAvailableTests();
-    });
-
-    async function loadAvailableTests() {
-      const selectEl = document.getElementById('test-select');
-      try {
-        const { data, error } = await supabaseClient
-          .from('tests')
-          .select('*')
-          .neq('is_active', false);
-
-        if (error || !data || data.length === 0) {
-          selectEl.innerHTML = '<option value="">કોઈ સક્રિય ટેસ્ટ ઉપલબ્ધ નથી</option>';
-          return;
-        }
-
-        activeTests = data;
-        selectEl.innerHTML = '';
-        data.forEach((t, idx) => {
-          const opt = document.createElement('option');
-          opt.value = t.test_id;
-          opt.textContent = `${t.chapter_name || t.test_id} (${t.duration_minutes || 60} મિનિટ)`;
-          if (idx === 0) opt.selected = true;
-          selectEl.appendChild(opt);
-        });
-      } catch (err) {
-        selectEl.innerHTML = '<option value="ch1-test">Ch-1 વિદ્યુતભારો અને ક્ષેત્રો</option>';
-      }
-    }
 
     function renderMath(targetElement) {
       if (window.renderMathInElement) {
@@ -651,21 +724,13 @@
       }
     }
 
-     // 1. LOGIN HANDLER
+    // 1. LOGIN
     async function handleLogin() {
-      const testSelect = document.getElementById('test-select');
-      selectedTestId = testSelect.value;
       const roll = document.getElementById('roll-input').value.trim();
       const pass = document.getElementById('pass-input').value.trim();
       const errEl = document.getElementById('login-error');
       const btn = document.getElementById('btn-login');
       errEl.style.display = 'none';
-
-      if (!selectedTestId) {
-        errEl.textContent = 'કૃપા કરીને ટેસ્ટ પસંદ કરો.';
-        errEl.style.display = 'block';
-        return;
-      }
 
       if (!roll || !pass) {
         errEl.textContent = 'કૃપા કરીને રોલ નંબર અને પાસવર્ડ બંને દાખલ કરો.';
@@ -677,69 +742,163 @@
       btn.textContent = 'ચકાસણી ચાલુ છે...';
 
       try {
-        const { data: students, error } = await supabaseClient
-          .from('students')
-          .select('*');
-
-        if (error) {
-          errEl.textContent = 'ડેટાબેઝ એરર: ' + error.message;
-          errEl.style.display = 'block';
-          btn.disabled = false;
-          btn.textContent = 'પરીક્ષા શરૂ કરો (Start Test)';
-          return;
-        }
+        const { data: students, error } = await supabaseClient.from('students').select('*');
+        if (error) throw error;
 
         const student = students.find(s => String(s.roll_no).trim() === roll && String(s.password).trim() === pass);
-
         if (!student) {
           errEl.textContent = 'અમાન્ય રોલ નંબર અથવા પાસવર્ડ!';
           errEl.style.display = 'block';
           btn.disabled = false;
-          btn.textContent = 'પરીક્ષા શરૂ કરો (Start Test)';
-          return;
-        }
-
-        // Check if student already gave this test
-        const { data: existingResults } = await supabaseClient
-          .from('results')
-          .select('id')
-          .eq('roll_no', student.roll_no)
-          .eq('test_id', selectedTestId);
-
-        if (existingResults && existingResults.length > 0) {
-          errEl.textContent = 'તમે આ પસંદ કરેલો ટેસ્ટ પહેલેથી જ આપી ચૂક્યા છો!';
-          errEl.style.display = 'block';
-          btn.disabled = false;
-          btn.textContent = 'પરીક્ષા શરૂ કરો (Start Test)';
+          btn.textContent = 'પ્રવેશ કરો (Login)';
           return;
         }
 
         currentStudent = student;
-        startExamFlow();
+        document.getElementById('user-greeting').textContent = `નમસ્તે, ${student.student_name}! (રોલ: ${student.roll_no})`;
+
+        // Load all active tests
+        const { data: tList } = await supabaseClient.from('tests').select('*').neq('is_active', false);
+        allTests = tList || [];
+
+        // Switch to Class Selection Screen
+        document.getElementById('login-section').classList.add('hidden');
+        document.getElementById('class-section').classList.remove('hidden');
       } catch (err) {
         errEl.textContent = 'કનેક્શન એરર: ' + err.message;
         errEl.style.display = 'block';
         btn.disabled = false;
-        btn.textContent = 'પરીક્ષા શરૂ કરો (Start Test)';
+        btn.textContent = 'પ્રવેશ કરો (Login)';
       }
     }
 
-    // 2. FETCH TEST & QUESTIONS
-    async function startExamFlow() {
+    function logout() {
+      currentStudent = null;
+      document.getElementById('class-section').classList.add('hidden');
+      document.getElementById('category-section').classList.add('hidden');
+      document.getElementById('test-list-section').classList.add('hidden');
+      document.getElementById('login-section').classList.remove('hidden');
+      document.getElementById('roll-input').value = '';
+      document.getElementById('pass-input').value = '';
+      document.getElementById('btn-login').disabled = false;
+      document.getElementById('btn-login').textContent = 'પ્રવેશ કરો (Login)';
+    }
+
+    // 2. SELECT CLASS
+    function selectClass(level) {
+      selectedClassLevel = level;
+      document.getElementById('selected-class-title').textContent = `ધોરણ ${level} ભૌતિકવિજ્ઞાન`;
+      document.getElementById('class-section').classList.add('hidden');
+      document.getElementById('category-section').classList.remove('hidden');
+
+      renderCategories();
+    }
+
+    function goBackToClass() {
+      document.getElementById('category-section').classList.add('hidden');
+      document.getElementById('class-section').classList.remove('hidden');
+    }
+
+    // 3. RENDER CATEGORIES
+    function renderCategories() {
+      const container = document.getElementById('category-cards-container');
+      container.innerHTML = '';
+
+      const cats = [
+        { id: 'chapterwise', icon: '📖', title: 'પ્રકરણ વાઇઝ ટેસ્ટ', desc: 'દરેક પ્રકરણ મુજબ પ્રેક્ટિસ ટેસ્ટ' },
+        { id: 'full_test', icon: '📝', title: 'સંપૂર્ણ અભ્યાસક્રમ', desc: 'આખા સિલેબસનો મોક ટેસ્ટ' }
+      ];
+
+      // GUJCET only for Class 12
+      if (selectedClassLevel === 12) {
+        cats.push({ id: 'gujcet', icon: '🎯', title: 'GUJCET Mock Test', desc: 'ગુજકેટ પરીક્ષા પેટર્ન મુજબ' });
+      }
+
+      cats.push({ id: 'neet', icon: '🩺', title: 'NEET Mock Test', desc: 'NEET ફિઝિક્સ સ્પેસિફિક ટેસ્ટ' });
+
+      cats.forEach(c => {
+        const card = document.createElement('div');
+        card.className = 'category-card';
+        card.onclick = () => selectCategory(c.id, c.title);
+        card.innerHTML = `
+          <div class="category-icon">${c.icon}</div>
+          <h3>${c.title}</h3>
+          <p>${c.desc}</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function selectCategory(catId, catTitle) {
+      selectedCategory = catId;
+      document.getElementById('selected-category-title').textContent = `${catTitle} (ધોરણ ${selectedClassLevel})`;
+      document.getElementById('category-section').classList.add('hidden');
+      document.getElementById('test-list-section').classList.remove('hidden');
+
+      renderTestsList();
+    }
+
+    function goBackToCategories() {
+      document.getElementById('test-list-section').classList.add('hidden');
+      document.getElementById('category-section').classList.remove('hidden');
+    }
+
+    // 4. RENDER TESTS LIST
+    async function renderTestsList() {
+      const container = document.getElementById('available-tests-container');
+      container.innerHTML = '<div style="text-align:center; padding:1.5rem; color:#64748b;">ટેસ્ટ શોધી રહ્યા છે...</div>';
+
+      const filteredTests = allTests.filter(t => 
+        (Number(t.class_level) === Number(selectedClassLevel)) && 
+        (t.category === selectedCategory || (!t.category && selectedCategory === 'chapterwise'))
+      );
+
+      if (filteredTests.length === 0) {
+        container.innerHTML = `
+          <div class="card" style="text-align:center; padding:2rem;">
+            <p style="color:var(--text-muted); font-size:1.05rem;">આ કેટેગરીમાં હાલ કોઈ સક્રિય ટેસ્ટ ઉપલબ્ધ નથી.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = '';
+      filteredTests.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'test-item-card';
+        card.innerHTML = `
+          <div>
+            <strong style="font-size:1.05rem; color:#1e293b;">${t.chapter_name || t.test_id}</strong>
+            <div class="test-meta">સમય: ${t.duration_minutes || 60} મિનિટ | ગુણ: 1 MCQ = 1 Mark</div>
+          </div>
+          <button class="btn btn-primary" style="padding:0.5rem 1.15rem; font-size:0.9rem;" onclick="startExam('${t.test_id}')">
+            ટેસ્ટ આપો →
+          </button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // 5. START EXAM
+    async function startExam(testId) {
+      selectedTestId = testId;
+
+      // Check if already given
+      const { data: results } = await supabaseClient
+        .from('results')
+        .select('id')
+        .eq('roll_no', currentStudent.roll_no)
+        .eq('test_id', selectedTestId);
+
+      if (results && results.length > 0) {
+        alert('તમે આ પસંદ કરેલો ટેસ્ટ પહેલેથી જ આપી ચૂક્યા છો!');
+        return;
+      }
+
       try {
-        const { data: tData } = await supabaseClient
-          .from('tests')
-          .select('*')
-          .eq('test_id', selectedTestId)
-          .single();
-        
-        if (tData) {
-          testData = tData;
-          document.getElementById('banner-title').textContent = tData.title;
-          document.getElementById('banner-subtitle').textContent = tData.subtitle;
-          document.getElementById('chapter-display').textContent = tData.chapter_name;
-          timeLeftSeconds = (tData.duration_minutes || 60) * 60;
-        }
+        const { data: tData } = await supabaseClient.from('tests').select('*').eq('test_id', selectedTestId).single();
+        testData = tData;
+        timeLeftSeconds = (tData.duration_minutes || 60) * 60;
 
         const { data: qData, error } = await supabaseClient
           .from('questions')
@@ -748,28 +907,28 @@
           .order('question_number', { ascending: true });
 
         if (error || !qData || qData.length === 0) {
-          alert('આ પસંદ કરેલા ટેસ્ટ માટે કોઈ પ્રશ્નો ઉપલબ્ધ નથી!');
-          document.getElementById('btn-login').disabled = false;
-          document.getElementById('btn-login').textContent = 'પરીક્ષા શરૂ કરો (Start Test)';
+          alert('આ ટેસ્ટ માટે કોઈ પ્રશ્નો ઉપલબ્ધ નથી!');
           return;
         }
 
         questions = qData;
-        
-        document.getElementById('login-section').classList.add('hidden');
+        studentAnswers = {};
+
+        document.getElementById('test-list-section').classList.add('hidden');
         document.getElementById('exam-section').classList.remove('hidden');
+
         document.getElementById('student-display').textContent = currentStudent.student_name;
         document.getElementById('roll-display').textContent = currentStudent.roll_no;
+        document.getElementById('chapter-display').textContent = testData.chapter_name;
 
         initPalette();
         loadQuestion(0);
         startTimer();
       } catch (err) {
-        alert('ડેટા લોડ કરવામાં ભૂલ થઈ: ' + err.message);
+        alert('ટેસ્ટ શરૂ કરવામાં એરર: ' + err.message);
       }
     }
 
-    // 3. TIMER
     function startTimer() {
       updateTimerDisplay();
       timerInterval = setInterval(() => {
@@ -790,7 +949,6 @@
         `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
     }
 
-    // 4. PALETTE
     function initPalette() {
       const palette = document.getElementById('palette');
       palette.innerHTML = '';
@@ -814,7 +972,6 @@
       });
     }
 
-    // 5. QUESTION DISPLAY
     function loadQuestion(index) {
       currentIndex = index;
       const q = questions[currentIndex];
@@ -875,7 +1032,6 @@
       loadQuestion(currentIndex);
     }
 
-    // 6. SUBMISSION
     function submitExamConfirmation() {
       const attemptedCount = Object.keys(studentAnswers).length;
       const confirmed = confirm(`તમે ${questions.length} માંથી ${attemptedCount} પ્રશ્નોના ઉત્તરો આપ્યા છે.\nશું તમે ખરેખર ટેસ્ટ સબમિટ કરવા માંગો છો?`);
@@ -923,7 +1079,7 @@
 
       showResultScreen(totalScore, maxMarks, correctCount, incorrectCount, unattempted);
     }
-    // 7. RESULT & REVIEW SCREEN
+
     function showResultScreen(score, maxMarks, correct, incorrect, unattempted) {
       document.getElementById('exam-section').classList.add('hidden');
       document.getElementById('result-section').classList.remove('hidden');
@@ -961,6 +1117,11 @@
       });
 
       renderMath(solBox);
+    }
+
+    function returnToDashboard() {
+      document.getElementById('result-section').classList.add('hidden');
+      document.getElementById('class-section').classList.remove('hidden');
     }
   </script>
 </body>
