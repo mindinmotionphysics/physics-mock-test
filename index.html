@@ -20,11 +20,7 @@
     :root {
       --primary: #6366f1;
       --primary-dark: #4f46e5;
-      --primary-light: #e0e7ff;
       --accent-mint: #10b981;
-      --accent-peach: #f97316;
-      --accent-pink: #ec4899;
-
       --bg-mesh: radial-gradient(at 0% 0%, #fdf4ff 0px, transparent 50%),
                  radial-gradient(at 100% 0%, #ede9fe 0px, transparent 50%),
                  radial-gradient(at 50% 100%, #eff6ff 0px, transparent 50%),
@@ -38,23 +34,18 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
-    html, body {
-      min-height: 100%;
-    }
-
     body {
       font-family: 'Plus Jakarta Sans', 'Hind Vadodara', sans-serif;
       background: var(--bg-mesh);
       background-attachment: fixed;
       color: var(--text);
       line-height: 1.6;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      min-height: 100vh;
     }
 
-    /* Modern Header */
+    /* Fixed Sticky Header */
     header {
       background: #ffffff;
       border-bottom: 1.5px solid rgba(99, 102, 241, 0.12);
@@ -104,8 +95,6 @@
       font-weight: 700;
       border: 1px solid #c7d2fe;
     }
-
-    /* FIXED LOGO STYLING - FULL VISIBILITY WITHOUT CROPPING */
     .portal-logo-wrap {
       width: 52px;
       height: 52px;
@@ -128,12 +117,12 @@
       border-radius: 50%;
     }
 
-    /* Natural Top-Aligned Content Wrapper */
+    /* TOP ALIGNED WRAPPER (NO AWKWARD CENTER VERTICAL PUSH) */
     .main-wrapper {
       max-width: 1000px;
       width: 100%;
       margin: 0 auto;
-      padding: 1.75rem 1rem 3rem 1rem;
+      padding: 1.25rem 1rem 3rem 1rem;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -145,16 +134,20 @@
       background: var(--card-bg);
       border-radius: var(--radius);
       padding: 1.75rem;
-      box-shadow: 0 12px 30px -6px rgba(99, 102, 241, 0.06), 0 4px 10px -2px rgba(15, 23, 42, 0.03);
+      box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.06), 0 4px 10px -2px rgba(15, 23, 42, 0.03);
       border: 1.5px solid var(--card-border);
-      backdrop-filter: blur(8px);
     }
 
-    /* Login Specific (Centered) */
+    /* Login Box */
+    .login-box-wrapper {
+      width: 100%;
+      padding-top: 2rem;
+      display: flex;
+      justify-content: center;
+    }
     .login-container {
       max-width: 440px;
       width: 100%;
-      margin: auto auto;
       border: 1.5px solid rgba(139, 92, 246, 0.25);
       position: relative;
       overflow: hidden;
@@ -200,7 +193,6 @@
       outline: none;
       background-color: #f8fafc;
       font-family: inherit;
-      transition: all 0.2s ease;
     }
     input:focus {
       border-color: var(--primary);
@@ -229,10 +221,6 @@
       color: #ffffff;
       box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
     }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(79, 70, 229, 0.35);
-    }
     .btn-practice {
       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: #ffffff;
@@ -243,15 +231,11 @@
       border: 1.5px solid #cbd5e1;
       color: #334155;
     }
-    .btn-outline:hover {
-      background: #f1f5f9;
-    }
     .btn-disabled {
       background: #e2e8f0 !important;
       color: #94a3b8 !important;
       cursor: not-allowed !important;
       box-shadow: none !important;
-      transform: none !important;
     }
 
     .dashboard-topbar {
@@ -263,6 +247,7 @@
       border-radius: 16px;
       border: 1.5px solid var(--card-border);
       box-shadow: 0 4px 14px rgba(99, 102, 241, 0.04);
+      margin-bottom: 0.5rem;
     }
 
     /* Class Cards */
@@ -277,11 +262,10 @@
       padding: 2.25rem 1.5rem;
       text-align: center;
       cursor: pointer;
-      overflow: hidden;
-      transition: all 0.25s ease;
       display: flex;
       flex-direction: column;
       align-items: center;
+      transition: all 0.2s;
     }
     .class-card:hover { transform: translateY(-4px); }
     .card-11 {
@@ -338,7 +322,7 @@
       gap: 0.4rem;
     }
 
-    /* Category Grid */
+    /* Category Cards */
     .category-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -350,14 +334,11 @@
       padding: 1.5rem 1.15rem;
       text-align: center;
       cursor: pointer;
-      transition: all 0.2s ease;
       border: 1.5px solid rgba(99, 102, 241, 0.12);
       box-shadow: 0 6px 18px -4px rgba(99, 102, 241, 0.04);
+      transition: all 0.2s;
     }
-    .category-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--primary);
-    }
+    .category-card:hover { transform: translateY(-3px); border-color: var(--primary); }
     .cat-icon-wrap {
       width: 54px;
       height: 54px;
@@ -374,16 +355,14 @@
       color: #1e1b4b;
       margin-bottom: 0.2rem;
     }
-    .category-card p {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
+    .category-card p { font-size: 0.78rem; color: var(--text-muted); }
 
-    /* Test List Cards - Top Aligned */
+    /* Test List Cards - Top Aligned Flow */
     .test-list-grid {
       display: flex;
       flex-direction: column;
-      gap: 1.15rem;
+      gap: 1rem;
+      margin-top: 0.5rem;
     }
     .test-card {
       background: #ffffff;
@@ -393,7 +372,6 @@
       display: flex;
       flex-direction: column;
       gap: 0.85rem;
-      transition: all 0.2s;
       box-shadow: 0 4px 14px rgba(15, 23, 42, 0.03);
     }
     @media (min-width: 650px) {
@@ -416,7 +394,7 @@
     .badge-eval { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
     .badge-open { background: #e0e7ff; color: #4338ca; border: 1px solid #c7d2fe; }
 
-    /* Exam Interface */
+    /* Exam Screen */
     .exam-topbar {
       display: flex;
       justify-content: space-between;
@@ -447,23 +425,9 @@
         align-items: start;
       }
     }
-    .q-number {
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 0.4rem;
-    }
-    .q-text {
-      font-size: 1.15rem;
-      font-weight: 600;
-      margin-bottom: 1.25rem;
-      color: #0f172a;
-    }
-    .options-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
+    .q-number { font-weight: 800; color: var(--primary); margin-bottom: 0.4rem; }
+    .q-text { font-size: 1.15rem; font-weight: 600; margin-bottom: 1.25rem; color: #0f172a; }
+    .options-grid { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; }
     .option-label {
       display: flex;
       align-items: flex-start;
@@ -472,22 +436,13 @@
       border: 1.5px solid #e2e8f0;
       border-radius: 12px;
       cursor: pointer;
-      transition: all 0.2s;
       background: #ffffff;
-    }
-    .option-label:hover {
-      background: #f8fafc;
-      border-color: #a5b4fc;
     }
     .option-label.selected {
       border-color: var(--primary);
       background: #eef2ff;
-      box-shadow: 0 3px 10px rgba(99, 102, 241, 0.1);
     }
-    .palette-box {
-      position: sticky;
-      top: 5rem;
-    }
+    .palette-box { position: sticky; top: 5rem; }
     .palette-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
@@ -505,20 +460,10 @@
       background: #fff;
       font-weight: 700;
       cursor: pointer;
-      font-size: 0.95rem;
     }
-    .palette-btn.active {
-      border: 2px solid var(--primary);
-      color: var(--primary);
-      background: #eef2ff;
-    }
-    .palette-btn.attempted {
-      background: var(--accent-mint);
-      color: #fff;
-      border-color: var(--accent-mint);
-    }
+    .palette-btn.active { border: 2px solid var(--primary); color: var(--primary); background: #eef2ff; }
+    .palette-btn.attempted { background: var(--accent-mint); color: #fff; border-color: var(--accent-mint); }
 
-    /* Result Section */
     .score-circle {
       width: 120px;
       height: 120px;
@@ -534,17 +479,8 @@
       font-weight: 800;
       border: 4px solid var(--primary);
     }
-    .stat-boxes {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    .stat-box {
-      padding: 1rem;
-      border-radius: 12px;
-      text-align: center;
-    }
+    .stat-boxes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    .stat-box { padding: 1rem; border-radius: 12px; text-align: center; }
     .stat-box.correct { background: #dcfce7; color: #15803d; }
     .stat-box.incorrect { background: #fee2e2; color: #b91c1c; }
     .stat-box.unattempted { background: #f1f5f9; color: #475569; }
@@ -564,7 +500,7 @@
 </head>
 <body>
 
-  <!-- Top Navbar Header -->
+  <!-- Header -->
   <header>
     <div class="header-content">
       <div class="header-text-block">
@@ -585,28 +521,30 @@
     </div>
   </header>
 
-  <!-- Vertically Balanced Main Container -->
+  <!-- Content Flow Container (Top Aligned) -->
   <div class="main-wrapper">
     
-    <!-- 1. LOGIN SCREEN -->
-    <div id="login-section" class="card login-container">
-      <h2 class="login-title">વિદ્યાર્થી લોગિન</h2>
-      <p class="login-sub">તમારો રોલ નંબર અને પાસવર્ડ દાખલ કરો.</p>
-      
-      <div id="login-error" style="display:none; color: #dc2626; font-size: 0.9rem; margin-bottom: 1rem; text-align: center; background: #fee2e2; padding: 0.6rem; border-radius: 10px;"></div>
+    <!-- 1. LOGIN -->
+    <div id="login-section" class="login-box-wrapper">
+      <div class="card login-container">
+        <h2 class="login-title">વિદ્યાર્થી લોગિન</h2>
+        <p class="login-sub">તમારો રોલ નંબર અને પાસવર્ડ દાખલ કરો.</p>
+        
+        <div id="login-error" style="display:none; color: #dc2626; font-size: 0.9rem; margin-bottom: 1rem; text-align: center; background: #fee2e2; padding: 0.6rem; border-radius: 10px;"></div>
 
-      <div class="form-group">
-        <label>રોલ નંબર (Roll No)</label>
-        <input type="text" id="roll-input" placeholder="દા.ત. 101" />
+        <div class="form-group">
+          <label>રોલ નંબર (Roll No)</label>
+          <input type="text" id="roll-input" placeholder="દા.ત. 101" />
+        </div>
+        <div class="form-group">
+          <label>પાસવર્ડ (Password)</label>
+          <input type="password" id="pass-input" placeholder="દા.ત. 1234" />
+        </div>
+        <button class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;" id="btn-login" onclick="handleLogin()">પ્રવેશ કરો (Login) 🚀</button>
       </div>
-      <div class="form-group">
-        <label>પાસવર્ડ (Password)</label>
-        <input type="password" id="pass-input" placeholder="દા.ત. 1234" />
-      </div>
-      <button class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;" id="btn-login" onclick="handleLogin()">પ્રવેશ કરો (Login) 🚀</button>
     </div>
 
-    <!-- 2. CLASS SELECTION SCREEN -->
+    <!-- 2. CLASS SELECTION -->
     <div id="class-section" class="hidden">
       <div class="dashboard-topbar">
         <div>
@@ -633,33 +571,33 @@
       </div>
     </div>
 
-    <!-- 3. CATEGORY SELECTION SCREEN -->
+    <!-- 3. CATEGORY SELECTION -->
     <div id="category-section" class="hidden">
       <div class="dashboard-topbar">
         <div>
           <strong id="selected-class-title" style="font-size: 1.05rem; color: #1e1b4b;">ધોરણ ૧૨ ભૌતિકવિજ્ઞાન</strong>
           <div style="font-size: 0.85rem; color: var(--text-muted);">પરીક્ષા કેટેગરી પસંદ કરો:</div>
         </div>
-        <button class="btn btn-outline" style="padding: 0.4rem 0.85rem; font-size: 0.85rem;" onclick="history.back()">← પાછળ</button>
+        <button class="btn btn-outline" style="padding: 0.4rem 0.85rem; font-size: 0.85rem;" onclick="triggerBack()">← પાછળ</button>
       </div>
 
       <div class="category-grid" id="category-cards-container"></div>
     </div>
 
-    <!-- 4. CHAPTERS & TESTS LIST SCREEN -->
+    <!-- 4. CHAPTERS & TESTS LIST -->
     <div id="test-list-section" class="hidden">
       <div class="dashboard-topbar">
         <div>
           <strong id="selected-category-title" style="font-size: 1.05rem; color: #1e1b4b;">મોક ટેસ્ટ લિસ્ટ</strong>
           <div style="font-size: 0.85rem; color: var(--text-muted);">ટેસ્ટ આપવા માટે ઉપલબ્ધતા તપાસો:</div>
         </div>
-        <button class="btn btn-outline" style="padding: 0.4rem 0.85rem; font-size: 0.85rem;" onclick="history.back()">← પાછળ</button>
+        <button class="btn btn-outline" style="padding: 0.4rem 0.85rem; font-size: 0.85rem;" onclick="triggerBack()">← પાછળ</button>
       </div>
 
       <div class="test-list-grid" id="available-tests-container"></div>
     </div>
 
- <!-- 5. EXAM INTERFACE SCREEN -->
+    <!-- 5. EXAM INTERFACE -->
     <div id="exam-section" class="hidden">
       <div class="exam-topbar">
         <div>
@@ -692,7 +630,7 @@
       </div>
     </div>
 
-    <!-- 6. RESULT SCREEN -->
+<!-- 6. RESULT SCREEN -->
     <div id="result-section" class="card hidden">
       <div style="text-align: center; padding: 1.5rem 0;">
         <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: #1e1b4b;">ટેસ્ટ પરિણામ (Test Result)</h2>
@@ -718,7 +656,7 @@
           </div>
         </div>
 
-        <button class="btn btn-primary" onclick="navigate('class-section')">ડેશબોર્ડ પર પાછા જાઓ</button>
+        <button class="btn btn-primary" onclick="goToScreen('class-section')">ડેશબોર્ડ પર પાછા જાઓ</button>
       </div>
 
       <h3 style="margin-bottom: 1rem; border-top: 1.5px solid #e2e8f0; padding-top: 1.5rem; color: #1e1b4b;">સોલ્યુશન અને વિશ્લેષણ (Solution Review)</h3>
@@ -733,7 +671,6 @@
   </footer>
 
   <script>
-    // --- SUPABASE CONFIGURATION ---
     const SUPABASE_URL = 'https://xxccsyjovhqzomfogngu.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh4Y2NzeWpvdmhxem9tZm9nbmd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyOTY1ODEsImV4cCI6MjEwNzg3MjU4MX0.nTMcwd3XFbM5xcUxaXNDCoXhFdjtoV0MHzX5XlwC1xw';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -750,38 +687,57 @@
     let timerInterval = null;
     let timeLeftSeconds = 3600;
 
-    // --- BROWSER HISTORY & MOBILE BACK BUTTON SUPPORT ---
-    function navigate(viewId, pushToHistory = true) {
-      const views = ['login-section', 'class-section', 'category-section', 'test-list-section', 'exam-section', 'result-section'];
-      views.forEach(v => {
-        const el = document.getElementById(v);
+    // --- HARDWARE MOBILE BACK BUTTON TRAP & NAVIGATION ---
+    let screenHistory = ['login-section'];
+
+    function goToScreen(screenId, pushHistory = true) {
+      const allScreens = ['login-section', 'class-section', 'category-section', 'test-list-section', 'exam-section', 'result-section'];
+      allScreens.forEach(id => {
+        const el = document.getElementById(id);
         if (el) el.classList.add('hidden');
       });
-      document.getElementById(viewId).classList.remove('hidden');
 
-      if (pushToHistory) {
-        history.pushState({ view: viewId }, '', '#' + viewId.replace('-section', ''));
+      const target = document.getElementById(screenId);
+      if (target) target.classList.remove('hidden');
+
+      if (pushHistory) {
+        screenHistory.push(screenId);
+        window.history.pushState({ screen: screenId }, '', '#' + screenId.replace('-section', ''));
       }
+      window.scrollTo(0, 0);
     }
 
+    function triggerBack() {
+      window.history.back();
+    }
+
+    // Initialize root state on page load
+    window.addEventListener('load', () => {
+      window.history.replaceState({ screen: 'login-section' }, '', '#login');
+    });
+
     window.addEventListener('popstate', (event) => {
-      if (document.getElementById('exam-section') && !document.getElementById('exam-section').classList.contains('hidden')) {
-        const confirmExit = confirm('પરીક્ષા ચાલુ છે. શું તમે ખરેખર બહાર નીકળવા માંગો છો?');
-        if (!confirmExit) {
-          history.pushState({ view: 'exam-section' }, '', '#exam');
+      // Check if user is inside ongoing exam
+      const examEl = document.getElementById('exam-section');
+      if (examEl && !examEl.classList.contains('hidden')) {
+        const leave = confirm('પરીક્ષા ચાલુ છે. શું તમે ખરેખર બહાર નીકળવા માંગો છો?');
+        if (!leave) {
+          window.history.pushState({ screen: 'exam-section' }, '', '#exam');
           return;
         } else {
           clearInterval(timerInterval);
         }
       }
 
-      if (event.state && event.state.view) {
-        navigate(event.state.view, false);
+      if (screenHistory.length > 1) {
+        screenHistory.pop(); // Remove current
+        const previousScreen = screenHistory[screenHistory.length - 1];
+        goToScreen(previousScreen, false);
       } else {
         if (currentStudent) {
-          navigate('class-section', false);
+          goToScreen('class-section', false);
         } else {
-          navigate('login-section', false);
+          goToScreen('login-section', false);
         }
       }
     });
@@ -835,7 +791,8 @@
         const { data: tList } = await supabaseClient.from('tests').select('*').neq('is_active', false);
         allTests = tList || [];
 
-        navigate('class-section');
+        screenHistory = ['login-section']; // Reset stack
+        goToScreen('class-section');
       } catch (err) {
         errEl.textContent = 'કનેક્શન એરર: ' + err.message;
         errEl.style.display = 'block';
@@ -850,14 +807,15 @@
       document.getElementById('pass-input').value = '';
       document.getElementById('btn-login').disabled = false;
       document.getElementById('btn-login').textContent = 'પ્રવેશ કરો (Login) 🚀';
-      navigate('login-section');
+      screenHistory = ['login-section'];
+      goToScreen('login-section', false);
     }
 
     function selectClass(level) {
       selectedClassLevel = level;
       document.getElementById('selected-class-title').textContent = `ધોરણ ${level} ભૌતિકવિજ્ઞાન`;
       renderCategories();
-      navigate('category-section');
+      goToScreen('category-section');
     }
 
     function renderCategories() {
@@ -892,7 +850,7 @@
       selectedCategory = catId;
       document.getElementById('selected-category-title').textContent = `${catTitle} (ધોરણ ${selectedClassLevel})`;
       renderTestsList();
-      navigate('test-list-section');
+      goToScreen('test-list-section');
     }
 
     // --- RE-ATTEMPT AFTER 12 HOURS + TIME LOGIC ---
@@ -907,8 +865,8 @@
 
       if (filteredTests.length === 0) {
         container.innerHTML = `
-          <div class="card" style="text-align:center; padding:2.5rem;">
-            <p style="color:var(--text-muted); font-size:1.05rem;">આ કેટેગરીમાં હાલ કોઈ સક્રિય ટેસ્ટ ઉપલબ્ધ નથી.</p>
+          <div class="card" style="text-align:center; padding:2rem;">
+            <p style="color:var(--text-muted); font-size:1rem;">આ કેટેગરીમાં હાલ કોઈ સક્રિય ટેસ્ટ ઉપલબ્ધ નથી.</p>
           </div>
         `;
         return;
@@ -927,35 +885,31 @@
       filteredTests.forEach(t => {
         const start = t.start_time ? new Date(t.start_time) : new Date(0);
         const end = t.end_time ? new Date(t.end_time) : new Date(now.getTime() + 86400000);
-        const reopenTime = new Date(end.getTime() + 12 * 60 * 60 * 1000); // 12 Hours later
+        const reopenTime = new Date(end.getTime() + 12 * 60 * 60 * 1000);
 
         let statusHtml = '';
         let buttonHtml = '';
 
         if (now < start) {
-          // તબક્કો ૧: લૉક છે
           const timeStr = start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
           const dateStr = start.toLocaleDateString();
           statusHtml = `<span class="badge-status badge-locked">🔒 લૉક છે</span>`;
           buttonHtml = `<button class="btn btn-disabled" disabled>શરૂ થશે: ${dateStr} ${timeStr}</button>`;
         } else if (now >= start && now <= end) {
-          // તબક્કો ૨: લાઈવ પરીક્ષા વિન્ડો
           if (submittedTestIds.has(t.test_id)) {
-            statusHtml = `<span class="badge-status badge-live">✔ લાઈવ ટેસ્ટ સબમિટ થઈ ગયો</span>`;
-            buttonHtml = `<button class="btn btn-disabled" disabled>ટેસ્ટ પૂર્ણ થયો (મૂલ્યાંકન ચાલુ)</button>`;
+            statusHtml = `<span class="badge-status badge-live">✔ લાઈવ ટેસ્ટ પૂર્ણ થયો</span>`;
+            buttonHtml = `<button class="btn btn-disabled" disabled>સબમિટ થઈ ગયો</button>`;
           } else {
             statusHtml = `<span class="badge-status badge-live">🟢 LIVE પરીક્ષા શરૂ છે</span>`;
             buttonHtml = `<button class="btn btn-primary" onclick="startExam('${t.test_id}', false)">પરીક્ષા આપો 🚀</button>`;
           }
         } else if (now > end && now < reopenTime) {
-          // તબક્કો ૩: ૧૨ કલાક મૂલ્યાંકન લૉક
           const reopenStr = reopenTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
           statusHtml = `<span class="badge-status badge-eval">⏳ મૂલ્યાંકન ચાલુ છે</span>`;
           buttonHtml = `<button class="btn btn-disabled" disabled>રી-ઓપન થશે: ${reopenStr}</button>`;
         } else {
-          // તબક્કો ૪: ૧૨ કલાક પછી પુનઃ પરીક્ષા (Multiple attempts allowed)
-          statusHtml = `<span class="badge-status badge-open">🔓 પ્રેક્ટિસ માટે કાયમ ઉપલબ્ધ</span>`;
-          buttonHtml = `<button class="btn btn-practice" onclick="startExam('${t.test_id}', true)">પુનઃ ટેસ્ટ આપો (Practice) →</button>`;
+          statusHtml = `<span class="badge-status badge-open">🔓 પ્રેક્ટિસ માટે ઉપલબ્ધ</span>`;
+          buttonHtml = `<button class="btn btn-practice" onclick="startExam('${t.test_id}', true)">ટેસ્ટ આપો (Practice) →</button>`;
         }
 
         const card = document.createElement('div');
@@ -997,7 +951,7 @@
         questions = qData;
         studentAnswers = {};
 
-        navigate('exam-section');
+        goToScreen('exam-section');
 
         document.getElementById('student-display').textContent = currentStudent.student_name;
         document.getElementById('roll-display').textContent = currentStudent.roll_no;
@@ -1162,9 +1116,9 @@
       showResultScreen(totalScore, maxMarks, correctCount, incorrectCount, unattempted);
     }
 
-    // 6. RESULT & REVIEW SCREEN
+    // 6. RESULT SCREEN
     function showResultScreen(score, maxMarks, correct, incorrect, unattempted) {
-      navigate('result-section');
+      goToScreen('result-section');
 
       document.getElementById('result-student-info').textContent = 
         `વિદ્યાર્થી: ${currentStudent.student_name} | રોલ નંબર: ${currentStudent.roll_no}`;
