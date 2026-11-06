@@ -5,12 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>MIND IN MOTION PHYSICS - Examination Portal</title>
   
+  <!-- Fonts & Math KaTeX -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Hind+Vadodara:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  
+  <!-- Supabase Client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -18,8 +21,6 @@
       --primary: #6366f1;
       --primary-dark: #4f46e5;
       --accent-mint: #10b981;
-      --bg-mesh: #f8fafc;
-      --card-bg: #ffffff;
       --card-border: rgba(99, 102, 241, 0.16);
       --text: #0f172a;
       --text-muted: #64748b;
@@ -28,7 +29,6 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
-    /* Strictly Native Block Flow - Solves the 50% blank gap permanently */
     html, body {
       background: #f8fafc;
       color: var(--text);
@@ -39,7 +39,7 @@
       width: 100%;
     }
 
-    /* Fixed Clean Header */
+    /* Fixed Sticky Header */
     header {
       background: #ffffff;
       border-bottom: 1.5px solid rgba(99, 102, 241, 0.12);
@@ -84,7 +84,7 @@
       border: 1px solid #c7d2fe;
     }
 
-    /* FIXED LOGO - NO CUTTING OF MIND OR PHYSICS */
+    /* PERFECT CIRCULAR LOGO - NO CROPPING */
     .portal-logo-wrap {
       width: 48px;
       height: 48px;
@@ -106,20 +106,20 @@
       object-fit: contain;
       border-radius: 50%;
       display: block;
-      transform: none !important; /* Disables scaling that cut the logo */
+      transform: none !important;
     }
 
-    /* Top Aligned Flow Container */
+    /* Direct Block Content Wrapper */
     .main-wrapper {
       max-width: 950px;
       width: 100%;
-      margin: 0.85rem auto 3rem auto;
+      margin: 0.85rem auto 2rem auto;
       padding: 0 0.85rem;
       display: block;
     }
 
     .card {
-      background: var(--card-bg);
+      background: #ffffff;
       border-radius: var(--radius);
       padding: 1.25rem;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
@@ -127,7 +127,7 @@
       margin-bottom: 0.85rem;
     }
 
-    /* Login Specific Box */
+    /* Login Form */
     .login-container {
       max-width: 420px;
       margin: 2rem auto;
@@ -157,7 +157,7 @@
       background-color: #ffffff;
     }
 
-    /* Buttons */
+    /* Action Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -171,6 +171,7 @@
       gap: 0.4rem;
       white-space: nowrap;
     }
+    .btn:active { transform: scale(0.98); }
     .btn-primary {
       background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
       color: #ffffff;
@@ -243,7 +244,7 @@
       font-size: 1.5rem;
     }
 
-    /* Test List Cards */
+    /* Test List Items */
     .test-list-grid {
       display: flex;
       flex-direction: column;
@@ -320,12 +321,13 @@
     .stat-box.incorrect { background: #fee2e2; color: #b91c1c; }
     .stat-box.unattempted { background: #f1f5f9; color: #475569; }
 
+    /* Clean Footer */
     footer {
       background: #ffffff;
-      border-top: 1.5px solid rgba(99, 102, 241, 0.1);
-      padding: 1rem;
+      border-top: 1.5px solid rgba(99, 102, 241, 0.12);
+      padding: 1.25rem 1rem;
       text-align: center;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
       margin-top: 3rem;
     }
@@ -356,7 +358,7 @@
     </div>
   </header>
 
-  <!-- Flow Container (Starts directly below header without blank spaces) -->
+  <!-- Flow Container (Direct Top-Aligned) -->
   <div class="main-wrapper">
     
     <!-- 1. LOGIN -->
@@ -411,7 +413,7 @@
           <strong id="selected-class-title" style="font-size:1rem; color:#1e1b4b;">ધોરણ ૧૨</strong>
           <div style="font-size:0.82rem; color:var(--text-muted);">કેટેગરી પસંદ કરો:</div>
         </div>
-        <button class="btn btn-outline" style="padding:0.35rem 0.75rem; font-size:0.82rem;" onclick="history.back()">← પાછળ</button>
+        <button class="btn btn-outline" style="padding:0.35rem 0.75rem; font-size:0.82rem;" onclick="window.history.back()">← પાછળ</button>
       </div>
 
       <div class="category-grid" id="category-cards-container"></div>
@@ -424,7 +426,7 @@
           <strong id="selected-category-title" style="font-size:1rem; color:#1e1b4b;">મોક ટેસ્ટ</strong>
           <div style="font-size:0.82rem; color:var(--text-muted);">ઉપલબ્ધ ટેસ્ટ લિસ્ટ:</div>
         </div>
-        <button class="btn btn-outline" style="padding:0.35rem 0.75rem; font-size:0.82rem;" onclick="history.back()">← પાછળ</button>
+        <button class="btn btn-outline" style="padding:0.35rem 0.75rem; font-size:0.82rem;" onclick="window.history.back()">← પાછળ</button>
       </div>
 
       <div class="test-list-grid" id="available-tests-container"></div>
@@ -487,9 +489,13 @@
 
   </div>
 
+  <!-- Professional Platform Footer -->
   <footer>
-    <strong>MIND IN MOTION PHYSICS</strong> • Examination Portal<br>
-    <span style="font-size: 0.78rem;">GSEB | GUJCET | NEET Physics Preparation</span>
+    <div style="max-width: 950px; margin: 0 auto; line-height: 1.6;">
+      <strong style="color: #1e1b4b; font-size: 0.95rem;">MIND IN MOTION PHYSICS</strong><br>
+      <span>Educational Mock Examination & Online Assessment Portal</span><br>
+      <span style="font-size: 0.75rem; color: #94a3b8;">GSEB Board | GUJCET | NEET Physics Preparation • Created for Student Success</span>
+    </div>
   </footer>
 
   <script>
@@ -509,7 +515,7 @@
     let timerInterval = null;
     let timeLeftSeconds = 3600;
 
-// --- HARDWARE BACK BUTTON NAVIGATION ENGINE ---
+   // --- HARDWARE HASH ROUTING (FIXES MOBILE BACK BUTTON CLOSING) ---
     function navigateTo(viewId, params = {}) {
       if (params.class) selectedClassLevel = params.class;
       if (params.category) selectedCategory = params.category;
@@ -668,7 +674,7 @@
       });
     }
 
-    // 3. TESTS LIST - MULTIPLE RE-ATTEMPT ALLOWED AFTER 12 HOURS
+    // 3. TESTS LIST (PERMANENT MULTIPLE RE-ATTEMPT AFTER 12 HOURS)
     async function renderTestsList() {
       const container = document.getElementById('available-tests-container');
       container.innerHTML = '<div style="text-align:center; padding:1.25rem; color:#64748b;">ટેસ્ટ ચકાસી રહ્યા છે...</div>';
@@ -700,13 +706,13 @@
       filteredTests.forEach(t => {
         const start = t.start_time ? new Date(t.start_time) : new Date(0);
         const end = t.end_time ? new Date(t.end_time) : new Date(now.getTime() + 86400000);
-        const reopenTime = new Date(end.getTime() + 12 * 60 * 60 * 1000);
+        const reopenTime = new Date(end.getTime() + 12 * 60 * 60 * 1000); // 12 Hours later
 
         let statusHtml = '';
         let buttonHtml = '';
 
         if (now < start) {
-          // તબક્કો ૧: લૉક છે
+          // તબક્કો ૧: શરૂ થવાનો બાકી છે (Locked)
           const timeStr = start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
           const dateStr = start.toLocaleDateString();
           statusHtml = `<span class="badge-status badge-locked">🔒 લૉક છે</span>`;
@@ -714,7 +720,7 @@
         } else if (now >= start && now <= end) {
           // તબક્કો ૨: લાઈવ પરીક્ષા વિન્ડો
           if (submittedTestIds.has(t.test_id)) {
-            statusHtml = `<span class="badge-status badge-live">✔ લાઈવ ટેસ્ટ પૂર્ણ થયો</span>`;
+            statusHtml = `<span class="badge-status badge-live">✔ લાઈવ ટેસ્ટ સબમિટ થઈ ગયો</span>`;
             buttonHtml = `<button class="btn btn-disabled" disabled>સબમિટ થઈ ગયો</button>`;
           } else {
             statusHtml = `<span class="badge-status badge-live">🟢 LIVE પરીક્ષા શરૂ છે</span>`;
@@ -726,7 +732,7 @@
           statusHtml = `<span class="badge-status badge-eval">⏳ મૂલ્યાંકન ચાલુ છે</span>`;
           buttonHtml = `<button class="btn btn-disabled" disabled>રી-ઓપન થશે: ${reopenStr}</button>`;
         } else {
-          // તબક્કો ૪: ૧૨ કલાક પછી પુનઃ પરીક્ષા (Multiple attempts allowed)
+          // તબક્કો ૪: ૧૨ કલાક પછી કાયમી પ્રેક્ટિસ મોડ (ગમે તેટલી વાર પુનઃ ટેસ્ટ આપી શકાય)
           statusHtml = `<span class="badge-status badge-open">🔓 પ્રેક્ટિસ માટે કાયમ ઉપલબ્ધ</span>`;
           buttonHtml = `<button class="btn btn-practice" onclick="startExam('${t.test_id}', true)">ટેસ્ટ આપો (Practice) →</button>`;
         }
