@@ -109,7 +109,7 @@
       transform: none !important;
     }
 
-    /* Top Aligned Flow Container */
+    /* Main Container (Top-Aligned) */
     .main-wrapper {
       max-width: 950px;
       width: 100%;
@@ -127,7 +127,7 @@
       margin-bottom: 0.85rem;
     }
 
-    /* Login Form */
+    /* Login Box */
     .login-container {
       max-width: 420px;
       margin: 1.5rem auto;
@@ -244,7 +244,7 @@
       font-size: 1.5rem;
     }
 
-    /* Test List Cards */
+    /* Test List Items */
     .test-list-grid {
       display: flex;
       flex-direction: column;
@@ -321,9 +321,7 @@
     .stat-box.incorrect { background: #fee2e2; color: #b91c1c; }
     .stat-box.unattempted { background: #f1f5f9; color: #475569; }
 
-    /* ================================================================ */
-    /* EXACT PROFESSIONAL MULTI-TIER FOOTER (MATCHING USER SCREENSHOT) */
-    /* ================================================================ */
+    /* Footer Styling Matching User Image */
     .portal-footer {
       background: #ffffff;
       border-top: 1.5px solid #e2e8f0;
@@ -358,7 +356,6 @@
       margin-top: 0.15rem;
     }
 
-    /* Row 1: Category Highlights */
     .footer-nav-row {
       display: flex;
       flex-wrap: wrap;
@@ -382,7 +379,6 @@
     .footer-nav-item:last-child { border-right: none; }
     .footer-nav-item svg { width: 18px; height: 18px; color: #4f46e5; flex-shrink: 0; }
 
-    /* Row 2: 3 Highlight Boxes */
     .footer-features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -414,7 +410,6 @@
     .feat-text h5 { font-size: 0.85rem; font-weight: 800; color: #0f172a; margin-bottom: 0.1rem; }
     .feat-text p { font-size: 0.72rem; color: #64748b; font-weight: 500; }
 
-    /* Row 3: Follow & Contact Bar */
     .footer-connect-bar {
       border-top: 1px solid #f1f5f9;
       padding: 1.2rem 0;
@@ -483,7 +478,6 @@
       background: #eef2ff;
     }
 
-    /* Bottom Copyright Bar */
     .footer-bottom-bar {
       border-top: 1px solid #f1f5f9;
       padding: 1rem 0 1.5rem 0;
@@ -596,7 +590,7 @@
       <div class="category-grid" id="category-cards-container"></div>
     </div>
 
- <!-- 4. TESTS LIST -->
+    <!-- 4. TESTS LIST -->
     <div id="view-tests" class="hidden">
       <div class="top-action-bar">
         <div>
@@ -609,7 +603,7 @@
       <div class="test-list-grid" id="available-tests-container"></div>
     </div>
 
-    <!-- 5. EXAM INTERFACE -->
+<!-- 5. EXAM INTERFACE -->
     <div id="view-exam" class="hidden">
       <div class="exam-topbar">
         <div>
@@ -666,7 +660,7 @@
 
   </div>
 
-  <!-- EXACT PROFESSIONAL FOOTER FROM SCREENSHOT -->
+  <!-- EXACT PROFESSIONAL FOOTER -->
   <footer class="portal-footer">
     <div class="footer-container">
       
@@ -700,7 +694,7 @@
         </div>
       </div>
 
-      <!-- Feature Highlight Boxes -->
+      <!-- Highlight Cards -->
       <div class="footer-features-grid">
         <div class="footer-feat-card">
           <div class="feat-icon-bubble feat-bubble-amber">⚡</div>
@@ -725,7 +719,7 @@
         </div>
       </div>
 
-      <!-- Connect & Contact Bar -->
+      <!-- Social & Contact -->
       <div class="footer-connect-bar">
         <div class="follow-block">
           <span class="follow-title">Follow Us</span>
@@ -832,7 +826,12 @@
         renderTestsList();
         document.getElementById('view-tests').classList.remove('hidden');
       } else if (viewName === 'exam') {
-        document.getElementById('view-exam').classList.remove('hidden');
+        const testIdParam = urlParams.get('test');
+        if (testIdParam && (!testData || testData.test_id !== testIdParam)) {
+          startExam(testIdParam, true);
+        } else {
+          document.getElementById('view-exam').classList.remove('hidden');
+        }
       } else if (viewName === 'result') {
         document.getElementById('view-result').classList.remove('hidden');
       }
@@ -915,7 +914,7 @@
       window.location.hash = 'login';
     }
 
-    // 2. CATEGORIES
+// 2. CATEGORIES
     function renderCategories() {
       const container = document.getElementById('category-cards-container');
       container.innerHTML = '';
@@ -1028,40 +1027,59 @@
       selectedTestId = testId;
 
       try {
-        const { data: tData } = await supabaseClient.from('tests').select('*').eq('test_id', selectedTestId).single();
+        const { data: tData, error: tErr } = await supabaseClient
+          .from('tests')
+          .select('*')
+          .eq('test_id', selectedTestId)
+          .single();
+
+        if (tErr || !tData) {
+          alert('ટેસ્ટની વિગતો મળી શકી નથી!');
+          return;
+        }
+
         testData = tData;
         timeLeftSeconds = (tData.duration_minutes || 60) * 60;
 
-        const { data: qData, error } = await supabaseClient
+        const { data: qData, error: qErr } = await supabaseClient
           .from('questions')
           .select('*')
           .eq('test_id', selectedTestId)
           .order('question_number', { ascending: true });
 
-        if (error || !qData || qData.length === 0) {
-          alert('આ ટેસ્ટ માટે કોઈ પ્રશ્નો ઉપલબ્ધ નથી!');
+        if (qErr || !qData || qData.length === 0) {
+          alert('આ ટેસ્ટ માટે કોઈ પ્રશ્નો ઉપલબ્ધ નથી! કૃપા કરીને Supabase માં questions ટેબલ તપાસો.');
           return;
         }
 
         questions = qData;
         studentAnswers = {};
 
-        // Navigate to exam view
-        navigateTo('view-exam', { test: selectedTestId });
+        // Hide other views & display Exam view
+        const allViews = ['view-login', 'view-classes', 'view-categories', 'view-tests', 'view-exam', 'view-result'];
+        allViews.forEach(v => {
+          const el = document.getElementById(v);
+          if (el) el.classList.add('hidden');
+        });
+        document.getElementById('view-exam').classList.remove('hidden');
 
-        document.getElementById('student-display').textContent = currentStudent.student_name;
-        document.getElementById('roll-display').textContent = currentStudent.roll_no;
-        document.getElementById('chapter-display').textContent = testData.chapter_name + (isPractice ? ' (Practice)' : '');
+        document.getElementById('student-display').textContent = currentStudent ? currentStudent.student_name : 'Student';
+        document.getElementById('roll-display').textContent = currentStudent ? currentStudent.roll_no : '';
+        document.getElementById('chapter-display').textContent = testData.chapter_name + (isPractice ? ' (Practice Mode)' : '');
 
         initPalette();
         loadQuestion(0);
         startTimer();
+
+        // Push clean hash for mobile back button
+        navigateTo('view-exam', { test: selectedTestId });
       } catch (err) {
         alert('ટેસ્ટ શરૂ કરવામાં એરર: ' + err.message);
       }
     }
 
     function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
       updateTimerDisplay();
       timerInterval = setInterval(() => {
         timeLeftSeconds--;
