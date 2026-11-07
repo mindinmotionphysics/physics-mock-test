@@ -40,7 +40,7 @@
     }
 
     /* =========================================
-       PREMIUM AUTH OVERLAY (PURPLE & SLIDING)
+       1. AUTH OVERLAY (PURPLE & FIXED TRANSITIONS)
        ========================================= */
     #auth-overlay {
       position: fixed;
@@ -51,57 +51,49 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 1.5rem 1rem 0 1rem;
-      overflow-y: auto;
+      padding: 2rem 1.25rem 2rem 1.25rem;
+      overflow: hidden;
       transition: opacity 0.4s ease, visibility 0.4s ease;
     }
 
     .auth-overlay-header {
       text-align: center;
       color: #ffffff;
-      margin-top: 1rem;
       z-index: 2;
+      margin-top: 0.5rem;
     }
     .auth-overlay-header h1 {
-      font-size: 1.7rem;
+      font-size: 1.65rem;
       font-weight: 800;
-      letter-spacing: -0.5px;
-      line-height: 1.2;
+      line-height: 1.25;
+      letter-spacing: -0.3px;
     }
     .auth-overlay-header p {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       opacity: 0.9;
-      margin-top: 0.35rem;
+      margin-top: 0.3rem;
       font-weight: 600;
       letter-spacing: 0.5px;
     }
 
-    /* FLOATING CHARACTER ILLUSTRATION */
+    /* DIRECT BIG CHARACTER WITHOUT WHITE CIRCLE */
     .char-stage {
       position: relative;
-      width: 250px;
-      height: 250px;
-      margin: 1.5rem auto;
+      width: 100%;
+      max-width: 320px;
+      height: 270px;
+      margin: auto 0;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 2;
-      flex-shrink: 0;
-    }
-    .char-bg-circle {
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: #f4ecdf;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
     }
     .char-img {
-      position: relative;
-      width: 210px;
-      height: 210px;
+      width: 100%;
+      max-width: 300px;
+      height: 260px;
       object-fit: contain;
-      z-index: 3;
+      filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.2));
       animation: floatSmooth 3.2s ease-in-out infinite;
     }
 
@@ -111,11 +103,10 @@
       100% { transform: translateY(0px); }
     }
 
-    /* INITIAL GET STARTED BUTTON */
+    /* INITIAL GET STARTED BUTTON ONLY */
     #get-started-box {
       width: 100%;
-      max-width: 420px;
-      padding: 1.5rem 1rem 2.5rem 1rem;
+      max-width: 400px;
       text-align: center;
       z-index: 2;
     }
@@ -138,40 +129,46 @@
     }
     .auth-author-tag {
       margin-top: 1rem;
-      font-size: 0.76rem;
-      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.9);
       font-weight: 600;
     }
 
-    /* SLIDING WHITE BOTTOM SHEET */
+    /* SLIDING WHITE BOTTOM SHEETS */
     .sliding-sheet {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
       width: 100%;
       max-width: 440px;
+      margin: 0 auto;
       background: #ffffff;
       border-radius: 28px 28px 0 0;
-      padding: 1.75rem 1.5rem 2rem 1.5rem;
-      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+      padding: 1.5rem 1.5rem 2rem 1.5rem;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.28);
       transform: translateY(105%);
-      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 10;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 100;
+      display: none;
     }
     .sliding-sheet.open {
       transform: translateY(0%);
     }
 
     .sheet-pill-bar {
-      width: 45px;
+      width: 44px;
       height: 4.5px;
       background: #cbd5e1;
       border-radius: 999px;
-      margin: 0 auto 1.25rem auto;
+      margin: 0 auto 1.15rem auto;
     }
 
-    .form-group { margin-bottom: 0.9rem; }
+    .form-group { margin-bottom: 0.85rem; }
     .form-group label {
       display: block;
       font-weight: 700;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       color: #334155;
       margin-bottom: 0.3rem;
     }
@@ -182,14 +179,13 @@
     }
     .input-wrap input {
       width: 100%;
-      padding: 0.8rem 1rem;
+      padding: 0.75rem 1rem;
       border: 1.5px solid #e2e8f0;
-      border-radius: 14px;
-      font-size: 0.95rem;
+      border-radius: 12px;
+      font-size: 0.94rem;
       outline: none;
       background: #f8fafc;
       font-family: inherit;
-      transition: all 0.2s;
     }
     .input-wrap input:focus {
       border-color: #6A62ED;
@@ -208,7 +204,7 @@
 
     .auth-switch-text {
       text-align: center;
-      margin-top: 1rem;
+      margin-top: 0.9rem;
       font-size: 0.84rem;
       color: #64748b;
     }
@@ -219,7 +215,6 @@
       text-decoration: underline;
     }
 
-    /* ERROR / SUCCESS ALERTS */
     .alert-box {
       font-size: 0.82rem;
       padding: 0.55rem 0.75rem;
@@ -233,7 +228,7 @@
     .alert-success { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
 
     /* =========================================
-       MAIN PORTAL STYLES (HEADER, DASHBOARD, EXAM)
+       2. HEADER & LOGO DROPDOWN LOGOUT
        ========================================= */
     header {
       background: #ffffff;
@@ -251,6 +246,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.75rem;
+      position: relative;
     }
     .header-text-block { flex: 1; text-align: left; }
     header h1 {
@@ -279,29 +275,70 @@
       border: 1px solid #c7d2fe;
     }
 
+    /* FULLY FITTED LOGO WRAPPER WITH LOGOUT DROPDOWN */
     .portal-logo-wrap {
       width: 48px;
       height: 48px;
       min-width: 48px;
       border-radius: 50%;
-      border: 2px solid #818cf8;
+      border: 2px solid #6A62ED;
       background: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      padding: 3px;
+      padding: 0;
       flex-shrink: 0;
-      box-shadow: 0 2px 8px rgba(106, 98, 237, 0.15);
+      box-shadow: 0 2px 8px rgba(106, 98, 237, 0.2);
+      cursor: pointer;
+      position: relative;
     }
     .portal-logo {
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      border-radius: 50%;
+      object-fit: cover;
       display: block;
+      border-radius: 50%;
     }
 
+    /* LOGO CLICK DROPDOWN MENU */
+    #user-dropdown-menu {
+      position: absolute;
+      top: 56px;
+      right: 0;
+      background: #ffffff;
+      border: 1.5px solid var(--card-border);
+      border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+      padding: 0.85rem 1rem;
+      min-width: 210px;
+      z-index: 1000;
+      display: none;
+      animation: fadeInDown 0.2s ease;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .dropdown-user-name { font-size: 0.9rem; font-weight: 800; color: #1e1b4b; }
+    .dropdown-user-id { font-size: 0.78rem; color: #64748b; margin-bottom: 0.65rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.5rem; }
+    .dropdown-logout-btn {
+      width: 100%;
+      background: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fca5a5;
+      padding: 0.45rem 0.75rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      text-align: center;
+    }
+    .dropdown-logout-btn:hover { background: #fecaca; }
+
+    /* =========================================
+       3. PORTAL CORE VIEWS
+       ========================================= */
     .main-wrapper {
       max-width: 950px;
       width: 100%;
@@ -309,7 +346,6 @@
       padding: 0 0.85rem;
       display: block;
     }
-
     .card {
       background: #ffffff;
       border-radius: var(--radius);
@@ -593,20 +629,19 @@
 </head>
 <body>
 
-  <!-- =========================================
+   <!-- =========================================
        1. AUTH OVERLAY (FULL SCREEN PURPLE #6A62ED)
        ========================================= -->
   <div id="auth-overlay">
     
     <!-- Top Brand Header -->
     <div class="auth-overlay-header">
-      <h1 id="auth-top-title">તમારા લક્ષ્યો માટે<br>અભ્યાસ કરો!</h1>
-      <p id="auth-top-sub">MIND IN MOTION PHYSICS • MOCK TEST SERIES</p>
+      <h1>તમારા લક્ષ્યો માટે<br>અભ્યાસ કરો!</h1>
+      <p>MIND IN MOTION PHYSICS • MOCK TEST SERIES</p>
     </div>
 
-    <!-- Floating Character Stage -->
+    <!-- Floating Character (Direct PNG on Purple, No White Circle) -->
     <div class="char-stage">
-      <div class="char-bg-circle"></div>
       <img 
         src="https://lh3.googleusercontent.com/d/1DRWyUhxAtNUJjMmU7RPvOvmtsN_09Kn7" 
         alt="Physics Student Character" 
@@ -615,13 +650,13 @@
       />
     </div>
 
-    <!-- State A: Initial Get Started Button -->
+    <!-- Step 1: Get Started Button Only -->
     <div id="get-started-box">
       <button class="btn-yellow-cta" onclick="openLoginSheet()">અભ્યાસ શરૂ કરો (Let's Start) 🚀</button>
       <div class="auth-author-tag">Created by Vasim Luhar (M.Sc. Physics, B.Ed.)</div>
     </div>
 
-<!-- State B: Sliding White Sheet for Login -->
+    <!-- Step 2: Sliding Login Sheet (Hidden by Default) -->
     <div id="sheet-login" class="sliding-sheet">
       <div class="sheet-pill-bar"></div>
       <h3 style="font-size:1.25rem; font-weight:800; color:#1e1b4b; text-align:center; margin-bottom:0.25rem;">વિદ્યાર્થી પ્રવેશ (Login)</h3>
@@ -652,8 +687,8 @@
       </div>
     </div>
 
-    <!-- State C: Sliding White Sheet for Registration -->
-    <div id="sheet-register" class="sliding-sheet hidden">
+    <!-- Step 3: Sliding Registration Sheet (Hidden by Default) -->
+    <div id="sheet-register" class="sliding-sheet">
       <div class="sheet-pill-bar"></div>
       <h3 style="font-size:1.25rem; font-weight:800; color:#1e1b4b; text-align:center; margin-bottom:0.25rem;">નવી નોંધણી (Sign Up)</h3>
       <p style="font-size:0.8rem; color:#64748b; text-align:center; margin-bottom:1rem;">પોર્ટલ માટે એકાઉન્ટ બનાવો</p>
@@ -700,7 +735,7 @@
   </div>
 
   <!-- =========================================
-       2. MAIN APP PORTAL (STICKY HEADER)
+       2. MAIN APP PORTAL (HEADER & DROPDOWN)
        ========================================= -->
   <header>
     <div class="header-content">
@@ -711,13 +746,22 @@
           <span class="creator-tag">Created by Vasim Luhar (M.Sc. Physics, B.Ed.)</span>
         </div>
       </div>
-      <div class="portal-logo-wrap">
+
+      <!-- Fitted Logo with Click-to-Logout Menu -->
+      <div class="portal-logo-wrap" onclick="toggleUserDropdown(event)" title="પ્રોફાઇલ અને લોગઆઉટ">
         <img 
           src="https://lh3.googleusercontent.com/d/1eCSReKlV_fPkLyw5VBPuB0h6WRoainYN" 
           alt="Logo" 
           class="portal-logo"
           onerror="this.src='https://drive.google.com/thumbnail?id=1eCSReKlV_fPkLyw5VBPuB0h6WRoainYN&sz=w200'"
         />
+      </div>
+
+      <!-- Dropdown Card -->
+      <div id="user-dropdown-menu">
+        <div class="dropdown-user-name" id="drop-student-name">Student Name</div>
+        <div class="dropdown-user-id" id="drop-student-id">ID: 101</div>
+        <button class="dropdown-logout-btn" onclick="logout()">લોગઆઉટ (Log Out)</button>
       </div>
     </div>
   </header>
@@ -751,7 +795,7 @@
       </div>
     </div>
 
-    <!-- CATEGORY SELECTION -->
+<!-- CATEGORY SELECTION -->
     <div id="view-categories" class="hidden">
       <div class="top-action-bar">
         <div>
@@ -834,8 +878,8 @@
 
   </div>
 
-  <!-- MULTI-TIER FOOTER -->
-  <footer class="portal-footer">
+  <!-- MULTI-TIER FOOTER (CONTROLLED BY JS ID) -->
+  <footer id="portal-footer" class="portal-footer">
     <div class="footer-container">
       
       <div class="footer-heading-block">
@@ -947,36 +991,42 @@
     let timerInterval = null;
     let timeLeftSeconds = 3600;
 
-    // --- SHEET & AUTH CONTROLLER ---
+    // --- STEP-BY-STEP AUTH SHEETS TRANSITIONS ---
     function openLoginSheet() {
-      document.getElementById('get-started-box').classList.add('hidden');
-      document.getElementById('sheet-register').classList.add('hidden');
-      document.getElementById('sheet-login').classList.remove('hidden');
+      document.getElementById('get-started-box').style.display = 'none';
+      const sheet = document.getElementById('sheet-login');
+      sheet.style.display = 'block';
       setTimeout(() => {
-        document.getElementById('sheet-login').classList.add('open');
-      }, 20);
+        sheet.classList.add('open');
+      }, 10);
     }
 
     function switchToRegisterSheet() {
-      document.getElementById('sheet-login').classList.remove('open');
+      const loginSheet = document.getElementById('sheet-login');
+      const regSheet = document.getElementById('sheet-register');
+      
+      loginSheet.classList.remove('open');
       setTimeout(() => {
-        document.getElementById('sheet-login').classList.add('hidden');
-        document.getElementById('sheet-register').classList.remove('hidden');
+        loginSheet.style.display = 'none';
+        regSheet.style.display = 'block';
         setTimeout(() => {
-          document.getElementById('sheet-register').classList.add('open');
-        }, 20);
-      }, 300);
+          regSheet.classList.add('open');
+        }, 10);
+      }, 350);
     }
 
     function switchToLoginSheet() {
-      document.getElementById('sheet-register').classList.remove('open');
+      const loginSheet = document.getElementById('sheet-login');
+      const regSheet = document.getElementById('sheet-register');
+      
+      regSheet.classList.remove('open');
       setTimeout(() => {
-        document.getElementById('sheet-register').classList.add('hidden');
-        document.getElementById('sheet-login').classList.remove('hidden');
+        regSheet.style.display = 'none';
+        loginSheet.style.display = 'block';
         setTimeout(() => {
-          document.getElementById('sheet-login').classList.add('open');
-        }, 20);
-      }, 300);
+          loginSheet.classList.add('open');
+        }, 10);
+      }, 350);
     }
 
     function togglePassVisibility(inputId, btn) {
@@ -990,7 +1040,20 @@
       }
     }
 
-    // --- ACCURATE HASH ROUTER ---
+    // --- LOGO DROPDOWN & LOGOUT ---
+    function toggleUserDropdown(event) {
+      event.stopPropagation();
+      if (!currentStudent) return;
+      const menu = document.getElementById('user-dropdown-menu');
+      menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+    }
+
+    window.addEventListener('click', () => {
+      const menu = document.getElementById('user-dropdown-menu');
+      if (menu) menu.style.display = 'none';
+    });
+
+    // --- ACCURATE ROUTER & EXAM FOOTER CONTROLLER ---
     function navigateTo(viewId, params = {}) {
       if (params.class) selectedClassLevel = params.class;
       if (params.category) selectedCategory = params.category;
@@ -1025,6 +1088,16 @@
 
       if (viewName !== 'exam' && timerInterval) {
         clearInterval(timerInterval);
+      }
+
+      // FOOTER CONTROLLER: Hide footer specifically during examination view
+      const footerEl = document.getElementById('portal-footer');
+      if (footerEl) {
+        if (viewName === 'exam') {
+          footerEl.classList.add('hidden');
+        } else {
+          footerEl.classList.remove('hidden');
+        }
       }
 
       const authOverlay = document.getElementById('auth-overlay');
@@ -1062,9 +1135,28 @@
     }
 
     window.addEventListener('hashchange', renderScreenFromHash);
+    window.addEventListener('load', renderScreenFromHash);
 
-    window.addEventListener('load', () => {
-      renderScreenFromHash();
+    // --- ACCIDENTAL EXIT & BACK BUTTON PREVENTION DURING EXAM ---
+    window.addEventListener('beforeunload', (e) => {
+      if (window.location.hash.includes('exam')) {
+        e.preventDefault();
+        e.returnValue = 'પરીક્ષા ચાલુ છે! શું તમે ખરેખર બહાર નીકળવા માંગો છો?';
+      }
+    });
+
+    window.addEventListener('popstate', (e) => {
+      const examView = document.getElementById('view-exam');
+      if (testData && examView && !examView.classList.contains('hidden')) {
+        const confirmLeave = confirm("⚠️ ચેતવણી!\n\nતમારી પરીક્ષા ચાલુ છે. જો તમે પાછા જશો તો તમારો સમય અને જવાબો ગુમાવી શકો છો.\n\nશું તમે ખરેખર પરીક્ષા છોડવા માંગો છો?");
+        if (!confirmLeave) {
+          // Push state back to prevent navigation away
+          history.pushState(null, null, window.location.href);
+        } else {
+          // Student explicitly chooses to quit test
+          clearInterval(timerInterval);
+        }
+      }
     });
 
     function renderMath(targetElement) {
@@ -1190,6 +1282,10 @@
 
         currentStudent = student;
         document.getElementById('user-greeting').textContent = `નમસ્તે, ${student.student_name}! (${student.roll_no})`;
+        
+        // Update logo dropdown info
+        document.getElementById('drop-student-name').textContent = student.student_name;
+        document.getElementById('drop-student-id').textContent = `ID: ${student.roll_no}`;
 
         const { data: tList } = await supabaseClient.from('tests').select('*').neq('is_active', false);
         allTests = tList || [];
@@ -1211,15 +1307,15 @@
       document.getElementById('btn-login-action').disabled = false;
       document.getElementById('btn-login-action').textContent = 'લૉગિન કરો 🚀';
       document.getElementById('login-success').style.display = 'none';
+      document.getElementById('user-dropdown-menu').style.display = 'none';
 
-      // Reset bottom sheets
-      document.getElementById('sheet-login').classList.remove('open');
-      document.getElementById('sheet-register').classList.remove('open');
-      setTimeout(() => {
-        document.getElementById('sheet-login').classList.add('hidden');
-        document.getElementById('sheet-register').classList.add('hidden');
-        document.getElementById('get-started-box').classList.remove('hidden');
-      }, 300);
+      const loginSheet = document.getElementById('sheet-login');
+      const regSheet = document.getElementById('sheet-register');
+      loginSheet.classList.remove('open');
+      regSheet.classList.remove('open');
+      loginSheet.style.display = 'none';
+      regSheet.style.display = 'none';
+      document.getElementById('get-started-box').style.display = 'block';
 
       window.location.hash = 'login';
       renderScreenFromHash();
@@ -1373,6 +1469,10 @@
         });
         document.getElementById('view-exam').classList.remove('hidden');
 
+        // Hide footer immediately when exam starts
+        const footerEl = document.getElementById('portal-footer');
+        if (footerEl) footerEl.classList.add('hidden');
+
         document.getElementById('student-display').textContent = currentStudent ? currentStudent.student_name : 'Student';
         document.getElementById('roll-display').textContent = currentStudent ? currentStudent.roll_no : '';
         document.getElementById('chapter-display').textContent = testData.chapter_name + (isPractice ? ' (Practice Mode)' : '');
@@ -1380,6 +1480,9 @@
         initPalette();
         loadQuestion(0);
         startTimer();
+
+        // Lock history state to catch Android Back Button
+        history.pushState(null, null, window.location.href);
 
         navigateTo('view-exam', { test: selectedTestId });
       } catch (err) {
