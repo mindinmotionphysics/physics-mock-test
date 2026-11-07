@@ -6,7 +6,7 @@
   <title>MIND IN MOTION PHYSICS - Examination Portal</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Hind+Vadodara:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
@@ -40,7 +40,7 @@
     }
 
     /* =========================================
-       1. AUTH OVERLAY (PURPLE & FIXED TRANSITIONS)
+       1. AUTH OVERLAY
        ========================================= */
     #auth-overlay {
       position: fixed;
@@ -51,7 +51,7 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 2rem 1.25rem 2rem 1.25rem;
+      padding: 2rem 1.25rem;
       overflow: hidden;
       transition: opacity 0.4s ease, visibility 0.4s ease;
     }
@@ -76,7 +76,6 @@
       letter-spacing: 0.5px;
     }
 
-    /* DIRECT BIG CHARACTER WITHOUT WHITE CIRCLE */
     .char-stage {
       position: relative;
       width: 100%;
@@ -103,7 +102,6 @@
       100% { transform: translateY(0px); }
     }
 
-    /* INITIAL GET STARTED BUTTON ONLY */
     #get-started-box {
       width: 100%;
       max-width: 400px;
@@ -134,7 +132,6 @@
       font-weight: 600;
     }
 
-    /* SLIDING WHITE BOTTOM SHEETS */
     .sliding-sheet {
       position: fixed;
       bottom: 0;
@@ -228,7 +225,7 @@
     .alert-success { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
 
     /* =========================================
-       2. HEADER & LOGO DROPDOWN LOGOUT
+       2. HEADER & PROFESSIONAL LOGO (NO BORDER)
        ========================================= */
     header {
       background: #ffffff;
@@ -275,23 +272,27 @@
       border: 1px solid #c7d2fe;
     }
 
-    /* FULLY FITTED LOGO WRAPPER WITH LOGOUT DROPDOWN */
+    /* BORDERLESS, PROFESSIONAL CIRCLE LOGO */
     .portal-logo-wrap {
-      width: 48px;
-      height: 48px;
-      min-width: 48px;
+      width: 50px;
+      height: 50px;
+      min-width: 50px;
       border-radius: 50%;
-      border: 2px solid #6A62ED;
-      background: #ffffff;
+      border: none; /* No outer blue ring */
+      background: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
       padding: 0;
       flex-shrink: 0;
-      box-shadow: 0 2px 8px rgba(106, 98, 237, 0.2);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
       cursor: pointer;
       position: relative;
+      transition: transform 0.2s ease;
+    }
+    .portal-logo-wrap:hover {
+      transform: scale(1.04);
     }
     .portal-logo {
       width: 100%;
@@ -301,10 +302,10 @@
       border-radius: 50%;
     }
 
-    /* LOGO CLICK DROPDOWN MENU */
+    /* LOGOUT DROPDOWN */
     #user-dropdown-menu {
       position: absolute;
-      top: 56px;
+      top: 60px;
       right: 0;
       background: #ffffff;
       border: 1.5px solid var(--card-border);
@@ -327,7 +328,7 @@
       background: #fee2e2;
       color: #dc2626;
       border: 1px solid #fca5a5;
-      padding: 0.45rem 0.75rem;
+      padding: 0.5rem 0.75rem;
       border-radius: 8px;
       font-weight: 700;
       font-size: 0.82rem;
@@ -472,8 +473,9 @@
       border-radius: 12px; margin-bottom: 0.75rem;
     }
     .timer {
-      font-size: 1.1rem; font-weight: 800; color: #b91c1c;
-      background: #fee2e2; padding: 0.2rem 0.65rem; border-radius: 6px;
+      font-size: 1.15rem; font-weight: 800; color: #b91c1c;
+      background: #fee2e2; padding: 0.25rem 0.75rem; border-radius: 8px;
+      letter-spacing: 1px;
     }
     .exam-grid { display: grid; grid-template-columns: 1fr; gap: 0.85rem; }
     @media (min-width: 768px) { .exam-grid { grid-template-columns: 2fr 1fr; } }
@@ -630,17 +632,14 @@
 <body>
 
    <!-- =========================================
-       1. AUTH OVERLAY (FULL SCREEN PURPLE #6A62ED)
+       1. AUTH OVERLAY
        ========================================= -->
   <div id="auth-overlay">
-    
-    <!-- Top Brand Header -->
     <div class="auth-overlay-header">
       <h1>તમારા લક્ષ્યો માટે<br>અભ્યાસ કરો!</h1>
       <p>MIND IN MOTION PHYSICS • MOCK TEST SERIES</p>
     </div>
 
-    <!-- Floating Character (Direct PNG on Purple, No White Circle) -->
     <div class="char-stage">
       <img 
         src="https://lh3.googleusercontent.com/d/1DRWyUhxAtNUJjMmU7RPvOvmtsN_09Kn7" 
@@ -650,13 +649,12 @@
       />
     </div>
 
-    <!-- Step 1: Get Started Button Only -->
     <div id="get-started-box">
       <button class="btn-yellow-cta" onclick="openLoginSheet()">અભ્યાસ શરૂ કરો (Let's Start) 🚀</button>
       <div class="auth-author-tag">Created by Vasim Luhar (M.Sc. Physics, B.Ed.)</div>
     </div>
 
-    <!-- Step 2: Sliding Login Sheet (Hidden by Default) -->
+    <!-- Sliding Login Sheet -->
     <div id="sheet-login" class="sliding-sheet">
       <div class="sheet-pill-bar"></div>
       <h3 style="font-size:1.25rem; font-weight:800; color:#1e1b4b; text-align:center; margin-bottom:0.25rem;">વિદ્યાર્થી પ્રવેશ (Login)</h3>
@@ -687,7 +685,7 @@
       </div>
     </div>
 
-    <!-- Step 3: Sliding Registration Sheet (Hidden by Default) -->
+    <!-- Sliding Registration Sheet -->
     <div id="sheet-register" class="sliding-sheet">
       <div class="sheet-pill-bar"></div>
       <h3 style="font-size:1.25rem; font-weight:800; color:#1e1b4b; text-align:center; margin-bottom:0.25rem;">નવી નોંધણી (Sign Up)</h3>
@@ -731,11 +729,10 @@
         પહેલેથી એકાઉન્ટ છે? <span onclick="switchToLoginSheet()">અહીં લૉગિન કરો</span>
       </div>
     </div>
-
   </div>
 
   <!-- =========================================
-       2. MAIN APP PORTAL (HEADER & DROPDOWN)
+       2. MAIN APP PORTAL (HEADER & BORDERLESS LOGO)
        ========================================= -->
   <header>
     <div class="header-content">
@@ -747,13 +744,13 @@
         </div>
       </div>
 
-      <!-- Fitted Logo with Click-to-Logout Menu -->
+      <!-- NEW CLEAN BORDERLESS LOGO WITH DROPDOWN -->
       <div class="portal-logo-wrap" onclick="toggleUserDropdown(event)" title="પ્રોફાઇલ અને લોગઆઉટ">
         <img 
-          src="https://lh3.googleusercontent.com/d/1eCSReKlV_fPkLyw5VBPuB0h6WRoainYN" 
-          alt="Logo" 
+          src="https://lh3.googleusercontent.com/d/1dqyqGTUs6_H5lA-Ovhf3QgfwheVb3pHw" 
+          alt="Mind In Motion Physics Logo" 
           class="portal-logo"
-          onerror="this.src='https://drive.google.com/thumbnail?id=1eCSReKlV_fPkLyw5VBPuB0h6WRoainYN&sz=w200'"
+          onerror="this.src='https://drive.google.com/thumbnail?id=1dqyqGTUs6_H5lA-Ovhf3QgfwheVb3pHw&sz=w200'"
         />
       </div>
 
@@ -768,14 +765,13 @@
 
   <div class="main-wrapper">
     
-    <!-- CLASS SELECTION -->
+    <!-- CLASS SELECTION (REDUNDANT LOGOUT BUTTON PERMANENTLY REMOVED) -->
     <div id="view-classes" class="hidden">
       <div class="top-action-bar">
         <div>
-          <strong id="user-greeting" style="font-size:1rem; color:#1e1b4b;">નમસ્તે!</strong>
+          <strong id="user-greeting" style="font-size:1.05rem; color:#1e1b4b;">નમસ્તે!</strong>
           <div style="font-size:0.82rem; color:var(--text-muted);">ધોરણ પસંદ કરો:</div>
         </div>
-        <button class="btn btn-outline" style="padding:0.35rem 0.75rem; font-size:0.82rem;" onclick="logout()">લોગઆઉટ</button>
       </div>
 
       <div class="class-grid">
@@ -795,7 +791,7 @@
       </div>
     </div>
 
-<!-- CATEGORY SELECTION -->
+    <!-- CATEGORY SELECTION -->
     <div id="view-categories" class="hidden">
       <div class="top-action-bar">
         <div>
@@ -828,7 +824,7 @@
           <strong id="student-display" style="color:#1e1b4b;">Student</strong> | ID: <span id="roll-display"></span>
           <div style="font-size:0.82rem; color:var(--text-muted);" id="chapter-display">Test</div>
         </div>
-        <div class="timer" id="timer-box">60:00</div>
+        <div class="timer" id="timer-box">20:00</div>
       </div>
 
       <div class="exam-grid">
@@ -878,10 +874,9 @@
 
   </div>
 
-  <!-- MULTI-TIER FOOTER (CONTROLLED BY JS ID) -->
+    <!-- MULTI-TIER FOOTER -->
   <footer id="portal-footer" class="portal-footer">
     <div class="footer-container">
-      
       <div class="footer-heading-block">
         <h4 class="footer-brand-title">MIND IN MOTION PHYSICS</h4>
         <div class="footer-brand-desc">Educational Mock Examination & Online Assessment Portal</div>
@@ -970,7 +965,6 @@
           <a href="#contact">Contact</a>
         </div>
       </div>
-
     </div>
   </footer>
 
@@ -989,43 +983,35 @@
     let currentIndex = 0;
     let studentAnswers = {};
     let timerInterval = null;
-    let timeLeftSeconds = 3600;
+    let timeLeftSeconds = 1200; // 20 mins default
 
-    // --- STEP-BY-STEP AUTH SHEETS TRANSITIONS ---
+    // --- STEP-BY-STEP AUTH SHEETS ---
     function openLoginSheet() {
       document.getElementById('get-started-box').style.display = 'none';
       const sheet = document.getElementById('sheet-login');
       sheet.style.display = 'block';
-      setTimeout(() => {
-        sheet.classList.add('open');
-      }, 10);
+      setTimeout(() => { sheet.classList.add('open'); }, 10);
     }
 
     function switchToRegisterSheet() {
       const loginSheet = document.getElementById('sheet-login');
       const regSheet = document.getElementById('sheet-register');
-      
       loginSheet.classList.remove('open');
       setTimeout(() => {
         loginSheet.style.display = 'none';
         regSheet.style.display = 'block';
-        setTimeout(() => {
-          regSheet.classList.add('open');
-        }, 10);
+        setTimeout(() => { regSheet.classList.add('open'); }, 10);
       }, 350);
     }
 
     function switchToLoginSheet() {
       const loginSheet = document.getElementById('sheet-login');
       const regSheet = document.getElementById('sheet-register');
-      
       regSheet.classList.remove('open');
       setTimeout(() => {
         regSheet.style.display = 'none';
         loginSheet.style.display = 'block';
-        setTimeout(() => {
-          loginSheet.classList.add('open');
-        }, 10);
+        setTimeout(() => { loginSheet.classList.add('open'); }, 10);
       }, 350);
     }
 
@@ -1053,7 +1039,7 @@
       if (menu) menu.style.display = 'none';
     });
 
-    // --- ACCURATE ROUTER & EXAM FOOTER CONTROLLER ---
+    // --- ROUTER & CONDITIONAL FOOTER ---
     function navigateTo(viewId, params = {}) {
       if (params.class) selectedClassLevel = params.class;
       if (params.category) selectedCategory = params.category;
@@ -1086,11 +1072,13 @@
         if (el) el.classList.add('hidden');
       });
 
+      // Clear timer if exiting exam
       if (viewName !== 'exam' && timerInterval) {
         clearInterval(timerInterval);
+        timerInterval = null;
       }
 
-      // FOOTER CONTROLLER: Hide footer specifically during examination view
+      // HIDE FOOTER ON EXAM VIEW ONLY
       const footerEl = document.getElementById('portal-footer');
       if (footerEl) {
         if (viewName === 'exam') {
@@ -1137,9 +1125,10 @@
     window.addEventListener('hashchange', renderScreenFromHash);
     window.addEventListener('load', renderScreenFromHash);
 
-    // --- ACCIDENTAL EXIT & BACK BUTTON PREVENTION DURING EXAM ---
+    // --- ACCIDENTAL EXIT WARNING: EXAM ONLY (FIXED) ---
     window.addEventListener('beforeunload', (e) => {
-      if (window.location.hash.includes('exam')) {
+      const examView = document.getElementById('view-exam');
+      if (examView && !examView.classList.contains('hidden') && window.location.hash.includes('exam')) {
         e.preventDefault();
         e.returnValue = 'પરીક્ષા ચાલુ છે! શું તમે ખરેખર બહાર નીકળવા માંગો છો?';
       }
@@ -1147,14 +1136,14 @@
 
     window.addEventListener('popstate', (e) => {
       const examView = document.getElementById('view-exam');
-      if (testData && examView && !examView.classList.contains('hidden')) {
+      // Strictly trigger only when the exam screen is active
+      if (examView && !examView.classList.contains('hidden')) {
         const confirmLeave = confirm("⚠️ ચેતવણી!\n\nતમારી પરીક્ષા ચાલુ છે. જો તમે પાછા જશો તો તમારો સમય અને જવાબો ગુમાવી શકો છો.\n\nશું તમે ખરેખર પરીક્ષા છોડવા માંગો છો?");
         if (!confirmLeave) {
-          // Push state back to prevent navigation away
           history.pushState(null, null, window.location.href);
         } else {
-          // Student explicitly chooses to quit test
           clearInterval(timerInterval);
+          timerInterval = null;
         }
       }
     });
@@ -1354,7 +1343,7 @@
       });
     }
 
-    // --- TESTS LIST ---
+    // --- TESTS LIST (AUTOMATIC SUPABASE MAPPING) ---
     async function renderTestsList() {
       const container = document.getElementById('available-tests-container');
       container.innerHTML = '<div style="text-align:center; padding:1.25rem; color:#64748b;">ટેસ્ટ ચકાસી રહ્યા છે...</div>';
@@ -1420,7 +1409,7 @@
             ${statusHtml}
             <h4 style="font-size:1.1rem; color:#1e1b4b; margin-top:0.15rem;">${t.chapter_name || t.test_id}</h4>
             <div style="font-size:0.82rem; color:var(--text-muted); margin-top:0.15rem;">
-              સમય: ${t.duration_minutes || 60} મિનિટ | ગુણ: 1 MCQ = 1 Mark
+              સમય: ${t.duration_minutes || 20} મિનિટ | ગુણ: 1 MCQ = 1 Mark
             </div>
           </div>
           <div>${buttonHtml}</div>
@@ -1429,7 +1418,7 @@
       });
     }
 
-    // --- EXAM ENGINE ---
+    // --- EXAM ENGINE & LIVE ACCURATE TIMER ---
     async function startExam(testId, isPractice = false) {
       selectedTestId = testId;
 
@@ -1446,7 +1435,8 @@
         }
 
         testData = tData;
-        timeLeftSeconds = (tData.duration_minutes || 60) * 60;
+        const dur = parseInt(tData.duration_minutes, 10);
+        timeLeftSeconds = (!isNaN(dur) && dur > 0) ? dur * 60 : 1200; // Accurate seconds initialization
 
         const { data: qData, error: qErr } = await supabaseClient
           .from('questions')
@@ -1481,7 +1471,7 @@
         loadQuestion(0);
         startTimer();
 
-        // Lock history state to catch Android Back Button
+        // Push state for Android back intercept
         history.pushState(null, null, window.location.href);
 
         navigateTo('view-exam', { test: selectedTestId });
@@ -1493,11 +1483,14 @@
     function startTimer() {
       if (timerInterval) clearInterval(timerInterval);
       updateTimerDisplay();
+
       timerInterval = setInterval(() => {
         timeLeftSeconds--;
         updateTimerDisplay();
+
         if (timeLeftSeconds <= 0) {
           clearInterval(timerInterval);
+          timerInterval = null;
           alert('સમય સમાપ્ત થયો! ટેસ્ટ આપમેળે સબમિટ થઈ રહ્યો છે.');
           submitExam();
         }
@@ -1505,10 +1498,13 @@
     }
 
     function updateTimerDisplay() {
-      const min = Math.floor(timeLeftSeconds / 60);
-      const sec = timeLeftSeconds % 60;
-      document.getElementById('timer-box').textContent = 
-        `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+      const safeTime = Math.max(0, timeLeftSeconds);
+      const min = Math.floor(safeTime / 60);
+      const sec = safeTime % 60;
+      const el = document.getElementById('timer-box');
+      if (el) {
+        el.textContent = `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+      }
     }
 
     function initPalette() {
@@ -1601,7 +1597,10 @@
     }
 
     async function submitExam() {
-      clearInterval(timerInterval);
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
 
       let correctCount = 0;
       let incorrectCount = 0;
