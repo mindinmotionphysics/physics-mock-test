@@ -39,9 +39,7 @@
       overflow-x: hidden;
     }
 
-    /* =========================================
-       1. AUTH OVERLAY
-       ========================================= */
+    /* 1. AUTH OVERLAY */
     #auth-overlay {
       position: fixed;
       inset: 0;
@@ -224,9 +222,7 @@
     .alert-danger { background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
     .alert-success { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
 
-    /* =========================================
-       2. HEADER & PROFESSIONAL LOGO (NO BORDER)
-       ========================================= */
+    /* 2. HEADER & BORDERLESS LOGO */
     header {
       background: #ffffff;
       border-bottom: 1.5px solid rgba(106, 98, 237, 0.15);
@@ -272,13 +268,12 @@
       border: 1px solid #c7d2fe;
     }
 
-    /* BORDERLESS, PROFESSIONAL CIRCLE LOGO */
     .portal-logo-wrap {
       width: 50px;
       height: 50px;
       min-width: 50px;
       border-radius: 50%;
-      border: none; /* No outer blue ring */
+      border: none;
       background: transparent;
       display: flex;
       align-items: center;
@@ -302,7 +297,6 @@
       border-radius: 50%;
     }
 
-    /* LOGOUT DROPDOWN */
     #user-dropdown-menu {
       position: absolute;
       top: 60px;
@@ -337,9 +331,7 @@
     }
     .dropdown-logout-btn:hover { background: #fecaca; }
 
-    /* =========================================
-       3. PORTAL CORE VIEWS
-       ========================================= */
+    /* 3. PORTAL CORE VIEWS */
     .main-wrapper {
       max-width: 950px;
       width: 100%;
@@ -631,9 +623,7 @@
 </head>
 <body>
 
-   <!-- =========================================
-       1. AUTH OVERLAY
-       ========================================= -->
+  <!-- 1. AUTH OVERLAY -->
   <div id="auth-overlay">
     <div class="auth-overlay-header">
       <h1>તમારા લક્ષ્યો માટે<br>અભ્યાસ કરો!</h1>
@@ -731,9 +721,7 @@
     </div>
   </div>
 
-  <!-- =========================================
-       2. MAIN APP PORTAL (HEADER & BORDERLESS LOGO)
-       ========================================= -->
+  <!-- 2. MAIN APP PORTAL (HEADER & BORDERLESS LOGO) -->
   <header>
     <div class="header-content">
       <div class="header-text-block">
@@ -744,7 +732,7 @@
         </div>
       </div>
 
-      <!-- NEW CLEAN BORDERLESS LOGO WITH DROPDOWN -->
+      <!-- BORDERLESS CIRCULAR LOGO WITH PROFILE DROPDOWN -->
       <div class="portal-logo-wrap" onclick="toggleUserDropdown(event)" title="પ્રોફાઇલ અને લોગઆઉટ">
         <img 
           src="https://lh3.googleusercontent.com/d/1dqyqGTUs6_H5lA-Ovhf3QgfwheVb3pHw" 
@@ -765,7 +753,7 @@
 
   <div class="main-wrapper">
     
-    <!-- CLASS SELECTION (REDUNDANT LOGOUT BUTTON PERMANENTLY REMOVED) -->
+    <!-- CLASS SELECTION VIEW (REDUNDANT LOGOUT BUTTON PERMANENTLY REMOVED) -->
     <div id="view-classes" class="hidden">
       <div class="top-action-bar">
         <div>
@@ -824,7 +812,7 @@
           <strong id="student-display" style="color:#1e1b4b;">Student</strong> | ID: <span id="roll-display"></span>
           <div style="font-size:0.82rem; color:var(--text-muted);" id="chapter-display">Test</div>
         </div>
-        <div class="timer" id="timer-box">20:00</div>
+        <div class="timer" id="timer-box">00:00</div>
       </div>
 
       <div class="exam-grid">
@@ -848,7 +836,7 @@
       </div>
     </div>
 
-    <!-- RESULT SCREEN -->
+       <!-- RESULT SCREEN -->
     <div id="view-result" class="card hidden">
       <div style="text-align:center; padding:0.5rem 0;">
         <h2 style="font-size:1.4rem; color:#1e1b4b;">ટેસ્ટ પરિણામ (Result)</h2>
@@ -874,7 +862,7 @@
 
   </div>
 
-    <!-- MULTI-TIER FOOTER -->
+  <!-- MULTI-TIER FOOTER -->
   <footer id="portal-footer" class="portal-footer">
     <div class="footer-container">
       <div class="footer-heading-block">
@@ -983,9 +971,9 @@
     let currentIndex = 0;
     let studentAnswers = {};
     let timerInterval = null;
-    let timeLeftSeconds = 1200; // 20 mins default
+    let timeLeftSeconds = 1200;
 
-    // --- STEP-BY-STEP AUTH SHEETS ---
+    // --- AUTH SHEETS ---
     function openLoginSheet() {
       document.getElementById('get-started-box').style.display = 'none';
       const sheet = document.getElementById('sheet-login');
@@ -1066,19 +1054,19 @@
       if (urlParams.has('class')) selectedClassLevel = Number(urlParams.get('class'));
       if (urlParams.has('cat')) selectedCategory = urlParams.get('cat');
 
+      // Clear timer ONLY when leaving the exam view
+      if (viewName !== 'exam' && timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+
       const allViews = ['view-classes', 'view-categories', 'view-tests', 'view-exam', 'view-result'];
       allViews.forEach(v => {
         const el = document.getElementById(v);
         if (el) el.classList.add('hidden');
       });
 
-      // Clear timer if exiting exam
-      if (viewName !== 'exam' && timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-      }
-
-      // HIDE FOOTER ON EXAM VIEW ONLY
+      // Hide footer in exam view
       const footerEl = document.getElementById('portal-footer');
       if (footerEl) {
         if (viewName === 'exam') {
@@ -1109,12 +1097,7 @@
           renderTestsList();
           document.getElementById('view-tests').classList.remove('hidden');
         } else if (viewName === 'exam') {
-          const testIdParam = urlParams.get('test');
-          if (testIdParam && (!testData || testData.test_id !== testIdParam)) {
-            startExam(testIdParam, true);
-          } else {
-            document.getElementById('view-exam').classList.remove('hidden');
-          }
+          document.getElementById('view-exam').classList.remove('hidden');
         } else if (viewName === 'result') {
           document.getElementById('view-result').classList.remove('hidden');
         }
@@ -1125,7 +1108,7 @@
     window.addEventListener('hashchange', renderScreenFromHash);
     window.addEventListener('load', renderScreenFromHash);
 
-    // --- ACCIDENTAL EXIT WARNING: EXAM ONLY (FIXED) ---
+    // --- ACCIDENTAL EXIT WARNING: EXAM ONLY ---
     window.addEventListener('beforeunload', (e) => {
       const examView = document.getElementById('view-exam');
       if (examView && !examView.classList.contains('hidden') && window.location.hash.includes('exam')) {
@@ -1136,7 +1119,6 @@
 
     window.addEventListener('popstate', (e) => {
       const examView = document.getElementById('view-exam');
-      // Strictly trigger only when the exam screen is active
       if (examView && !examView.classList.contains('hidden')) {
         const confirmLeave = confirm("⚠️ ચેતવણી!\n\nતમારી પરીક્ષા ચાલુ છે. જો તમે પાછા જશો તો તમારો સમય અને જવાબો ગુમાવી શકો છો.\n\nશું તમે ખરેખર પરીક્ષા છોડવા માંગો છો?");
         if (!confirmLeave) {
@@ -1160,8 +1142,7 @@
         });
       }
     }
-
-    // --- REGISTRATION LOGIC ---
+// --- REGISTRATION LOGIC ---
     async function performRegistration() {
       const name = document.getElementById('reg-name').value.trim();
       const mobile = document.getElementById('reg-mobile').value.trim();
@@ -1272,7 +1253,6 @@
         currentStudent = student;
         document.getElementById('user-greeting').textContent = `નમસ્તે, ${student.student_name}! (${student.roll_no})`;
         
-        // Update logo dropdown info
         document.getElementById('drop-student-name').textContent = student.student_name;
         document.getElementById('drop-student-id').textContent = `ID: ${student.roll_no}`;
 
@@ -1343,7 +1323,7 @@
       });
     }
 
-    // --- TESTS LIST (AUTOMATIC SUPABASE MAPPING) ---
+    // --- TESTS LIST (DYNAMIC SUPABASE SYNC) ---
     async function renderTestsList() {
       const container = document.getElementById('available-tests-container');
       container.innerHTML = '<div style="text-align:center; padding:1.25rem; color:#64748b;">ટેસ્ટ ચકાસી રહ્યા છે...</div>';
@@ -1418,7 +1398,7 @@
       });
     }
 
-    // --- EXAM ENGINE & LIVE ACCURATE TIMER ---
+    // --- EXAM ENGINE WITH ACCURATE DURATION-BASED LIVE TIMER ---
     async function startExam(testId, isPractice = false) {
       selectedTestId = testId;
 
@@ -1435,8 +1415,10 @@
         }
 
         testData = tData;
+
+        // Accurate duration conversion from Supabase (e.g. 20, 45, 60 min to seconds)
         const dur = parseInt(tData.duration_minutes, 10);
-        timeLeftSeconds = (!isNaN(dur) && dur > 0) ? dur * 60 : 1200; // Accurate seconds initialization
+        timeLeftSeconds = (!isNaN(dur) && dur > 0) ? (dur * 60) : 1200;
 
         const { data: qData, error: qErr } = await supabaseClient
           .from('questions')
@@ -1452,6 +1434,7 @@
         questions = qData;
         studentAnswers = {};
 
+        // Prepare View
         const allViews = ['view-classes', 'view-categories', 'view-tests', 'view-exam', 'view-result'];
         allViews.forEach(v => {
           const el = document.getElementById(v);
@@ -1459,7 +1442,6 @@
         });
         document.getElementById('view-exam').classList.remove('hidden');
 
-        // Hide footer immediately when exam starts
         const footerEl = document.getElementById('portal-footer');
         if (footerEl) footerEl.classList.add('hidden');
 
@@ -1467,21 +1449,25 @@
         document.getElementById('roll-display').textContent = currentStudent ? currentStudent.roll_no : '';
         document.getElementById('chapter-display').textContent = testData.chapter_name + (isPractice ? ' (Practice Mode)' : '');
 
+        // Lock history & render questions
+        history.pushState(null, null, `#exam?test=${selectedTestId}`);
         initPalette();
         loadQuestion(0);
+
+        // Start live countdown
         startTimer();
 
-        // Push state for Android back intercept
-        history.pushState(null, null, window.location.href);
-
-        navigateTo('view-exam', { test: selectedTestId });
       } catch (err) {
         alert('ટેસ્ટ શરૂ કરવામાં એરર: ' + err.message);
       }
     }
 
     function startTimer() {
-      if (timerInterval) clearInterval(timerInterval);
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+
       updateTimerDisplay();
 
       timerInterval = setInterval(() => {
