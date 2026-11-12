@@ -686,6 +686,107 @@
       overflow-y: auto;
     }
 
+    /* =========================================
+       CUSTOM GUJARATI SUBMIT CONFIRMATION MODAL
+       ========================================= */
+    .submit-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(3px);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      animation: fadeInModal 0.2s ease;
+    }
+    @keyframes fadeInModal {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .submit-modal-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 480px;
+      border-radius: 22px;
+      padding: 1.75rem 1.5rem 1.5rem 1.5rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      animation: popUpCard 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes popUpCard {
+      from { transform: scale(0.94) translateY(10px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .submit-modal-title {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 0.75rem;
+    }
+    .submit-modal-desc {
+      font-size: 0.94rem;
+      color: #475569;
+      line-height: 1.55;
+      margin-bottom: 1.25rem;
+      font-weight: 500;
+    }
+    .submit-summary-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 1rem 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      margin-bottom: 1.5rem;
+    }
+    .submit-summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: #334155;
+    }
+    .sum-val-green { color: #0d9454; font-size: 1.05rem; font-weight: 800; }
+    .sum-val-red { color: #dc2626; font-size: 1.05rem; font-weight: 800; }
+    .sum-val-purple { color: #7c3aed; font-size: 1.05rem; font-weight: 800; }
+
+    .submit-modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .btn-modal-back {
+      background: #ffffff;
+      color: #1e293b;
+      border: 1.5px solid #cbd5e1;
+      padding: 0.65rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-modal-back:hover { background: #f8fafc; }
+
+    .btn-modal-confirm {
+      background: #0d9454;
+      color: #ffffff;
+      border: none;
+      padding: 0.68rem 1.35rem;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(13, 148, 84, 0.25);
+    }
+    .btn-modal-confirm:hover { background: #0a7a45; }
+
     .score-circle {
       width: 110px; height: 110px; border-radius: 50%;
       background: #eef2ff; color: #3730a3;
@@ -698,7 +799,7 @@
     .stat-box.incorrect { background: #fee2e2; color: #b91c1c; }
     .stat-box.unattempted { background: #f1f5f9; color: #475569; }
 
-     /* FOOTER */
+    /* FOOTER */
     .portal-footer {
       background: #ffffff;
       border-top: 1.5px solid #e2e8f0;
@@ -929,7 +1030,7 @@
         </div>
       </div>
 
-       <!-- BORDERLESS CIRCULAR LOGO WITH PROFILE DROPDOWN -->
+      <!-- BORDERLESS CIRCULAR LOGO WITH PROFILE DROPDOWN -->
       <div class="portal-logo-wrap" onclick="toggleUserDropdown(event)" title="પ્રોફાઇલ અને લોગઆઉટ">
         <img 
           src="https://lh3.googleusercontent.com/d/1dqyqGTUs6_H5lA-Ovhf3QgfwheVb3pHw" 
@@ -1011,7 +1112,7 @@
         </div>
         <div style="display:flex; align-items:center; gap:0.65rem;">
           <div class="timer" id="timer-box">00:00</div>
-          <button class="btn" style="background:#0f172a; color:#fff; padding:0.45rem 0.9rem; font-size:0.84rem;" onclick="submitExamConfirmation()">Submit Test</button>
+          <button class="btn" style="background:#0f172a; color:#fff; padding:0.45rem 0.9rem; font-size:0.84rem;" onclick="openSubmitModal()">Submit Test</button>
         </div>
       </div>
 
@@ -1077,7 +1178,7 @@
       </div>
     </div>
 
-<!-- RESULT SCREEN -->
+    <!-- RESULT SCREEN -->
     <div id="view-result" class="card hidden">
       <div style="text-align:center; padding:0.5rem 0;">
         <h2 style="font-size:1.4rem; color:#1e1b4b;">ટેસ્ટ પરિણામ (Result)</h2>
@@ -1101,6 +1202,39 @@
       <div id="solutions-container" style="display:flex; flex-direction:column; gap:0.85rem; margin-top:0.85rem;"></div>
     </div>
 
+  </div>
+
+  <!-- CUSTOM GUJARATI SUBMIT CONFIRMATION POP-UP MODAL -->
+  <div id="custom-submit-modal" class="submit-modal-backdrop hidden" onclick="closeSubmitModalOnBackdrop(event)">
+    <div class="submit-modal-card">
+      <div class="submit-modal-title">
+        <span>⚠️</span>
+        <span>પરીક્ષા સબમિટ કરવાની પુષ્ટિ</span>
+      </div>
+      <p class="submit-modal-desc">
+        શું તમે ખરેખર તમારી પરીક્ષા પૂર્ણ કરવા માંગો છો? સબમિટ કર્યા પછી તમે જવાબો બદલી શકશો નહીં.
+      </p>
+
+      <div class="submit-summary-box">
+        <div class="submit-summary-row">
+          <span>જવાબ આપેલા પ્રશ્નો:</span>
+          <span class="sum-val-green" id="modal-answered-count">0</span>
+        </div>
+        <div class="submit-summary-row">
+          <span>જવાબ ન આપેલા પ્રશ્નો:</span>
+          <span class="sum-val-red" id="modal-unanswered-count">0</span>
+        </div>
+        <div class="submit-summary-row">
+          <span>પુનરાવર્તન માટે રાખેલા:</span>
+          <span class="sum-val-purple" id="modal-review-count">0</span>
+        </div>
+      </div>
+
+      <div class="submit-modal-actions">
+        <button type="button" class="btn-modal-back" onclick="closeSubmitModal()">પાછા જાઓ</button>
+        <button type="button" class="btn-modal-confirm" onclick="confirmAndSubmitExam()">હા, સબમિટ કરો</button>
+      </div>
+    </div>
   </div>
 
   <!-- MULTI-TIER FOOTER -->
@@ -1462,7 +1596,7 @@
       }
     }
 
-    // --- LOGIN LOGIC ---
+     // --- LOGIN LOGIC ---
     async function performLogin() {
       const studentId = document.getElementById('login-id').value.trim();
       const pass = document.getElementById('login-pass').value.trim();
@@ -1720,6 +1854,7 @@
         if (timeLeftSeconds <= 0) {
           clearInterval(timerInterval);
           timerInterval = null;
+          closeSubmitModal();
           alert('સમય સમાપ્ત થયો! ટેસ્ટ આપમેળે સબમિટ થઈ રહ્યો છે.');
           submitExam();
         }
@@ -1780,12 +1915,10 @@
       currentIndex = index;
       const q = questions[currentIndex];
 
-      // Mark visited -> Not Answered if previously Not Visited
       if (questionStatus[q.id] === 'not-visited') {
         questionStatus[q.id] = 'not-answered';
       }
 
-      // Restore saved answer into temporary selection
       tempSelectedOption = studentAnswers[q.id] || null;
 
       document.getElementById('q-label').textContent = `Question ${currentIndex + 1} of ${questions.length}`;
@@ -1868,7 +2001,7 @@
       }
     }
 
-     // 3. Clear Response
+    // 3. Clear Response
     function clearCurrentAnswer() {
       const q = questions[currentIndex];
       tempSelectedOption = null;
@@ -1888,13 +2021,34 @@
       if (currentIndex > 0) loadQuestion(currentIndex - 1);
     }
 
-    function submitExamConfirmation() {
-      const attemptedCount = Object.keys(studentAnswers).length;
-      const reviewCount = Object.values(questionStatus).filter(s => s === 'marked' || s === 'answered-marked').length;
-      const confirmed = confirm(
-        `Exam Summary:\n• Total Questions: ${questions.length}\n• Answered: ${attemptedCount}\n• Marked for Review: ${reviewCount}\n\nAre you sure you want to submit the test?`
-      );
-      if (confirmed) submitExam();
+    // --- CUSTOM GUJARATI SUBMIT MODAL LOGIC ---
+    function openSubmitModal() {
+      const answeredCount = Object.keys(studentAnswers).length;
+      const unansweredCount = questions.length - answeredCount;
+      const reviewCount = Object.values(questionStatus).filter(
+        s => s === 'marked' || s === 'answered-marked'
+      ).length;
+
+      document.getElementById('modal-answered-count').textContent = answeredCount;
+      document.getElementById('modal-unanswered-count').textContent = unansweredCount;
+      document.getElementById('modal-review-count').textContent = reviewCount;
+
+      document.getElementById('custom-submit-modal').classList.remove('hidden');
+    }
+
+    function closeSubmitModal() {
+      document.getElementById('custom-submit-modal').classList.add('hidden');
+    }
+
+    function closeSubmitModalOnBackdrop(event) {
+      if (event.target.id === 'custom-submit-modal') {
+        closeSubmitModal();
+      }
+    }
+
+    function confirmAndSubmitExam() {
+      closeSubmitModal();
+      submitExam();
     }
 
     async function submitExam() {
