@@ -1922,7 +1922,7 @@
       tempSelectedOption = studentAnswers[q.id] || null;
 
       document.getElementById('q-label').textContent = `Question ${currentIndex + 1} of ${questions.length}`;
-      document.getElementById('q-text').textContent = q.question_text;
+      document.getElementById('q-text').innerHTML = q.question_text;
 
       renderOptionsUI();
 
